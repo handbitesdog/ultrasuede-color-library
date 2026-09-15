@@ -4,3 +4,6 @@ __pycache__/
 
 # local dev server config; the "pages" entry points at a path on one machine
 .claude/
+
+# local scraping venv
+.venv/

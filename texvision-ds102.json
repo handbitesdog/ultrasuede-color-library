@@ -1,0 +1,1277 @@
+{
+ "meta": {
+  "product": "Texvision DS102 (0.6mm)",
+  "also_known_as": [
+   "Korean faux suede"
+  ],
+  "manufacturer": null,
+  "status": "current",
+  "color_count": 41,
+  "compiled": "2026-09-14",
+  "about": "A Korean PU-impregnated polyester microfibre suede, sold on eBay by \"What More Fabric\" of Seoul. Not an Ultrasuede product — the listing title uses the word generically — and not related to the Japanese products here beyond being the same kind of cloth.",
+  "rebuild": "python3 scraping/build_texvision_ds102.py --fetch && python3 scraping/build_texvision_ds102.py",
+  "identity_note": "Brand \"Texvision\" and MPN \"0.6T DS102\" are the listing’s own Item Specifics. Texvision is NOT the mill: searching the seller’s own store for it returns 66 listings spanning satin, spandex, lamb-skin faux leather, cheetah-print doe suede and more, so it is the house brand they file everything under. DS102 is the only identifier here that points at this particular cloth, and who actually weaves it is not recorded anywhere on the listing — hence manufacturer: null. For contrast, the same seller’s 0.6mm Chamude listing (eBay 370722409147) carries a real product brand and real mill colour codes (#6101, #6103, …); this one does not.",
+  "naming_note": "Colour names are the seller’s, and several are Pantone fashion-colour names (Castlerock, Blue Nights, Mood Indigo, Moonstruck, Wild Lime), which suggests they were assigned at resale rather than by the mill. The code is the seller’s position in their own list, 1 to 41 — it is NOT a manufacturer colour number, and it would change if they reordered the list. Do not treat it as stable identity the way LX’s CD8 or Lamous’s TH001 can be treated.",
+  "color_note": "The least precise dataset here. The photographs are styled drapes rather than flat swatches, so hex/rgb is the median over every fabric pixel in the frame — the middle of the illumination spread — instead of the centre-crop median the other products use, which on a swirl would return whatever fold sits at the centre. Checked against the seller’s own labelled chart for colours 10-18: mean RGB distance 25, worst 45, luminance ratios 0.90 to 1.18. Treat these as roughly +/-10% in luminance and do not compare them closely with the flat-shot products.",
+  "measured_against_chart": {
+   "chart_image": "https://i.ebayimg.com/images/g/ZOUAAOSwBlFeoLCS/s-l1600.jpg",
+   "colors_compared": [
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18
+   ],
+   "mean_rgb_distance": 25,
+   "max_rgb_distance": 45,
+   "luminance_ratio_range": [
+    0.9,
+    1.18
+   ]
+  },
+  "nap_note": "One nap block, shared by all 41. It cannot come from the drape photographs: measuring the same nine colours off the drapes and off the listing’s one labelled chart, the drapes read 2.18-5.05x the chart (median 3.48, stdev 0.84) — fold shadow rather than nap, and too variable to divide out the way Shammy’s is. So contrast is measured on the chart’s nine cells, which are flat fabric at 533px, and the median given to every colour. Nine is what exists, and they say the cloth is consistent (5.01-8.22, stdev 0.91) with only a -0.33 correlation to lightness across a sample holding no dark colours — enough for a constant, not enough for a per-colour value or a curve. meta.nap_source records the measurement.",
+  "nap_source": {
+   "chart": "https://i.ebayimg.com/images/g/ZOUAAOSwBlFeoLCS/s-l1600.jpg",
+   "cells_measured": 9,
+   "cell_contrasts": [
+    5.01,
+    5.62,
+    5.62,
+    5.66,
+    5.69,
+    5.78,
+    6.22,
+    6.97,
+    8.22
+   ],
+   "median": 5.69,
+   "colors_covered": [
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18
+   ],
+   "axis": "neutral — the nine average [0.942, 1.021, 0.957], within 0.06 of it",
+   "why_not_per_color": "The drape photographs read 2.18-5.05x the chart for the same nine colours (median 3.48, stdev 0.84). That is fold shadow rather than nap, and the spread is too wide to divide out as a factor."
+  },
+  "coverage_note": "This listing offers 41 colours, and its own sample-set option is captioned \"Sample set 2026 ver (122 colors)\", so the range is around 122 and this is roughly a third of it. The other 81 are not for sale anywhere online that could be found: the seller’s store was searched for further DS102 listings and has none — their other suede listings are different products at other thicknesses (0.5, 0.7, 1, 1.4mm) or different cloths entirely, and the 122-colour set is specific to this listing rather than store-wide, since the Chamude listing carries its own separate sample swatch. Short of buying the physical sample set, the remaining 81 have no online source.",
+  "specifications": {
+   "thickness": "0.6mm",
+   "width": "54 inch",
+   "fiber_content": "PET (Polyester) 90%, PU 10% after dissolving",
+   "weight": "300g per yard / 240 GSM",
+   "origin": "South Korea",
+   "source": "https://www.ebay.com/itm/223986181465"
+  },
+  "not_recorded": [
+   "manufacturer — see identity_note"
+  ]
+ },
+ "sources": [
+  {
+   "id": "ebay-whatmorefabric-ds102",
+   "url": "https://www.ebay.com/itm/223986181465",
+   "note": "eBay listing; variation list captured from a browser session and committed as scraping/texvision_ds102_variations.json, because eBay 403s scripted fetches of the page"
+  }
+ ],
+ "colors": [
+  {
+   "name": "Thrush",
+   "slug": "thrush",
+   "sku": "DS102-01",
+   "code": "01",
+   "hex": "#5a442e",
+   "rgb": [
+    90,
+    68,
+    46
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-01.jpg",
+   "image_large": "images/large/ds102-01.jpg",
+   "in_stock": true,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984262",
+   "variation_id": "522743984262",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Sandstone",
+   "slug": "sandstone",
+   "sku": "DS102-02",
+   "code": "02",
+   "hex": "#927253",
+   "rgb": [
+    146,
+    114,
+    83
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-02.jpg",
+   "image_large": "images/large/ds102-02.jpg",
+   "in_stock": false,
+   "source": "https://www.ebay.com/itm/223986181465?var=526533388607",
+   "variation_id": "526533388607",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Ivory",
+   "slug": "ivory",
+   "sku": "DS102-03",
+   "code": "03",
+   "hex": "#d7d9df",
+   "rgb": [
+    215,
+    217,
+    223
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-03.jpg",
+   "image_large": "images/large/ds102-03.jpg",
+   "in_stock": true,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984264",
+   "variation_id": "522743984264",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Biscotti",
+   "slug": "biscotti",
+   "sku": "DS102-04",
+   "code": "04",
+   "hex": "#bbb69d",
+   "rgb": [
+    187,
+    182,
+    157
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-04.jpg",
+   "image_large": "images/large/ds102-04.jpg",
+   "in_stock": true,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984266",
+   "variation_id": "522743984266",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Beige",
+   "slug": "beige",
+   "sku": "DS102-05",
+   "code": "05",
+   "hex": "#b6aa91",
+   "rgb": [
+    182,
+    170,
+    145
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-05.jpg",
+   "image_large": "images/large/ds102-05.jpg",
+   "in_stock": true,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984267",
+   "variation_id": "522743984267",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Taupe Gray",
+   "slug": "taupe-gray",
+   "sku": "DS102-06",
+   "code": "06",
+   "hex": "#646359",
+   "rgb": [
+    100,
+    99,
+    89
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-06.jpg",
+   "image_large": "images/large/ds102-06.jpg",
+   "in_stock": false,
+   "source": "https://www.ebay.com/itm/223986181465?var=526533388608",
+   "variation_id": "526533388608",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Chocolate Brown",
+   "slug": "chocolate-brown",
+   "sku": "DS102-07",
+   "code": "07",
+   "hex": "#372d2f",
+   "rgb": [
+    55,
+    45,
+    47
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-07.jpg",
+   "image_large": "images/large/ds102-07.jpg",
+   "in_stock": true,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984269",
+   "variation_id": "522743984269",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Coffee bean",
+   "slug": "coffee-bean",
+   "sku": "DS102-08",
+   "code": "08",
+   "hex": "#352c28",
+   "rgb": [
+    53,
+    44,
+    40
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-08.jpg",
+   "image_large": "images/large/ds102-08.jpg",
+   "in_stock": true,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984270",
+   "variation_id": "522743984270",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Coral Gold",
+   "slug": "coral-gold",
+   "sku": "DS102-09",
+   "code": "09",
+   "hex": "#c07551",
+   "rgb": [
+    192,
+    117,
+    81
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-09.jpg",
+   "image_large": "images/large/ds102-09.jpg",
+   "in_stock": false,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984271",
+   "variation_id": "522743984271",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Strawberry Cream",
+   "slug": "strawberry-cream",
+   "sku": "DS102-10",
+   "code": "10",
+   "hex": "#d9bec4",
+   "rgb": [
+    217,
+    190,
+    196
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-10.jpg",
+   "image_large": "images/large/ds102-10.jpg",
+   "in_stock": true,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984272",
+   "variation_id": "522743984272",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Acasia",
+   "slug": "acasia",
+   "sku": "DS102-11",
+   "code": "11",
+   "hex": "#cec564",
+   "rgb": [
+    206,
+    197,
+    100
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-11.jpg",
+   "image_large": "images/large/ds102-11.jpg",
+   "in_stock": false,
+   "source": "https://www.ebay.com/itm/223986181465?var=526533388609",
+   "variation_id": "526533388609",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Wild Lime",
+   "slug": "wild-lime",
+   "sku": "DS102-12",
+   "code": "12",
+   "hex": "#bbe66b",
+   "rgb": [
+    187,
+    230,
+    107
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-12.jpg",
+   "image_large": "images/large/ds102-12.jpg",
+   "in_stock": false,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984275",
+   "variation_id": "522743984275",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Maui Blue",
+   "slug": "maui-blue",
+   "sku": "DS102-13",
+   "code": "13",
+   "hex": "#55c8e0",
+   "rgb": [
+    85,
+    200,
+    224
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-13.jpg",
+   "image_large": "images/large/ds102-13.jpg",
+   "in_stock": true,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984276",
+   "variation_id": "522743984276",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Lake Blue",
+   "slug": "lake-blue",
+   "sku": "DS102-14",
+   "code": "14",
+   "hex": "#2693c9",
+   "rgb": [
+    38,
+    147,
+    201
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-14.jpg",
+   "image_large": "images/large/ds102-14.jpg",
+   "in_stock": true,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984277",
+   "variation_id": "522743984277",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Mint Leaf",
+   "slug": "mint-leaf",
+   "sku": "DS102-15",
+   "code": "15",
+   "hex": "#309280",
+   "rgb": [
+    48,
+    146,
+    128
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-15.jpg",
+   "image_large": "images/large/ds102-15.jpg",
+   "in_stock": false,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984278",
+   "variation_id": "522743984278",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Coral",
+   "slug": "coral",
+   "sku": "DS102-16",
+   "code": "16",
+   "hex": "#dd6846",
+   "rgb": [
+    221,
+    104,
+    70
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-16.jpg",
+   "image_large": "images/large/ds102-16.jpg",
+   "in_stock": true,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984279",
+   "variation_id": "522743984279",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Hot Pink",
+   "slug": "hot-pink",
+   "sku": "DS102-17",
+   "code": "17",
+   "hex": "#d55a89",
+   "rgb": [
+    213,
+    90,
+    137
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-17.jpg",
+   "image_large": "images/large/ds102-17.jpg",
+   "in_stock": true,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984280",
+   "variation_id": "522743984280",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Fuchasia Rose",
+   "slug": "fuchasia-rose",
+   "sku": "DS102-18",
+   "code": "18",
+   "hex": "#d55fa2",
+   "rgb": [
+    213,
+    95,
+    162
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-18.jpg",
+   "image_large": "images/large/ds102-18.jpg",
+   "in_stock": false,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984281",
+   "variation_id": "522743984281",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Mars Red",
+   "slug": "mars-red",
+   "sku": "DS102-19",
+   "code": "19",
+   "hex": "#882e34",
+   "rgb": [
+    136,
+    46,
+    52
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-19.jpg",
+   "image_large": "images/large/ds102-19.jpg",
+   "in_stock": true,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984282",
+   "variation_id": "522743984282",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "True Red",
+   "slug": "true-red",
+   "sku": "DS102-20",
+   "code": "20",
+   "hex": "#9f2d34",
+   "rgb": [
+    159,
+    45,
+    52
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-20.jpg",
+   "image_large": "images/large/ds102-20.jpg",
+   "in_stock": false,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984283",
+   "variation_id": "522743984283",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Chili Pepper",
+   "slug": "chili-pepper",
+   "sku": "DS102-21",
+   "code": "21",
+   "hex": "#b14651",
+   "rgb": [
+    177,
+    70,
+    81
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-21.jpg",
+   "image_large": "images/large/ds102-21.jpg",
+   "in_stock": true,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984285",
+   "variation_id": "522743984285",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Deco Rose",
+   "slug": "deco-rose",
+   "sku": "DS102-22",
+   "code": "22",
+   "hex": "#a04c65",
+   "rgb": [
+    160,
+    76,
+    101
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-22.jpg",
+   "image_large": "images/large/ds102-22.jpg",
+   "in_stock": true,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984286",
+   "variation_id": "522743984286",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Petrician Purple",
+   "slug": "petrician-purple",
+   "sku": "DS102-23",
+   "code": "23",
+   "hex": "#503e69",
+   "rgb": [
+    80,
+    62,
+    105
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-23.jpg",
+   "image_large": "images/large/ds102-23.jpg",
+   "in_stock": false,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984287",
+   "variation_id": "522743984287",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Colonial Blue",
+   "slug": "colonial-blue",
+   "sku": "DS102-24",
+   "code": "24",
+   "hex": "#43728b",
+   "rgb": [
+    67,
+    114,
+    139
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-24.jpg",
+   "image_large": "images/large/ds102-24.jpg",
+   "in_stock": false,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984288",
+   "variation_id": "522743984288",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Burnt Olive",
+   "slug": "burnt-olive",
+   "sku": "DS102-25",
+   "code": "25",
+   "hex": "#636852",
+   "rgb": [
+    99,
+    104,
+    82
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-25.jpg",
+   "image_large": "images/large/ds102-25.jpg",
+   "in_stock": true,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984289",
+   "variation_id": "522743984289",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Olive Night",
+   "slug": "olive-night",
+   "sku": "DS102-26",
+   "code": "26",
+   "hex": "#2d3e33",
+   "rgb": [
+    45,
+    62,
+    51
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-26.jpg",
+   "image_large": "images/large/ds102-26.jpg",
+   "in_stock": true,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984290",
+   "variation_id": "522743984290",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "China Blue",
+   "slug": "china-blue",
+   "sku": "DS102-27",
+   "code": "27",
+   "hex": "#345077",
+   "rgb": [
+    52,
+    80,
+    119
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-27.jpg",
+   "image_large": "images/large/ds102-27.jpg",
+   "in_stock": true,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984292",
+   "variation_id": "522743984292",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Royal Blue",
+   "slug": "royal-blue",
+   "sku": "DS102-28",
+   "code": "28",
+   "hex": "#1f2e7a",
+   "rgb": [
+    31,
+    46,
+    122
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-28.jpg",
+   "image_large": "images/large/ds102-28.jpg",
+   "in_stock": false,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984293",
+   "variation_id": "522743984293",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Twilight Blue",
+   "slug": "twilight-blue",
+   "sku": "DS102-29",
+   "code": "29",
+   "hex": "#2b3fa3",
+   "rgb": [
+    43,
+    63,
+    163
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-29.jpg",
+   "image_large": "images/large/ds102-29.jpg",
+   "in_stock": true,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984294",
+   "variation_id": "522743984294",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Mood Indigo",
+   "slug": "mood-indigo",
+   "sku": "DS102-30",
+   "code": "30",
+   "hex": "#182b40",
+   "rgb": [
+    24,
+    43,
+    64
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-30.jpg",
+   "image_large": "images/large/ds102-30.jpg",
+   "in_stock": true,
+   "source": "https://www.ebay.com/itm/223986181465?var=526533388610",
+   "variation_id": "526533388610",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Blue Nights",
+   "slug": "blue-nights",
+   "sku": "DS102-31",
+   "code": "31",
+   "hex": "#232b41",
+   "rgb": [
+    35,
+    43,
+    65
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-31.jpg",
+   "image_large": "images/large/ds102-31.jpg",
+   "in_stock": true,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984296",
+   "variation_id": "522743984296",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Iron",
+   "slug": "iron",
+   "sku": "DS102-32",
+   "code": "32",
+   "hex": "#61605d",
+   "rgb": [
+    97,
+    96,
+    93
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-32.jpg",
+   "image_large": "images/large/ds102-32.jpg",
+   "in_stock": true,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984297",
+   "variation_id": "522743984297",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Light Gray",
+   "slug": "light-gray",
+   "sku": "DS102-33",
+   "code": "33",
+   "hex": "#e4e5e9",
+   "rgb": [
+    228,
+    229,
+    233
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-33.jpg",
+   "image_large": "images/large/ds102-33.jpg",
+   "in_stock": true,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984298",
+   "variation_id": "522743984298",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Silver Gray",
+   "slug": "silver-gray",
+   "sku": "DS102-34",
+   "code": "34",
+   "hex": "#c2c4bd",
+   "rgb": [
+    194,
+    196,
+    189
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-34.jpg",
+   "image_large": "images/large/ds102-34.jpg",
+   "in_stock": true,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984299",
+   "variation_id": "522743984299",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Moonstruck",
+   "slug": "moonstruck",
+   "sku": "DS102-35",
+   "code": "35",
+   "hex": "#c3c5ca",
+   "rgb": [
+    195,
+    197,
+    202
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-35.jpg",
+   "image_large": "images/large/ds102-35.jpg",
+   "in_stock": true,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984300",
+   "variation_id": "522743984300",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Steeple Gray",
+   "slug": "steeple-gray",
+   "sku": "DS102-36",
+   "code": "36",
+   "hex": "#858b8e",
+   "rgb": [
+    133,
+    139,
+    142
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-36.jpg",
+   "image_large": "images/large/ds102-36.jpg",
+   "in_stock": true,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984301",
+   "variation_id": "522743984301",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Charcoal Gray",
+   "slug": "charcoal-gray",
+   "sku": "DS102-37",
+   "code": "37",
+   "hex": "#4c5252",
+   "rgb": [
+    76,
+    82,
+    82
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-37.jpg",
+   "image_large": "images/large/ds102-37.jpg",
+   "in_stock": false,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984303",
+   "variation_id": "522743984303",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Castlerock",
+   "slug": "castlerock",
+   "sku": "DS102-38",
+   "code": "38",
+   "hex": "#3e4247",
+   "rgb": [
+    62,
+    66,
+    71
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-38.jpg",
+   "image_large": "images/large/ds102-38.jpg",
+   "in_stock": true,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984304",
+   "variation_id": "522743984304",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Rabbit",
+   "slug": "rabbit",
+   "sku": "DS102-39",
+   "code": "39",
+   "hex": "#44484f",
+   "rgb": [
+    68,
+    72,
+    79
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-39.jpg",
+   "image_large": "images/large/ds102-39.jpg",
+   "in_stock": true,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984305",
+   "variation_id": "522743984305",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Raven",
+   "slug": "raven",
+   "sku": "DS102-40",
+   "code": "40",
+   "hex": "#293336",
+   "rgb": [
+    41,
+    51,
+    54
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-40.jpg",
+   "image_large": "images/large/ds102-40.jpg",
+   "in_stock": true,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984306",
+   "variation_id": "522743984306",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  },
+  {
+   "name": "Black",
+   "slug": "black",
+   "sku": "DS102-41",
+   "code": "41",
+   "hex": "#1e2329",
+   "rgb": [
+    30,
+    35,
+    41
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 5.69,
+    "contrast_source": "product-constant"
+   },
+   "image": "images/ds102-41.jpg",
+   "image_large": "images/large/ds102-41.jpg",
+   "in_stock": true,
+   "source": "https://www.ebay.com/itm/223986181465?var=522743984307",
+   "variation_id": "522743984307",
+   "sources": [
+    "ebay-whatmorefabric-ds102"
+   ]
+  }
+ ]
+}

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ultrasuede Color Library</title>
+<title>Synthetic Suede Fabric Library</title>
 
 <!--
   lisa.css, in cascade order. site/css/lisa.css is the development entry point,
@@ -23,46 +23,18 @@
 <body>
 
 <nav class="flex flex-row items-center justify-between gap-2">
-    <h1 class="nav-title text-xl">Ultrasuede&reg; Color Library</h1>
-    <ul class="flex flex-row items-center gap-2" role="list">
-        <li><a href="#lt">LT</a></li>
-    </ul>
+    <h1 class="nav-title text-xl">Synthetic Suede Fabric Library</h1>
+    <!-- One link per product, built from the same list the sections are. -->
+    <ul class="flex flex-row items-center gap-2" role="list" id="product-nav"></ul>
 </nav>
 
-<main class="wrapper" id="top">
-
-    <section id="lt">
-        <div class="section-head flex flex-row items-baseline justify-between flex-wrap gap-2 mb-3">
-            <h2 class="text-2xl">LT</h2>
-            <p class="section-label text-sm" id="lt-counts"></p>
-        </div>
-
-        <div class="subsection-head-row flex flex-row items-baseline justify-between flex-wrap gap-2 mb-2">
-            <h3 class="subsection-head text-lg">Official colors</h3>
-            <p class="section-label text-sm" id="count-colors"></p>
-        </div>
-        <div class="swatch-grid grid grid-cols-6 gap-1 mb-4" id="grid-colors"></div>
-
-        <div class="subsection-head-row flex flex-row items-baseline justify-between flex-wrap gap-2 mb-2">
-            <h3 class="subsection-head text-lg">Jungle prints</h3>
-            <p class="section-label text-sm" id="count-patterns"></p>
-        </div>
-        <div class="swatch-grid grid grid-cols-6 gap-1 mb-4" id="grid-patterns"></div>
-
-        <div class="subsection-head-row flex flex-row items-baseline justify-between flex-wrap gap-2 mb-2">
-            <h3 class="subsection-head text-lg">Custom colors</h3>
-            <p class="section-label text-sm" id="count-custom"></p>
-        </div>
-        <div class="swatch-grid grid grid-cols-6 gap-1 mb-4" id="grid-custom"></div>
-
-        <div class="subsection-head-row flex flex-row items-baseline justify-between flex-wrap gap-2 mb-2">
-            <h3 class="subsection-head text-lg">Missing image</h3>
-            <p class="section-label text-sm" id="count-missing"></p>
-        </div>
-        <div class="record-grid grid grid-cols-4 gap-1" id="grid-missing"></div>
-    </section>
-
-</main>
+<!--
+  Sections are built in demo.js rather than written out here. Each product file
+  carries a different set of subsections — LT has patterns, custom colours and
+  historical ones, LX has colours and nothing else — so the markup follows the
+  data instead of the data having to fill a fixed set of holes.
+-->
+<main class="wrapper" id="top"></main>
 
 <footer class="flex flex-col gap-1">
     <p class="text-sm">View code on <a target="_blank" rel="noopener"
@@ -70,9 +42,10 @@
     <p class="text-sm">This project is under the <a target="_blank" rel="noopener"
         href="https://github.com/handbitesdog/handbitesdog.github.io/blob/main/LICENSE"
         >MIT license</a></p>
-    <p class="text-sm">Ultrasuede&reg; is a registered trademark of Toray. This is an
-        independent, non-commercial archive. All archived photos belong to their
-        respective owners.</p>
+    <p class="text-sm">Ultrasuede&reg; is a registered trademark of Toray;
+        Lamous&reg; and Shammy&reg; are their respective owners' marks. This is an
+        independent, non-commercial archive, not affiliated with any of them. All
+        archived photos belong to their respective owners.</p>
 </footer>
 
 <!--

@@ -1,5 +1,5 @@
 /*
- * Ultrasuede Color Library — the nap shader.
+ * Synthetic Suede Fabric Library — the nap shader.
  *
  * Draws a swatch from its `nap` block instead of its photograph. The photos are
  * 100px thumbnails scraped out of the archive, two of them JPEG mush and

@@ -904,6 +904,70 @@ def nap_contrast(path):
     return float(np.sqrt(var))
 
 
+# --------------------------------------------------- small-frame contrast ---
+#
+# NAP_MEASURABLE refuses to measure a frame under 300px, on the reasoning that
+# the fine octaves are not there to be found. Measured, that is too cautious.
+#
+# Taking LX's 21 photographs that are 800px or larger, downsampling each to a
+# given edge and re-measuring, against the same photograph at native size:
+#
+#     edge    median ratio   spread        stdev
+#     256px   0.993          0.90 - 1.08   0.031
+#     197px   0.951          0.83 - 1.08   0.049
+#      93px   0.800          0.58 - 0.87   0.096
+#
+# So a 256px frame loses essentially nothing, a 197px frame loses 5%, and a
+# 93px frame loses 20% and gets noisy with it. That is a correctable bias
+# rather than an absence, which is what lets Lamous (197px) and Shammy (93px)
+# carry measured contrast instead of none at all.
+#
+# The correction is interpolated on the frame's short edge and clamped to the
+# ends. Below 93px it is not extrapolated — there is no measurement down there
+# and the trend is steepening, so the floor is held and the caller is told.
+NAP_RES_CALIBRATION = [(93, 0.800), (197, 0.951), (256, 0.993), (300, 1.0)]
+
+
+def nap_res_factor(edge):
+    """What a frame of this short edge reports, as a fraction of native."""
+    pts = NAP_RES_CALIBRATION
+    if edge >= pts[-1][0]:
+        return 1.0
+    if edge <= pts[0][0]:
+        return pts[0][1]
+    for (e0, f0), (e1, f1) in zip(pts, pts[1:]):
+        if e0 <= edge <= e1:
+            t = (edge - e0) / (e1 - e0)
+            return f0 + t * (f1 - f0)
+    return 1.0
+
+
+def nap_small(path, rgb, corners=False):
+    """A `nap` block for a frame too small for the plain measurement.
+
+    Measures anyway, then divides out the resolution bias calibrated above.
+    contrast_source records that this happened and what was divided out, so a
+    reader can tell these apart from the frames that needed no help.
+    """
+    im = Image.open(path)
+    edge = min(im.size)
+    factor = nap_res_factor(edge)
+    saved = globals()['NAP_MEASURABLE']
+    globals()['NAP_MEASURABLE'] = 1          # we are handling the size question
+    try:
+        raw = nap_contrast(path)
+    finally:
+        globals()['NAP_MEASURABLE'] = saved
+    if raw is None:
+        return None
+    block = nap(path, rgb, corners=corners, measure=False)   # axis only
+    block['contrast'] = round(raw / factor, 2)
+    block['contrast_source'] = 'measured-small-frame'
+    block['contrast_frame_px'] = edge
+    block['contrast_res_factor'] = round(factor, 3)
+    return block
+
+
 def nap(path, rgb, corners=False, measure=None):
     """The `nap` block for an entry: how to draw it without the photograph."""
     if rgb is None:

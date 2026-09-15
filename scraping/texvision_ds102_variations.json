@@ -1,0 +1,336 @@
+{
+ "_note": "Captured from the eBay listing in a browser session on 2026-09-14. eBay returns 403 to scripted fetches, so this snapshot is committed rather than re-fetched; it is the seller's variation list (name, stock flag, image id, variation id) exactly as the listing's embedded menuItemMap and photo map gave it.",
+ "_listing": "https://www.ebay.com/itm/223986181465",
+ "_image_url": "https://i.ebayimg.com/00/s/{size}/z/{id}/$_57.JPG",
+ "colors": [
+  [
+   1,
+   "Thrush",
+   0,
+   "MTUwMFgxNTAw",
+   "rFIAAOSwbLpeoLBS",
+   "522743984262"
+  ],
+  [
+   2,
+   "Sandstone",
+   1,
+   "MTYwMFgxNjAw",
+   "ps8AAOSwIxVeoLBj",
+   "526533388607"
+  ],
+  [
+   3,
+   "Ivory",
+   0,
+   "MTYwMFgxNjAw",
+   "JSUAAOSwVH1fgpny",
+   "522743984264"
+  ],
+  [
+   4,
+   "Biscotti",
+   0,
+   "MTYwMFgxNjAw",
+   "QUoAAOSwBp1eoLCE",
+   "522743984266"
+  ],
+  [
+   5,
+   "Beige",
+   0,
+   "MTYwMFgxNjAw",
+   "zzcAAOSw1Pxe19GD",
+   "522743984267"
+  ],
+  [
+   6,
+   "Taupe Gray",
+   1,
+   "MTYwMFgxNjAw",
+   "8LwAAOSwoJ5eoLCK",
+   "526533388608"
+  ],
+  [
+   7,
+   "Chocolate Brown",
+   0,
+   "MTYwMFgxNjAw",
+   "h7kAAOSwLydeoLCM",
+   "522743984269"
+  ],
+  [
+   8,
+   "Coffee bean",
+   0,
+   "MTYwMFgxNjAw",
+   "8MMAAOSwM05eoLCN",
+   "522743984270"
+  ],
+  [
+   9,
+   "Coral Gold",
+   1,
+   "MTYwMFgxNjAw",
+   "EDwAAOSwp2heoLCO",
+   "522743984271"
+  ],
+  [
+   10,
+   "Strawberry Cream",
+   0,
+   "MTYwMFgxNjAw",
+   "yHwAAOSwTYJi7VI2",
+   "522743984272"
+  ],
+  [
+   11,
+   "Acasia",
+   1,
+   "MTYwMFgxNjAw",
+   "KVsAAOSw2FdeoLBW",
+   "526533388609"
+  ],
+  [
+   12,
+   "Wild Lime",
+   1,
+   "MTYwMFgxNjAw",
+   "0cEAAOSwREZfBbgH",
+   "522743984275"
+  ],
+  [
+   13,
+   "Maui Blue",
+   0,
+   "MTYwMFgxNjAw",
+   "5IwAAOSw30JfW42s",
+   "522743984276"
+  ],
+  [
+   14,
+   "Lake Blue",
+   0,
+   "MTYwMFgxNjAw",
+   "UDwAAOSwUDhfgppK",
+   "522743984277"
+  ],
+  [
+   15,
+   "Mint Leaf",
+   1,
+   "MTYwMFgxNjAw",
+   "IdQAAOSwTIdnA29W",
+   "522743984278"
+  ],
+  [
+   16,
+   "Coral",
+   0,
+   "MTYwMFgxNjAw",
+   "2jgAAOSw545i7VMa",
+   "522743984279"
+  ],
+  [
+   17,
+   "Hot Pink",
+   0,
+   "MTYwMFgxNjAw",
+   "mQUAAOSwepVg0KoD",
+   "522743984280"
+  ],
+  [
+   18,
+   "Fuchasia Rose",
+   1,
+   "MTYwMFgxNjAw",
+   "T5QAAOSwnVdfiYmL",
+   "522743984281"
+  ],
+  [
+   19,
+   "Mars Red",
+   0,
+   "MTYwMFgxNjAw",
+   "dd4AAOSw499nA2-O",
+   "522743984282"
+  ],
+  [
+   20,
+   "True Red",
+   1,
+   "MTYwMFgxNjAw",
+   "OCcAAOSweJ9hrhIV",
+   "522743984283"
+  ],
+  [
+   21,
+   "Chili Pepper",
+   0,
+   "MTYwMFgxNjAw",
+   "4XoAAOSw2A5kF~6X",
+   "522743984285"
+  ],
+  [
+   22,
+   "Deco Rose",
+   0,
+   "MTYwMFgxNjAw",
+   "UAcAAOSwzxdjB6k~",
+   "522743984286"
+  ],
+  [
+   23,
+   "Petrician Purple",
+   1,
+   "MTYwMFgxNjAw",
+   "1UgAAOSwNmheoLBp",
+   "522743984287"
+  ],
+  [
+   24,
+   "Colonial Blue",
+   1,
+   "MTYwMFgxNjAw",
+   "fLYAAOSw46ZgMnQt",
+   "522743984288"
+  ],
+  [
+   25,
+   "Burnt Olive",
+   0,
+   "MTU2MFgxNTYw",
+   "HS0AAeSwEJpqEu0D",
+   "522743984289"
+  ],
+  [
+   26,
+   "Olive Night",
+   0,
+   "MTYwMFgxNjAw",
+   "2H8AAOSw095fO7~b",
+   "522743984290"
+  ],
+  [
+   27,
+   "China Blue",
+   0,
+   "MTYwMFgxNjAw",
+   "ingAAOSwaxZnA2~F",
+   "522743984292"
+  ],
+  [
+   28,
+   "Royal Blue",
+   1,
+   "MTYwMFgxNjAw",
+   "kPEAAOSwsyNeoLBx",
+   "522743984293"
+  ],
+  [
+   29,
+   "Twilight Blue",
+   0,
+   "MTYwMFgxNjAw",
+   "ATIAAOSwrOlfr2Io",
+   "522743984294"
+  ],
+  [
+   30,
+   "Mood Indigo",
+   0,
+   "MTYwMFgxNjAw",
+   "V5oAAOSwgEVeoLB2",
+   "526533388610"
+  ],
+  [
+   31,
+   "Blue Nights",
+   0,
+   "MTYwMFgxNjAw",
+   "5tQAAOSwO6FjL9c0",
+   "522743984296"
+  ],
+  [
+   32,
+   "Iron",
+   0,
+   "MTQ4MlgxNDgy",
+   "t94AAOSwKl9mLfat",
+   "522743984297"
+  ],
+  [
+   33,
+   "Light Gray",
+   0,
+   "MTYwMFgxNjAw",
+   "uA0AAOSwuzFgTa4D",
+   "522743984298"
+  ],
+  [
+   34,
+   "Silver Gray",
+   0,
+   "MTYwMFgxNjAw",
+   "kCAAAOSw-O9g0Kpm",
+   "522743984299"
+  ],
+  [
+   35,
+   "Moonstruck",
+   0,
+   "MTYwMFgxNjAw",
+   "7rEAAOSw5T5fmmPx",
+   "522743984300"
+  ],
+  [
+   36,
+   "Steeple Gray",
+   0,
+   "MTYwMFgxNjAw",
+   "x0IAAeSwjoVoqqgW",
+   "522743984301"
+  ],
+  [
+   37,
+   "Charcoal Gray",
+   1,
+   "MTYwMFgxNjAw",
+   "tMUAAOSwOmBeoLCA",
+   "522743984303"
+  ],
+  [
+   38,
+   "Castlerock",
+   0,
+   "MTYwMFgxNjAw",
+   "SoEAAOSwkspnA2-o",
+   "522743984304"
+  ],
+  [
+   39,
+   "Rabbit",
+   0,
+   "MTYwMFgxNjAw",
+   "Z0YAAeSwdYJqCUhI",
+   "522743984305"
+  ],
+  [
+   40,
+   "Raven",
+   0,
+   "MTYwMFgxNjAw",
+   "D2UAAOSwuhheoLCG",
+   "522743984306"
+  ],
+  [
+   41,
+   "Black",
+   0,
+   "MTYwMFgxNjAw",
+   "EHsAAOSwWglg0KrA",
+   "522743984307"
+  ]
+ ],
+ "_variation_url": "https://www.ebay.com/itm/223986181465?var={variation_id}"
+}

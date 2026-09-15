@@ -1,0 +1,738 @@
+{
+ "meta": {
+  "product": "Ultrasuede® LX",
+  "manufacturer": "Toray",
+  "status": "current",
+  "color_count": 25,
+  "style_numbers": [
+   {
+    "number": "3942",
+    "era": "current",
+    "note": "from the `vendor` field on every LX product (\"LX_3942\")"
+   }
+  ],
+  "compiled": "2026-09-14",
+  "about": "Read from Toray’s own LX sales catalogue at sales.tum.toray, which runs on Shopify and publishes the collection as JSON. Every entry carries the product URL it came from.",
+  "rebuild": "python3 scraping/build_lx.py --fetch && python3 scraping/build_lx.py",
+  "color_note": "hex/rgb are sampled from Toray’s swatch photographs, not official Toray colour values, and are approximate. Each is the median of a centre crop — the same measurement used for LT, so the two products’ values are comparable. Source photographs range from 397px to 3667px; the smaller ones were shot at a coarser magnification, which the median is largely but not entirely insensitive to. Photographs are stored downscaled to 1000px on the long edge; re-sampling a downscaled copy moves the median by at most 2/255 on one channel versus the original, which is well inside the approximation already implied by reading a colour off a photograph.",
+  "coverage_note": "This is what the sales catalogue lists, which is not necessarily the whole LX line — it is the set offered for sale through this channel.",
+  "specifications": {
+   "composition": "80% polyester ultra-fine fiber non-woven with 20% non-fibrous polyurethane binder",
+   "width": "51\" / 1,300mm",
+   "weight": "approx. 6.5 oz per sq. yard / 220g per sq. meter",
+   "thickness": "0.6mm",
+   "style_number": "3942",
+   "source": "https://www.ultrasuede.us/products/lx.html",
+   "note": "From Toray’s own product page, not the storefront, which publishes no specification text. Its style number agrees with the LX_3942 vendor field on every storefront listing."
+  }
+ },
+ "sources": [
+  {
+   "id": "sales-tum-toray-lx",
+   "url": "https://sales.tum.toray/collections/lx",
+   "note": "live Shopify storefront; collection JSON snapshotted in scraping/lx_products.json"
+  }
+ ],
+ "colors": [
+  {
+   "name": "Beige",
+   "slug": "beige",
+   "sku": "3942-CA0",
+   "code": "CA0",
+   "hex": "#9c8461",
+   "rgb": [
+    156,
+    132,
+    97
+   ],
+   "nap": {
+    "axis": [
+     1.0331,
+     0.9759,
+     1.1416
+    ],
+    "contrast": 15.01,
+    "contrast_source": "measured"
+   },
+   "image": "images/3942-CA0.jpg",
+   "image_large": "images/large/3942-CA0.jpg",
+   "source_image_width": 3667,
+   "handle": "ca0",
+   "source": "https://sales.tum.toray/collections/lx/products/ca0",
+   "available": true,
+   "published_at": "2022-10-27"
+  },
+  {
+   "name": "Ivory",
+   "slug": "ivory",
+   "sku": "3942-CA5",
+   "code": "CA5",
+   "hex": "#b9a892",
+   "rgb": [
+    185,
+    168,
+    146
+   ],
+   "nap": {
+    "axis": [
+     0.9443,
+     1.0005,
+     1.1589
+    ],
+    "contrast": 11.13,
+    "contrast_source": "measured"
+   },
+   "image": "images/3942-CA5.jpg",
+   "image_large": "images/large/3942-CA5.jpg",
+   "source_image_width": 3667,
+   "handle": "ca5",
+   "source": "https://sales.tum.toray/collections/lx/products/ca5",
+   "available": true,
+   "published_at": "2022-10-27"
+  },
+  {
+   "name": "Sand",
+   "slug": "sand",
+   "sku": "3942-CB1",
+   "code": "CB1",
+   "hex": "#937e69",
+   "rgb": [
+    147,
+    126,
+    105
+   ],
+   "nap": {
+    "axis": [
+     1.0044,
+     0.997,
+     1.0172
+    ],
+    "contrast": 12.64,
+    "contrast_source": "measured"
+   },
+   "image": "images/3942-CB1.jpg",
+   "image_large": "images/large/3942-CB1.jpg",
+   "source_image_width": 3667,
+   "handle": "cb1",
+   "source": "https://sales.tum.toray/collections/lx/products/cb1",
+   "available": true,
+   "published_at": "2022-10-27"
+  },
+  {
+   "name": "Camel",
+   "slug": "camel",
+   "sku": "3942-CB8",
+   "code": "CB8",
+   "hex": "#4b3321",
+   "rgb": [
+    75,
+    51,
+    33
+   ],
+   "nap": {
+    "axis": [
+     1.0541,
+     1.0117,
+     0.7253
+    ],
+    "contrast": 9.77,
+    "contrast_source": "measured"
+   },
+   "image": "images/3942-CB8.jpg",
+   "image_large": "images/large/3942-CB8.jpg",
+   "source_image_width": 3667,
+   "handle": "cb8",
+   "source": "https://sales.tum.toray/collections/lx/products/cb8",
+   "available": true,
+   "published_at": "2022-10-27"
+  },
+  {
+   "name": "Sable",
+   "slug": "sable",
+   "sku": "3942-CB9",
+   "code": "CB9",
+   "hex": "#352319",
+   "rgb": [
+    53,
+    35,
+    25
+   ],
+   "nap": {
+    "axis": [
+     1.12,
+     0.9761,
+     0.883
+    ],
+    "contrast": 6.3,
+    "contrast_source": "measured"
+   },
+   "image": "images/3942-CB9.jpg",
+   "image_large": "images/large/3942-CB9.jpg",
+   "source_image_width": 3667,
+   "handle": "cb9",
+   "source": "https://sales.tum.toray/collections/lx/products/cb9",
+   "available": true,
+   "published_at": "2022-10-27"
+  },
+  {
+   "name": "Sky",
+   "slug": "sky",
+   "sku": "3942-CC6",
+   "code": "CC6",
+   "hex": "#5e748c",
+   "rgb": [
+    94,
+    116,
+    140
+   ],
+   "nap": {
+    "axis": [
+     1.0251,
+     0.9893,
+     1.0318
+    ],
+    "contrast": 11.32,
+    "contrast_source": "measured"
+   },
+   "image": "images/3942-CC6.jpg",
+   "image_large": "images/large/3942-CC6.jpg",
+   "source_image_width": 3667,
+   "handle": "cc6",
+   "source": "https://sales.tum.toray/collections/lx/products/cc6",
+   "available": true,
+   "published_at": "2022-10-27"
+  },
+  {
+   "name": "Citron",
+   "slug": "citron",
+   "sku": "3942-CC9",
+   "code": "CC9",
+   "hex": "#978d43",
+   "rgb": [
+    151,
+    141,
+    67
+   ],
+   "nap": {
+    "axis": [
+     0.926,
+     0.972,
+     1.4949
+    ],
+    "contrast": 8.83,
+    "contrast_source": "measured"
+   },
+   "image": "images/3942-CC9.jpg",
+   "image_large": "images/large/3942-CC9.jpg",
+   "source_image_width": 3667,
+   "handle": "cc9",
+   "source": "https://sales.tum.toray/collections/lx/products/cc9",
+   "available": true,
+   "published_at": "2022-10-27"
+  },
+  {
+   "name": "White",
+   "slug": "white",
+   "sku": "3942-CD8",
+   "code": "CD8",
+   "hex": "#e2ded8",
+   "rgb": [
+    226,
+    222,
+    216
+   ],
+   "nap": {
+    "axis": [
+     0.984,
+     1.0035,
+     1.0123
+    ],
+    "contrast": 2.72,
+    "contrast_source": "measured"
+   },
+   "image": "images/3942-CD8.jpg",
+   "image_large": "images/large/3942-CD8.jpg",
+   "source_image_width": 1519,
+   "handle": "cd8",
+   "source": "https://sales.tum.toray/collections/lx/products/cd8",
+   "available": true,
+   "published_at": "2022-10-27"
+  },
+  {
+   "name": "Off White",
+   "slug": "off-white",
+   "sku": "3942-CN1",
+   "code": "CN1",
+   "hex": "#b4b3b1",
+   "rgb": [
+    180,
+    179,
+    177
+   ],
+   "nap": {
+    "axis": [
+     0.991,
+     1.0026,
+     1.001
+    ],
+    "contrast": 12.86,
+    "contrast_source": "measured"
+   },
+   "image": "images/3942-CN1.jpg",
+   "image_large": "images/large/3942-CN1.jpg",
+   "source_image_width": 397,
+   "handle": "cn1",
+   "source": "https://sales.tum.toray/collections/lx/products/cn1",
+   "available": true,
+   "published_at": "2022-10-27"
+  },
+  {
+   "name": "Ginger",
+   "slug": "ginger",
+   "sku": "3942-CQ8",
+   "code": "CQ8",
+   "hex": "#836d45",
+   "rgb": [
+    131,
+    109,
+    69
+   ],
+   "nap": {
+    "axis": [
+     0.9797,
+     1.0097,
+     0.9637
+    ],
+    "contrast": 16.82,
+    "contrast_source": "measured"
+   },
+   "image": "images/3942-CQ8.jpg",
+   "image_large": "images/large/3942-CQ8.jpg",
+   "source_image_width": 397,
+   "handle": "cq8",
+   "source": "https://sales.tum.toray/collections/lx/products/cq8",
+   "available": false,
+   "published_at": "2022-10-27"
+  },
+  {
+   "name": "Turquoise",
+   "slug": "turquoise",
+   "sku": "3942-CT5",
+   "code": "CT5",
+   "hex": "#026775",
+   "rgb": [
+    2,
+    103,
+    117
+   ],
+   "nap": {
+    "axis": [
+     0.1817,
+     1.2383,
+     1.0488
+    ],
+    "contrast": 3.68,
+    "contrast_source": "measured"
+   },
+   "image": "images/3942-CT5.jpg",
+   "image_large": "images/large/3942-CT5.jpg",
+   "source_image_width": 1519,
+   "handle": "fc5",
+   "source": "https://sales.tum.toray/collections/lx/products/fc5",
+   "available": true,
+   "published_at": "2022-10-27"
+  },
+  {
+   "name": "Orange",
+   "slug": "orange",
+   "sku": "3942-CT6",
+   "code": "CT6",
+   "hex": "#95481f",
+   "rgb": [
+    149,
+    72,
+    31
+   ],
+   "nap": {
+    "axis": [
+     0.9539,
+     1.0253,
+     0.8854
+    ],
+    "contrast": 6.71,
+    "contrast_source": "measured"
+   },
+   "image": "images/3942-CT6.jpg",
+   "image_large": "images/large/3942-CT6.jpg",
+   "source_image_width": 1519,
+   "handle": "ct6",
+   "source": "https://sales.tum.toray/collections/lx/products/ct6",
+   "available": true,
+   "published_at": "2022-10-31"
+  },
+  {
+   "name": "Coffee",
+   "slug": "coffee",
+   "sku": "3942-GA3",
+   "code": "GA3",
+   "hex": "#150f0c",
+   "rgb": [
+    21,
+    15,
+    12
+   ],
+   "nap": {
+    "axis": [
+     1.1867,
+     0.9581,
+     0.8652
+    ],
+    "contrast": 4.18,
+    "contrast_source": "measured"
+   },
+   "image": "images/3942-GA3.jpg",
+   "image_large": "images/large/3942-GA3.jpg",
+   "source_image_width": 3667,
+   "handle": "ga3",
+   "source": "https://sales.tum.toray/collections/lx/products/ga3",
+   "available": true,
+   "published_at": "2022-10-27"
+  },
+  {
+   "name": "Black",
+   "slug": "black",
+   "sku": "3942-GB2",
+   "code": "GB2",
+   "hex": "#141414",
+   "rgb": [
+    20,
+    20,
+    20
+   ],
+   "nap": {
+    "axis": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "contrast": 2.69,
+    "contrast_source": "measured"
+   },
+   "image": "images/3942-GB2.jpg",
+   "image_large": "images/large/3942-GB2.jpg",
+   "source_image_width": 1519,
+   "handle": "gb2",
+   "source": "https://sales.tum.toray/collections/lx/products/gb2",
+   "available": true,
+   "published_at": "2022-10-27"
+  },
+  {
+   "name": "Navy",
+   "slug": "navy",
+   "sku": "3942-GB7",
+   "code": "GB7",
+   "hex": "#0a0f17",
+   "rgb": [
+    10,
+    15,
+    23
+   ],
+   "nap": {
+    "axis": [
+     0.8967,
+     1.0096,
+     1.2085
+    ],
+    "contrast": 2.98,
+    "contrast_source": "measured"
+   },
+   "image": "images/3942-GB7.jpg",
+   "image_large": "images/large/3942-GB7.jpg",
+   "source_image_width": 3667,
+   "handle": "gb7",
+   "source": "https://sales.tum.toray/collections/lx/products/gb7",
+   "available": true,
+   "published_at": "2022-10-27"
+  },
+  {
+   "name": "Asphalt",
+   "slug": "asphalt",
+   "sku": "3942-GC1",
+   "code": "GC1",
+   "hex": "#191616",
+   "rgb": [
+    25,
+    22,
+    22
+   ],
+   "nap": {
+    "axis": [
+     1.0548,
+     0.9831,
+     1.006
+    ],
+    "contrast": 4.33,
+    "contrast_source": "measured"
+   },
+   "image": "images/3942-GC1.jpg",
+   "image_large": "images/large/3942-GC1.jpg",
+   "source_image_width": 3667,
+   "handle": "gc1",
+   "source": "https://sales.tum.toray/collections/lx/products/gc1",
+   "available": true,
+   "published_at": "2022-10-27"
+  },
+  {
+   "name": "Brownstone",
+   "slug": "brownstone",
+   "sku": "3942-GD8",
+   "code": "GD8",
+   "hex": "#5c371e",
+   "rgb": [
+    92,
+    55,
+    30
+   ],
+   "nap": {
+    "axis": [
+     1.1318,
+     0.9952,
+     0.6595
+    ],
+    "contrast": 9.62,
+    "contrast_source": "measured"
+   },
+   "image": "images/3942-GD8.jpg",
+   "image_large": "images/large/3942-GD8.jpg",
+   "source_image_width": 3667,
+   "handle": "gd8",
+   "source": "https://sales.tum.toray/collections/lx/products/gd8",
+   "available": true,
+   "published_at": "2022-10-27"
+  },
+  {
+   "name": "Red",
+   "slug": "red",
+   "sku": "3942-GF2",
+   "code": "GF2",
+   "hex": "#840102",
+   "rgb": [
+    132,
+    1,
+    2
+   ],
+   "nap": {
+    "axis": [
+     3.924,
+     0.2047,
+     0.2685
+    ],
+    "contrast": 3.83,
+    "contrast_source": "measured"
+   },
+   "image": "images/3942-GF2.jpg",
+   "image_large": "images/large/3942-GF2.jpg",
+   "source_image_width": 3667,
+   "handle": "gf2",
+   "source": "https://sales.tum.toray/collections/lx/products/gf2",
+   "available": true,
+   "published_at": "2022-10-27"
+  },
+  {
+   "name": "Black Olive",
+   "slug": "black-olive",
+   "sku": "3942-GH0",
+   "code": "GH0",
+   "hex": "#322018",
+   "rgb": [
+    50,
+    32,
+    24
+   ],
+   "nap": {
+    "axis": [
+     1.0762,
+     0.9853,
+     0.9212
+    ],
+    "contrast": 6.59,
+    "contrast_source": "measured"
+   },
+   "image": "images/3942-GH0.jpg",
+   "image_large": "images/large/3942-GH0.jpg",
+   "source_image_width": 1519,
+   "handle": "gh0",
+   "source": "https://sales.tum.toray/collections/lx/products/gh0",
+   "available": true,
+   "published_at": "2022-10-27"
+  },
+  {
+   "name": "Purple",
+   "slug": "purple",
+   "sku": "3942-GH5",
+   "code": "GH5",
+   "hex": "#27081d",
+   "rgb": [
+    39,
+    8,
+    29
+   ],
+   "nap": {
+    "axis": [
+     1.6954,
+     0.7572,
+     1.357
+    ],
+    "contrast": 2.9,
+    "contrast_source": "measured"
+   },
+   "image": "images/3942-GH5.jpg",
+   "image_large": "images/large/3942-GH5.jpg",
+   "source_image_width": 3667,
+   "handle": "gh5",
+   "source": "https://sales.tum.toray/collections/lx/products/gh5",
+   "available": true,
+   "published_at": "2022-10-27"
+  },
+  {
+   "name": "Melange Gray",
+   "slug": "melange-gray",
+   "sku": "3942-GV0",
+   "code": "GV0",
+   "hex": "#8f898b",
+   "rgb": [
+    143,
+    137,
+    139
+   ],
+   "nap": {
+    "axis": [
+     1.0091,
+     0.9971,
+     1.0023
+    ],
+    "contrast": 13.6,
+    "contrast_source": "measured"
+   },
+   "image": "images/3942-GV0.jpg",
+   "image_large": "images/large/3942-GV0.jpg",
+   "source_image_width": 3667,
+   "handle": "gv0",
+   "source": "https://sales.tum.toray/collections/lx/products/gv0",
+   "available": true,
+   "published_at": "2022-10-27"
+  },
+  {
+   "name": "Forest Green",
+   "slug": "forest-green",
+   "sku": "3942-GV9",
+   "code": "GV9",
+   "hex": "#273323",
+   "rgb": [
+    39,
+    51,
+    35
+   ],
+   "nap": {
+    "axis": [
+     1.0055,
+     0.9996,
+     0.9878
+    ],
+    "contrast": 8.89,
+    "contrast_source": "measured"
+   },
+   "image": "images/3942-GV9.jpg",
+   "image_large": "images/large/3942-GV9.jpg",
+   "source_image_width": 397,
+   "handle": "gv9",
+   "source": "https://sales.tum.toray/collections/lx/products/gv9",
+   "available": true,
+   "published_at": "2022-10-27"
+  },
+  {
+   "name": "Burgundy",
+   "slug": "burgundy",
+   "sku": "3942-WA4",
+   "code": "WA4",
+   "hex": "#471624",
+   "rgb": [
+    71,
+    22,
+    36
+   ],
+   "nap": {
+    "axis": [
+     1.0459,
+     0.9829,
+     1.0342
+    ],
+    "contrast": 8.34,
+    "contrast_source": "measured"
+   },
+   "image": "images/3942-WA4.jpg",
+   "image_large": "images/large/3942-WA4.jpg",
+   "source_image_width": 397,
+   "handle": "wa4",
+   "source": "https://sales.tum.toray/collections/lx/products/wa4",
+   "available": true,
+   "published_at": "2022-10-27"
+  },
+  {
+   "name": "Rose",
+   "slug": "rose",
+   "sku": "3942-WA6",
+   "code": "WA6",
+   "hex": "#7c1c45",
+   "rgb": [
+    124,
+    28,
+    69
+   ],
+   "nap": {
+    "axis": [
+     0.9631,
+     1.0049,
+     1.0598
+    ],
+    "contrast": 4.52,
+    "contrast_source": "measured"
+   },
+   "image": "images/3942-WA6.jpg",
+   "image_large": "images/large/3942-WA6.jpg",
+   "source_image_width": 1519,
+   "handle": "wa6",
+   "source": "https://sales.tum.toray/collections/lx/products/wa6",
+   "available": true,
+   "published_at": "2022-10-31"
+  },
+  {
+   "name": "Blue",
+   "slug": "blue",
+   "sku": "3942-WA7",
+   "code": "WA7",
+   "hex": "#123855",
+   "rgb": [
+    18,
+    56,
+    85
+   ],
+   "nap": {
+    "axis": [
+     0.8176,
+     1.0545,
+     0.9974
+    ],
+    "contrast": 2.8,
+    "contrast_source": "measured"
+   },
+   "image": "images/3942-WA7.jpg",
+   "image_large": "images/large/3942-WA7.jpg",
+   "source_image_width": 1519,
+   "handle": "wa7",
+   "source": "https://sales.tum.toray/collections/lx/products/wa7",
+   "available": true,
+   "published_at": "2022-10-31"
+  }
+ ]
+}

@@ -1,8 +1,8 @@
 /*
- * Ultrasuede Color Library — demo page.
+ * Synthetic Suede Fabric Library — demo page.
  *
- * Reads lt.json, renders the three LT subsections as swatch grids, and fills a
- * single shared popover with the entry that was clicked.
+ * Reads one JSON file per product, renders each product's subsections as swatch
+ * grids, and fills a single shared popover with the entry that was clicked.
  */
 
 (function () {
@@ -24,11 +24,17 @@
     var DETAIL_PX = 512;
 
     /*
-     * Which of the two the popover is showing. Reset to the shader every time a
-     * swatch is opened rather than carried over: the choice belongs to the
-     * swatch being looked at, not to the reader, and a sticky "Photo" means the
-     * next swatch opens on whichever of the two it happens to have — the shader
-     * for one, a watermarked thumbnail for the next.
+     * Which of the two the popover is showing. Reset on every open rather than
+     * carried over: the choice belongs to the swatch being looked at, not to the
+     * reader, and a sticky setting means the next swatch opens on whichever of
+     * the two it happens to have.
+     *
+     * What it resets TO is per product, because the two sides are not equally
+     * good everywhere. LT's photographs are 100px archived thumbnails and
+     * thirteen of them are watermarked, so its shader is the better picture and
+     * leads. LX's are 800px frames from Toray's own storefront and beat the
+     * shader outright, so that product opens on the photo. A product declares
+     * which it wants with `preferPhoto`.
      */
     var showPhoto = false;
 
@@ -278,7 +284,7 @@
      * the panel, where the list of sightings gives them somewhere to mean
      * something.
      */
-    function record(entry, kind) {
+    function record(entry, kind, preferPhoto, sourceLabel) {
         var button = el("button", "swatch record");
         button.type = "button";
 
@@ -288,24 +294,39 @@
         button.appendChild(text);
 
         button.addEventListener("click", function () {
-            show(entry, kind);
+            show(entry, kind, preferPhoto, sourceLabel);
         });
 
         return button;
     }
 
-    function tile(entry, kind) {
-        if (blank(entry)) { return record(entry, kind); }
+    function tile(entry, kind, preferPhoto, sourceLabel) {
+        if (blank(entry)) { return record(entry, kind, preferPhoto, sourceLabel); }
 
         var button = el("button", "swatch");
         button.type = "button";
 
         var well = el("span", "swatch-thumb");
-        var canvas = canRender(entry) ? napCanvas(entry, TILE_PX, null) : null;
+        /*
+         * photoOf, not entry.image: the small copy is 100px and the well is
+         * about 117 CSS pixels, so on a 3x screen the small one is a 3.5x
+         * upscale and reads as blurred.
+         */
+        var photo = photoOf(entry);
+        /*
+         * The shader leads in the grid, except where the product says its
+         * photographs are better — LX's are 800px frames from Toray's own
+         * storefront, and they beat what the shader draws. That is the same
+         * `preferPhoto` the popover honours, so a product's tile and its detail
+         * view now open on the same side rather than disagreeing.
+         */
+        var canvas = (preferPhoto && photo)
+            ? null
+            : (canRender(entry) ? napCanvas(entry, TILE_PX, null) : null);
         if (canvas) {
             well.appendChild(canvas);
-        } else if (entry.image) {
-            well.appendChild(photoImg(entry, entry.image, true));
+        } else if (photo) {
+            well.appendChild(photoImg(entry, photo, true));
         } else {
             well.style.backgroundColor = entry.hex;
         }
@@ -327,7 +348,7 @@
         button.appendChild(text);
 
         button.addEventListener("click", function () {
-            show(entry, kind);
+            show(entry, kind, preferPhoto, sourceLabel);
         });
 
         return button;
@@ -337,11 +358,11 @@
      * `kind` is a string for a grid holding one kind of thing, or a function of
      * the entry for the one grid that mixes them.
      */
-    function renderGrid(id, entries, kind) {
-        var grid = document.getElementById(id);
+    function renderGrid(grid, entries, kind, preferPhoto, sourceLabel) {
         entries.forEach(function (entry) {
             grid.appendChild(
-                tile(entry, typeof kind === "function" ? kind(entry) : kind));
+                tile(entry, typeof kind === "function" ? kind(entry) : kind,
+                     preferPhoto, sourceLabel));
         });
     }
 
@@ -436,7 +457,7 @@
      * what it was called or numbered before, and the capture it came from. The
      * rest was provenance for the dataset, not for the swatch.
      */
-    function facts_for(entry, kind) {
+    function facts_for(entry, kind, sourceLabel) {
         var facts = el("dl", "detail-facts");
 
         /*
@@ -537,7 +558,12 @@
             });
             fact(facts, "Seen in", list);
         } else if (entry.source) {
-            fact(facts, "Source", sourceValue(entry));
+            fact(facts, "Source", sourceValue(entry, sourceLabel));
+            /* A per-colour destination where the source is a whole list. Also
+             * withheld where the product's shopfront is. */
+            if (entry.sample_url && !sourceLabel) {
+                fact(facts, "Sample", link(entry.sample_url, "order this swatch"));
+            }
         }
 
         return facts;
@@ -555,9 +581,13 @@
      * from — and `based_on` in lt.json carries the number and the catalogue
      * sheet that pairs the two, for anyone who wants to check it.
      */
-    function sourceValue(entry) {
+    function sourceValue(entry, sourceLabel) {
         var value = document.createDocumentFragment();
-        value.appendChild(link(entry.source, archiveLabel(entry.source)));
+        if (sourceLabel) {
+            value.appendChild(el("span", null, sourceLabel));
+        } else {
+            value.appendChild(link(entry.source, archiveLabel(entry.source)));
+        }
         if (entry.based_on) {
             value.appendChild(el("span", "fact-note",
                 "This swatch is based on the " + entry.based_on.weight +
@@ -737,10 +767,12 @@
         if (sides.photo) { sides.photo.hidden = !usePhoto; }
     }
 
-    function show(entry, kind) {
+    function show(entry, kind, preferPhoto, sourceLabel) {
         clear(head);
         clear(body);
-        showPhoto = false;
+        /* Only meaningful where both sides exist; showSide() falls back to
+         * whichever one the entry actually has. */
+        showPhoto = Boolean(preferPhoto);
 
         /*
          * One panel serves every tile, so the box keeps whatever scroll the
@@ -776,70 +808,220 @@
         }
         if (way) { head.appendChild(colorwayLine(way)); }
 
-        body.appendChild(facts_for(entry, kind));
+        body.appendChild(facts_for(entry, kind, sourceLabel));
 
         popover.showPopover();
     }
 
     /* ---- boot ------------------------------------------------------------- */
 
-    fetch("lt.json")
-        .then(function (response) {
-            if (!response.ok) { throw new Error("lt.json: HTTP " + response.status); }
-            return response.json();
-        })
-        .then(function (data) {
-            /*
-             * The missing-image grid holds what the record names but cannot
-             * show. It is built to mix — a pattern with no capture belongs here
-             * as much as a colour does, sorted in by name, because a reader
-             * looking for a name should not have to know which of the two it
-             * is — but the last such pattern has since been found, so today the
-             * list is historical colours alone. Hence the flat "colors" label;
-             * if a pattern ever falls back in, that word needs widening again.
-             */
-            var shown = data.patterns.filter(function (p) { return !blank(p); });
-            var missing = data.historical_colors
-                .concat(data.patterns.filter(blank))
-                .sort(function (a, b) { return a.name.localeCompare(b.name); });
+    /*
+     * The products, in the order they appear on the page: current lines first,
+     * discontinued ones after. `labels` overrides a subsection heading where a
+     * product has its own word for it — LT's patterns are the Light Jungle
+     * prints and calling them that is worth more than calling them "Patterns".
+     */
+    var PRODUCTS = [
+        /* 800px frames from Toray's storefront; better than the shader.
+         * sourceLabel for the same reason as the two below: sales.tum.toray is
+         * a shop that sells LX by the metre, not a datasheet, so the page names
+         * it without linking to it. */
+        { id: "lx", file: "lx.json", label: "LX", preferPhoto: true,
+          sourceLabel: "Toray storefront (Japan)" },
+        /* 418px Toray swatches, clean and unwatermarked — comfortably over the
+         * ~351 device pixels a tile needs, so the photograph leads here too. */
+        { id: "st", file: "st.json", label: "ST", preferPhoto: true },
+        /* sourceLabel: show what the source IS without linking to it. These two
+         * are bought from small Japanese retailers and Garrett would rather not
+         * hand their shopfronts to everyone reading. The URLs stay in the JSON
+         * and in scraping/ — the data has to stay checkable and rebuildable —
+         * this only keeps them off the rendered page. */
+        { id: "lamous-th", file: "lamous-th.json", label: "Lamous TH",
+          sourceLabel: "Japanese retailer catalogue" },
+        { id: "shammy", file: "shammy.json", label: "Shammy 707J",
+          sourceLabel: "Japanese retailer catalogue" },
+        { id: "ds102", file: "texvision-ds102.json", label: "Texvision DS102" },
+        { id: "lt", file: "lt.json", label: "LT",
+          labels: { patterns: "Jungle prints" } }
+    ];
 
-            var sections = [
-                ["colors", data.colors, "color", "colors"],
-                ["patterns", shown, "pattern", "patterns"],
-                ["custom", data.custom_colors, "custom", "colors"],
-                ["missing", missing, function (entry) {
-                    return entry.pattern ? "pattern" : "historical";
-                }, "colors"]
-            ];
-
+    /*
+     * Subsections, in page order. `pick` pulls the entries for one out of a
+     * product file, so a product that has no patterns and no historical colours
+     * simply yields nothing for those and they are left off its section rather
+     * than standing empty.
+     */
+    var SUBSECTIONS = [
+        {
+            key: "colors", label: "Official colors", unit: "colors",
+            kind: "color",
+            pick: function (d) { return d.colors || []; }
+        },
+        {
+            key: "patterns", label: "Patterns", unit: "patterns",
+            kind: "pattern",
+            /* a pattern with nothing to show belongs in "missing", not here */
+            pick: function (d) {
+                return (d.patterns || []).filter(function (p) { return !blank(p); });
+            }
+        },
+        {
+            key: "custom", label: "Custom colors", unit: "colors",
+            kind: "custom",
+            pick: function (d) { return d.custom_colors || []; }
+        },
+        {
             /*
-             * One count per subsection, and the total over the section head.
-             * The breakdown used to live up there as four figures separated by
-             * dots, which asked the reader to hold the whole page in their head
-             * to read the top of it; each number now sits against the grid it
-             * counts, and the head says how much there is altogether.
+             * What the record names but cannot show. Built to mix — a pattern
+             * with no capture belongs here as much as a colour does, sorted in
+             * by name, because a reader looking for a name should not have to
+             * know which of the two it is.
              */
-            var total = 0;
-            sections.forEach(function (section) {
-                /*
-                 * An entry marked on_page: false stays in lt.json and is left
-                 * off the page — the file is the record and nothing is dropped
-                 * from it to change what is drawn. Each one says why in its own
-                 * off_page_reason.
-                 */
-                var key = section[0], entries = section[1].filter(onPage);
-                renderGrid("grid-" + key, entries, section[2]);
-                document.getElementById("count-" + key).textContent =
-                    entries.length + " " + section[3];
-                total += entries.length;
-            });
-            document.getElementById("lt-counts").textContent =
-                total + " colors and patterns";
-        })
-        .catch(function (error) {
-            var main = document.querySelector("main");
-            main.appendChild(el("p", "text-sm",
-                "Could not load lt.json — " + error.message +
-                ". Serve this page over HTTP rather than opening the file directly."));
+            key: "missing", label: "Missing image", unit: "colors",
+            grid: "record-grid grid grid-cols-4 gap-1",
+            kind: function (entry) {
+                return entry.pattern ? "pattern" : "historical";
+            },
+            pick: function (d) {
+                return (d.historical_colors || [])
+                    .concat((d.patterns || []).filter(blank))
+                    .sort(function (a, b) { return a.name.localeCompare(b.name); });
+            }
+        }
+    ];
+
+    var GRID_DEFAULT = "swatch-grid grid grid-cols-6 gap-1 mb-4";
+
+    /*
+     * The fabric itself, under the product heading: what it is made of, how
+     * wide, how heavy, how thick. Read from meta.specifications where a builder
+     * writes one, and from the top level of meta where LT keeps the same four
+     * facts — normalised here rather than rewriting lt.json, because that file
+     * is a record and its shape is part of it.
+     */
+    var SPEC_FIELDS = [
+        ["composition", "Composition"],
+        ["fiber_content", "Composition"],   /* DS102 spells it this way */
+        ["width", "Width"],
+        ["weight", "Weight"],
+        ["thickness", "Thickness"]
+    ];
+
+    function specLine(meta) {
+        var src = meta.specifications || meta;
+        var parts = [];
+        SPEC_FIELDS.forEach(function (f) {
+            if (src[f[0]]) { parts.push(f[1] + " " + src[f[0]]); }
         });
+        if (!parts.length) { return null; }
+        var p = el("p", "product-spec text-sm", parts.join("  ·  "));
+        return p;
+    }
+
+    function headRow(cls, tag, headClass, text) {
+        var row = el("div", cls +
+            " flex flex-row items-baseline justify-between flex-wrap gap-2 mb-2");
+        row.appendChild(el(tag, headClass, text));
+        var count = el("p", "section-label text-sm");
+        row.appendChild(count);
+        return { row: row, count: count };
+    }
+
+    /* Build one product's section. Returns null if it has nothing to draw. */
+    function renderProduct(data, cfg) {
+        var section = el("section");
+        section.id = cfg.id;
+
+        var head = el("div", "section-head flex flex-row items-baseline " +
+                             "justify-between flex-wrap gap-2 mb-3");
+        head.appendChild(el("h2", "text-2xl", cfg.label));
+        var counts = el("p", "section-label text-sm");
+        head.appendChild(counts);
+        section.appendChild(head);
+
+        var spec = specLine(data.meta || {});
+        if (spec) { section.appendChild(spec); }
+
+        var total = 0, kinds = 0, hasPatterns = false;
+        SUBSECTIONS.forEach(function (sub) {
+            /*
+             * An entry marked on_page: false stays in the file and is left off
+             * the page — the file is the record and nothing is dropped from it
+             * to change what is drawn. Each one says why in off_page_reason.
+             */
+            var entries = sub.pick(data).filter(onPage);
+            if (!entries.length) { return; }
+
+            var hr = headRow("subsection-head-row", "h3",
+                             "subsection-head text-lg",
+                             (cfg.labels && cfg.labels[sub.key]) || sub.label);
+            hr.count.textContent = entries.length + " " + sub.unit;
+            section.appendChild(hr.row);
+
+            var grid = el("div", sub.grid || GRID_DEFAULT);
+            section.appendChild(grid);
+            renderGrid(grid, entries, sub.kind, cfg.preferPhoto,
+                       cfg.sourceLabel);
+
+            total += entries.length;
+            kinds += 1;
+            if (sub.key === "patterns") { hasPatterns = true; }
+        });
+
+        if (!total) { return null; }
+
+        /*
+         * The head says how much there is altogether, and each subsection count
+         * sits against the grid it counts. A product with only one subsection
+         * would otherwise print the same number twice, so it says nothing.
+         */
+        counts.textContent = kinds > 1
+            ? total + (hasPatterns ? " colors and patterns" : " colors")
+            : "";
+        return section;
+    }
+
+    var main = document.querySelector("main");
+    var nav = document.getElementById("product-nav");
+
+    /*
+     * Fetched together but rendered in the configured order, and one product
+     * failing does not take the others down with it — a missing file costs its
+     * own section and a line saying so, not the page.
+     */
+    Promise.all(PRODUCTS.map(function (cfg) {
+        return fetch(cfg.file)
+            .then(function (response) {
+                if (!response.ok) {
+                    throw new Error(cfg.file + ": HTTP " + response.status);
+                }
+                return response.json();
+            })
+            .then(function (data) { return { cfg: cfg, data: data }; })
+            .catch(function (error) { return { cfg: cfg, error: error }; });
+    })).then(function (results) {
+        var drawn = 0;
+        results.forEach(function (result) {
+            if (result.error) {
+                main.appendChild(el("p", "text-sm",
+                    "Could not load " + result.error.message + "."));
+                return;
+            }
+            var section = renderProduct(result.data, result.cfg);
+            if (!section) { return; }
+            main.appendChild(section);
+
+            var li = el("li");
+            var a = el("a", null, result.cfg.label);
+            a.href = "#" + result.cfg.id;   /* same page: not link(), which opens a tab */
+            li.appendChild(a);
+            nav.appendChild(li);
+            drawn += 1;
+        });
+        if (!drawn) {
+            main.appendChild(el("p", "text-sm",
+                "Nothing loaded. Serve this page over HTTP rather than opening " +
+                "the file directly."));
+        }
+    });
 }());

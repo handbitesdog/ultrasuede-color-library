@@ -713,3 +713,12 @@
         padding-right: var(--lisa-space-2);
     }
 }
+
+/* The fabric's own facts, under the product heading. Muted and set tight: it
+ * is reference the reader consults, not something to read past on the way to
+ * the swatches. */
+.product-spec {
+    color: var(--lisa-foreground-muted-color);
+    margin: calc(var(--lisa-space-1) * -1) 0 var(--lisa-space-3);
+    max-width: 70ch;
+}

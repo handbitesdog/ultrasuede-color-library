@@ -1,0 +1,1379 @@
+{
+ "products": [
+  {
+   "id": 6871349592137,
+   "title": "Rose",
+   "handle": "wa6",
+   "body_html": "",
+   "published_at": "2022-10-31T13:56:18+09:00",
+   "created_at": "2022-10-31T13:56:19+09:00",
+   "updated_at": "2026-09-15T09:29:55+09:00",
+   "vendor": "LX_3942",
+   "product_type": "",
+   "tags": [],
+   "variants": [
+    {
+     "id": 40363239342153,
+     "title": "Default Title",
+     "option1": "Default Title",
+     "option2": null,
+     "option3": null,
+     "sku": "WA6",
+     "requires_shipping": true,
+     "taxable": true,
+     "featured_image": null,
+     "available": true,
+     "price": "10000",
+     "grams": 0,
+     "compare_at_price": null,
+     "position": 1,
+     "product_id": 6871349592137,
+     "created_at": "2022-10-31T13:56:19+09:00",
+     "updated_at": "2026-09-15T09:29:55+09:00"
+    }
+   ],
+   "images": [
+    {
+     "id": 75410043437129,
+     "created_at": "2025-04-14T15:50:04+09:00",
+     "position": 1,
+     "updated_at": "2025-04-14T15:50:05+09:00",
+     "product_id": 6871349592137,
+     "variant_ids": [],
+     "src": "https://cdn.shopify.com/s/files/1/0580/5273/9145/files/ul_0025_LX_WA6.jpg?v=1744613405",
+     "width": 1519,
+     "height": 1519
+    }
+   ],
+   "options": [
+    {
+     "name": "Title",
+     "position": 1,
+     "values": [
+      "Default Title"
+     ]
+    }
+   ]
+  },
+  {
+   "id": 6871349559369,
+   "title": "Orange",
+   "handle": "ct6",
+   "body_html": "",
+   "published_at": "2022-10-31T13:56:17+09:00",
+   "created_at": "2022-10-31T13:56:18+09:00",
+   "updated_at": "2026-09-15T09:29:55+09:00",
+   "vendor": "LX_3942",
+   "product_type": "",
+   "tags": [],
+   "variants": [
+    {
+     "id": 40363239309385,
+     "title": "Default Title",
+     "option1": "Default Title",
+     "option2": null,
+     "option3": null,
+     "sku": "CT6",
+     "requires_shipping": true,
+     "taxable": true,
+     "featured_image": null,
+     "available": true,
+     "price": "10000",
+     "grams": 0,
+     "compare_at_price": null,
+     "position": 1,
+     "product_id": 6871349559369,
+     "created_at": "2022-10-31T13:56:18+09:00",
+     "updated_at": "2026-09-15T09:29:55+09:00"
+    }
+   ],
+   "images": [
+    {
+     "id": 75410044223561,
+     "created_at": "2025-04-14T15:51:14+09:00",
+     "position": 1,
+     "updated_at": "2025-04-14T15:51:15+09:00",
+     "product_id": 6871349559369,
+     "variant_ids": [],
+     "src": "https://cdn.shopify.com/s/files/1/0580/5273/9145/files/ul_0026_LX_CT6.jpg?v=1744613475",
+     "width": 1519,
+     "height": 1519
+    }
+   ],
+   "options": [
+    {
+     "name": "Title",
+     "position": 1,
+     "values": [
+      "Default Title"
+     ]
+    }
+   ]
+  },
+  {
+   "id": 6871349526601,
+   "title": "Blue",
+   "handle": "wa7",
+   "body_html": "",
+   "published_at": "2022-10-31T13:56:15+09:00",
+   "created_at": "2022-10-31T13:56:16+09:00",
+   "updated_at": "2026-09-15T09:29:55+09:00",
+   "vendor": "LX_3942",
+   "product_type": "",
+   "tags": [],
+   "variants": [
+    {
+     "id": 40363239276617,
+     "title": "Default Title",
+     "option1": "Default Title",
+     "option2": null,
+     "option3": null,
+     "sku": "WA7",
+     "requires_shipping": true,
+     "taxable": true,
+     "featured_image": null,
+     "available": true,
+     "price": "10000",
+     "grams": 0,
+     "compare_at_price": null,
+     "position": 1,
+     "product_id": 6871349526601,
+     "created_at": "2022-10-31T13:56:16+09:00",
+     "updated_at": "2026-09-15T09:29:55+09:00"
+    }
+   ],
+   "images": [
+    {
+     "id": 75410038227017,
+     "created_at": "2025-04-14T15:45:39+09:00",
+     "position": 1,
+     "updated_at": "2025-04-14T15:45:40+09:00",
+     "product_id": 6871349526601,
+     "variant_ids": [],
+     "src": "https://cdn.shopify.com/s/files/1/0580/5273/9145/files/ul_0023_LX_WA7.jpg?v=1744613140",
+     "width": 1519,
+     "height": 1519
+    }
+   ],
+   "options": [
+    {
+     "name": "Title",
+     "position": 1,
+     "values": [
+      "Default Title"
+     ]
+    }
+   ]
+  },
+  {
+   "id": 6868928168009,
+   "title": "Off White",
+   "handle": "cn1",
+   "body_html": "",
+   "published_at": "2022-10-27T18:43:04+09:00",
+   "created_at": "2022-10-27T18:43:05+09:00",
+   "updated_at": "2026-09-15T09:29:55+09:00",
+   "vendor": "LX_3942",
+   "product_type": "",
+   "tags": [],
+   "variants": [
+    {
+     "id": 40357772230729,
+     "title": "Default Title",
+     "option1": "Default Title",
+     "option2": null,
+     "option3": null,
+     "sku": "CN1",
+     "requires_shipping": true,
+     "taxable": true,
+     "featured_image": null,
+     "available": true,
+     "price": "10000",
+     "grams": 0,
+     "compare_at_price": null,
+     "position": 1,
+     "product_id": 6868928168009,
+     "created_at": "2022-10-28T15:02:52+09:00",
+     "updated_at": "2026-09-15T09:29:55+09:00"
+    }
+   ],
+   "images": [
+    {
+     "id": 30019461840969,
+     "created_at": "2022-10-31T17:23:02+09:00",
+     "position": 1,
+     "updated_at": "2022-10-31T17:23:02+09:00",
+     "product_id": 6868928168009,
+     "variant_ids": [],
+     "src": "https://cdn.shopify.com/s/files/1/0580/5273/9145/products/0000_LX_CN1_ed13e832-c935-4565-94e9-79391f939064.jpg?v=1667204582",
+     "width": 397,
+     "height": 397
+    }
+   ],
+   "options": [
+    {
+     "name": "Title",
+     "position": 1,
+     "values": [
+      "Default Title"
+     ]
+    }
+   ]
+  },
+  {
+   "id": 6868928135241,
+   "title": "Ginger",
+   "handle": "cq8",
+   "body_html": "",
+   "published_at": "2022-10-27T18:43:02+09:00",
+   "created_at": "2022-10-27T18:43:03+09:00",
+   "updated_at": "2026-09-15T09:29:55+09:00",
+   "vendor": "LX_3942",
+   "product_type": "",
+   "tags": [],
+   "variants": [
+    {
+     "id": 40357772165193,
+     "title": "Default Title",
+     "option1": "Default Title",
+     "option2": null,
+     "option3": null,
+     "sku": "CQ8",
+     "requires_shipping": true,
+     "taxable": true,
+     "featured_image": null,
+     "available": false,
+     "price": "10000",
+     "grams": 0,
+     "compare_at_price": null,
+     "position": 1,
+     "product_id": 6868928135241,
+     "created_at": "2022-10-28T15:02:50+09:00",
+     "updated_at": "2026-09-15T09:29:55+09:00"
+    }
+   ],
+   "images": [
+    {
+     "id": 30019461677129,
+     "created_at": "2022-10-31T17:23:01+09:00",
+     "position": 1,
+     "updated_at": "2022-10-31T17:23:00+09:00",
+     "product_id": 6868928135241,
+     "variant_ids": [],
+     "src": "https://cdn.shopify.com/s/files/1/0580/5273/9145/products/0001_LX_CQ8_74763b37-c713-47bc-a73c-5ea67425d613.jpg?v=1667204580",
+     "width": 397,
+     "height": 397
+    }
+   ],
+   "options": [
+    {
+     "name": "Title",
+     "position": 1,
+     "values": [
+      "Default Title"
+     ]
+    }
+   ]
+  },
+  {
+   "id": 6868928102473,
+   "title": "Burgundy",
+   "handle": "wa4",
+   "body_html": "",
+   "published_at": "2022-10-27T18:43:00+09:00",
+   "created_at": "2022-10-27T18:43:01+09:00",
+   "updated_at": "2026-09-15T09:29:55+09:00",
+   "vendor": "LX_3942",
+   "product_type": "",
+   "tags": [],
+   "variants": [
+    {
+     "id": 40357772099657,
+     "title": "Default Title",
+     "option1": "Default Title",
+     "option2": null,
+     "option3": null,
+     "sku": "WA4",
+     "requires_shipping": true,
+     "taxable": true,
+     "featured_image": null,
+     "available": true,
+     "price": "10000",
+     "grams": 0,
+     "compare_at_price": null,
+     "position": 1,
+     "product_id": 6868928102473,
+     "created_at": "2022-10-28T15:02:49+09:00",
+     "updated_at": "2026-09-15T09:29:55+09:00"
+    }
+   ],
+   "images": [
+    {
+     "id": 30019461546057,
+     "created_at": "2022-10-31T17:22:59+09:00",
+     "position": 1,
+     "updated_at": "2022-10-31T17:22:59+09:00",
+     "product_id": 6868928102473,
+     "variant_ids": [],
+     "src": "https://cdn.shopify.com/s/files/1/0580/5273/9145/products/0003_LX_WA4_546fb648-1f78-4d92-8c1e-eb6a1b3e187b.jpg?v=1667204579",
+     "width": 397,
+     "height": 397
+    }
+   ],
+   "options": [
+    {
+     "name": "Title",
+     "position": 1,
+     "values": [
+      "Default Title"
+     ]
+    }
+   ]
+  },
+  {
+   "id": 6868928036937,
+   "title": "Forest Green",
+   "handle": "gv9",
+   "body_html": "",
+   "published_at": "2022-10-27T18:42:59+09:00",
+   "created_at": "2022-10-27T18:43:00+09:00",
+   "updated_at": "2026-09-15T09:29:55+09:00",
+   "vendor": "LX_3942",
+   "product_type": "",
+   "tags": [],
+   "variants": [
+    {
+     "id": 40357772066889,
+     "title": "Default Title",
+     "option1": "Default Title",
+     "option2": null,
+     "option3": null,
+     "sku": "GV9",
+     "requires_shipping": true,
+     "taxable": true,
+     "featured_image": null,
+     "available": true,
+     "price": "10000",
+     "grams": 0,
+     "compare_at_price": null,
+     "position": 1,
+     "product_id": 6868928036937,
+     "created_at": "2022-10-28T15:02:47+09:00",
+     "updated_at": "2026-09-15T09:29:55+09:00"
+    }
+   ],
+   "images": [
+    {
+     "id": 30019461513289,
+     "created_at": "2022-10-31T17:22:58+09:00",
+     "position": 1,
+     "updated_at": "2022-10-31T17:22:58+09:00",
+     "product_id": 6868928036937,
+     "variant_ids": [],
+     "src": "https://cdn.shopify.com/s/files/1/0580/5273/9145/products/0002_LX_GV9_53b0ae62-24d5-41dc-84b6-96c861a3b550.jpg?v=1667204578",
+     "width": 397,
+     "height": 397
+    }
+   ],
+   "options": [
+    {
+     "name": "Title",
+     "position": 1,
+     "values": [
+      "Default Title"
+     ]
+    }
+   ]
+  },
+  {
+   "id": 6868927971401,
+   "title": "Melange Gray",
+   "handle": "gv0",
+   "body_html": "",
+   "published_at": "2022-10-27T18:42:58+09:00",
+   "created_at": "2022-10-27T18:42:58+09:00",
+   "updated_at": "2026-09-15T09:29:55+09:00",
+   "vendor": "LX_3942",
+   "product_type": "",
+   "tags": [],
+   "variants": [
+    {
+     "id": 40357772034121,
+     "title": "Default Title",
+     "option1": "Default Title",
+     "option2": null,
+     "option3": null,
+     "sku": "GV0",
+     "requires_shipping": true,
+     "taxable": true,
+     "featured_image": null,
+     "available": true,
+     "price": "10000",
+     "grams": 0,
+     "compare_at_price": null,
+     "position": 1,
+     "product_id": 6868927971401,
+     "created_at": "2022-10-28T15:02:46+09:00",
+     "updated_at": "2026-09-15T09:29:55+09:00"
+    }
+   ],
+   "images": [
+    {
+     "id": 79647617220681,
+     "created_at": "2026-01-14T17:02:20+09:00",
+     "position": 1,
+     "updated_at": "2026-01-14T17:02:22+09:00",
+     "product_id": 6868927971401,
+     "variant_ids": [],
+     "src": "https://cdn.shopify.com/s/files/1/0580/5273/9145/files/LXGV0.jpg?v=1768377742",
+     "width": 3667,
+     "height": 3667
+    }
+   ],
+   "options": [
+    {
+     "name": "Title",
+     "position": 1,
+     "values": [
+      "Default Title"
+     ]
+    }
+   ]
+  },
+  {
+   "id": 6868927938633,
+   "title": "Purple",
+   "handle": "gh5",
+   "body_html": "",
+   "published_at": "2022-10-27T18:42:56+09:00",
+   "created_at": "2022-10-27T18:42:57+09:00",
+   "updated_at": "2026-09-15T09:29:55+09:00",
+   "vendor": "LX_3942",
+   "product_type": "",
+   "tags": [],
+   "variants": [
+    {
+     "id": 40357771968585,
+     "title": "Default Title",
+     "option1": "Default Title",
+     "option2": null,
+     "option3": null,
+     "sku": "GH5",
+     "requires_shipping": true,
+     "taxable": true,
+     "featured_image": null,
+     "available": true,
+     "price": "10000",
+     "grams": 0,
+     "compare_at_price": null,
+     "position": 1,
+     "product_id": 6868927938633,
+     "created_at": "2022-10-28T15:02:44+09:00",
+     "updated_at": "2026-09-15T09:29:55+09:00"
+    }
+   ],
+   "images": [
+    {
+     "id": 79545275547721,
+     "created_at": "2026-01-06T10:13:43+09:00",
+     "position": 1,
+     "updated_at": "2026-01-06T10:13:45+09:00",
+     "product_id": 6868927938633,
+     "variant_ids": [],
+     "src": "https://cdn.shopify.com/s/files/1/0580/5273/9145/files/LXGH52.jpg?v=1767662025",
+     "width": 3667,
+     "height": 3667
+    }
+   ],
+   "options": [
+    {
+     "name": "Title",
+     "position": 1,
+     "values": [
+      "Default Title"
+     ]
+    }
+   ]
+  },
+  {
+   "id": 6868927873097,
+   "title": "Black Olive",
+   "handle": "gh0",
+   "body_html": "",
+   "published_at": "2022-10-27T18:42:55+09:00",
+   "created_at": "2022-10-27T18:42:56+09:00",
+   "updated_at": "2026-09-15T09:29:55+09:00",
+   "vendor": "LX_3942",
+   "product_type": "",
+   "tags": [],
+   "variants": [
+    {
+     "id": 40357771935817,
+     "title": "Default Title",
+     "option1": "Default Title",
+     "option2": null,
+     "option3": null,
+     "sku": "GH0",
+     "requires_shipping": true,
+     "taxable": true,
+     "featured_image": null,
+     "available": true,
+     "price": "10000",
+     "grams": 0,
+     "compare_at_price": null,
+     "position": 1,
+     "product_id": 6868927873097,
+     "created_at": "2022-10-28T15:02:43+09:00",
+     "updated_at": "2026-09-15T09:29:55+09:00"
+    }
+   ],
+   "images": [
+    {
+     "id": 75410045403209,
+     "created_at": "2025-04-14T15:52:23+09:00",
+     "position": 1,
+     "updated_at": "2025-04-14T15:52:24+09:00",
+     "product_id": 6868927873097,
+     "variant_ids": [],
+     "src": "https://cdn.shopify.com/s/files/1/0580/5273/9145/files/ul_0027_LX_GH0.jpg?v=1744613544",
+     "width": 1519,
+     "height": 1519
+    }
+   ],
+   "options": [
+    {
+     "name": "Title",
+     "position": 1,
+     "values": [
+      "Default Title"
+     ]
+    }
+   ]
+  },
+  {
+   "id": 6868927807561,
+   "title": "Red",
+   "handle": "gf2",
+   "body_html": "",
+   "published_at": "2022-10-27T18:42:53+09:00",
+   "created_at": "2022-10-27T18:42:54+09:00",
+   "updated_at": "2026-09-15T09:29:55+09:00",
+   "vendor": "LX_3942",
+   "product_type": "",
+   "tags": [],
+   "variants": [
+    {
+     "id": 40357771903049,
+     "title": "Default Title",
+     "option1": "Default Title",
+     "option2": null,
+     "option3": null,
+     "sku": "GF2",
+     "requires_shipping": true,
+     "taxable": true,
+     "featured_image": null,
+     "available": true,
+     "price": "10000",
+     "grams": 0,
+     "compare_at_price": null,
+     "position": 1,
+     "product_id": 6868927807561,
+     "created_at": "2022-10-28T15:02:41+09:00",
+     "updated_at": "2026-09-15T09:29:55+09:00"
+    }
+   ],
+   "images": [
+    {
+     "id": 79545277317193,
+     "created_at": "2026-01-06T10:15:52+09:00",
+     "position": 1,
+     "updated_at": "2026-01-06T10:15:54+09:00",
+     "product_id": 6868927807561,
+     "variant_ids": [],
+     "src": "https://cdn.shopify.com/s/files/1/0580/5273/9145/files/LXGF23.jpg?v=1767662154",
+     "width": 3667,
+     "height": 3667
+    }
+   ],
+   "options": [
+    {
+     "name": "Title",
+     "position": 1,
+     "values": [
+      "Default Title"
+     ]
+    }
+   ]
+  },
+  {
+   "id": 6868927774793,
+   "title": "Brownstone",
+   "handle": "gd8",
+   "body_html": "",
+   "published_at": "2022-10-27T18:42:52+09:00",
+   "created_at": "2022-10-27T18:42:53+09:00",
+   "updated_at": "2026-09-15T09:29:55+09:00",
+   "vendor": "LX_3942",
+   "product_type": "",
+   "tags": [],
+   "variants": [
+    {
+     "id": 40357771837513,
+     "title": "Default Title",
+     "option1": "Default Title",
+     "option2": null,
+     "option3": null,
+     "sku": "GD8",
+     "requires_shipping": true,
+     "taxable": true,
+     "featured_image": null,
+     "available": true,
+     "price": "10000",
+     "grams": 0,
+     "compare_at_price": null,
+     "position": 1,
+     "product_id": 6868927774793,
+     "created_at": "2022-10-28T15:02:40+09:00",
+     "updated_at": "2026-09-15T09:29:55+09:00"
+    }
+   ],
+   "images": [
+    {
+     "id": 79647677186121,
+     "created_at": "2026-01-14T17:39:56+09:00",
+     "position": 1,
+     "updated_at": "2026-01-14T17:39:57+09:00",
+     "product_id": 6868927774793,
+     "variant_ids": [],
+     "src": "https://cdn.shopify.com/s/files/1/0580/5273/9145/files/LX_GD8_Brownstone.jpg?v=1768379997",
+     "width": 3667,
+     "height": 3667
+    }
+   ],
+   "options": [
+    {
+     "name": "Title",
+     "position": 1,
+     "values": [
+      "Default Title"
+     ]
+    }
+   ]
+  },
+  {
+   "id": 6868927742025,
+   "title": "Asphalt",
+   "handle": "gc1",
+   "body_html": "",
+   "published_at": "2022-10-27T18:42:50+09:00",
+   "created_at": "2022-10-27T18:42:51+09:00",
+   "updated_at": "2026-09-15T09:29:55+09:00",
+   "vendor": "LX_3942",
+   "product_type": "",
+   "tags": [],
+   "variants": [
+    {
+     "id": 40357771771977,
+     "title": "Default Title",
+     "option1": "Default Title",
+     "option2": null,
+     "option3": null,
+     "sku": "GC1",
+     "requires_shipping": true,
+     "taxable": true,
+     "featured_image": null,
+     "available": true,
+     "price": "10000",
+     "grams": 0,
+     "compare_at_price": null,
+     "position": 1,
+     "product_id": 6868927742025,
+     "created_at": "2022-10-28T15:02:38+09:00",
+     "updated_at": "2026-09-15T09:29:55+09:00"
+    }
+   ],
+   "images": [
+    {
+     "id": 79381595291721,
+     "created_at": "2025-12-24T16:28:11+09:00",
+     "position": 1,
+     "updated_at": "2025-12-24T16:28:13+09:00",
+     "product_id": 6868927742025,
+     "variant_ids": [],
+     "src": "https://cdn.shopify.com/s/files/1/0580/5273/9145/files/LXGC1.jpg?v=1766561293",
+     "width": 3667,
+     "height": 3667
+    }
+   ],
+   "options": [
+    {
+     "name": "Title",
+     "position": 1,
+     "values": [
+      "Default Title"
+     ]
+    }
+   ]
+  },
+  {
+   "id": 6868927643721,
+   "title": "Navy",
+   "handle": "gb7",
+   "body_html": "",
+   "published_at": "2022-10-27T18:42:49+09:00",
+   "created_at": "2022-10-27T18:42:49+09:00",
+   "updated_at": "2026-09-15T09:29:55+09:00",
+   "vendor": "LX_3942",
+   "product_type": "",
+   "tags": [],
+   "variants": [
+    {
+     "id": 40357771640905,
+     "title": "Default Title",
+     "option1": "Default Title",
+     "option2": null,
+     "option3": null,
+     "sku": "GB7",
+     "requires_shipping": true,
+     "taxable": true,
+     "featured_image": null,
+     "available": true,
+     "price": "10000",
+     "grams": 0,
+     "compare_at_price": null,
+     "position": 1,
+     "product_id": 6868927643721,
+     "created_at": "2022-10-28T15:02:37+09:00",
+     "updated_at": "2026-09-15T09:29:55+09:00"
+    }
+   ],
+   "images": [
+    {
+     "id": 79381626257481,
+     "created_at": "2025-12-24T16:32:23+09:00",
+     "position": 1,
+     "updated_at": "2025-12-24T16:32:25+09:00",
+     "product_id": 6868927643721,
+     "variant_ids": [],
+     "src": "https://cdn.shopify.com/s/files/1/0580/5273/9145/files/LXGB7.jpg?v=1766561545",
+     "width": 3667,
+     "height": 3667
+    }
+   ],
+   "options": [
+    {
+     "name": "Title",
+     "position": 1,
+     "values": [
+      "Default Title"
+     ]
+    }
+   ]
+  },
+  {
+   "id": 6868927545417,
+   "title": "Black",
+   "handle": "gb2",
+   "body_html": "",
+   "published_at": "2022-10-27T18:42:47+09:00",
+   "created_at": "2022-10-27T18:42:48+09:00",
+   "updated_at": "2026-09-15T09:29:55+09:00",
+   "vendor": "LX_3942",
+   "product_type": "",
+   "tags": [],
+   "variants": [
+    {
+     "id": 40357771542601,
+     "title": "Default Title",
+     "option1": "Default Title",
+     "option2": null,
+     "option3": null,
+     "sku": "GB2",
+     "requires_shipping": true,
+     "taxable": true,
+     "featured_image": null,
+     "available": true,
+     "price": "10000",
+     "grams": 0,
+     "compare_at_price": null,
+     "position": 1,
+     "product_id": 6868927545417,
+     "created_at": "2022-10-28T15:02:35+09:00",
+     "updated_at": "2026-09-15T09:29:55+09:00"
+    }
+   ],
+   "images": [
+    {
+     "id": 75410047828041,
+     "created_at": "2025-04-14T15:55:01+09:00",
+     "position": 1,
+     "updated_at": "2025-04-14T15:55:02+09:00",
+     "product_id": 6868927545417,
+     "variant_ids": [],
+     "src": "https://cdn.shopify.com/s/files/1/0580/5273/9145/files/ul_0028_LX_GB2.jpg?v=1744613702",
+     "width": 1519,
+     "height": 1519
+    }
+   ],
+   "options": [
+    {
+     "name": "Title",
+     "position": 1,
+     "values": [
+      "Default Title"
+     ]
+    }
+   ]
+  },
+  {
+   "id": 6868927512649,
+   "title": "Coffee",
+   "handle": "ga3",
+   "body_html": "",
+   "published_at": "2022-10-27T18:42:46+09:00",
+   "created_at": "2022-10-27T18:42:47+09:00",
+   "updated_at": "2026-09-15T09:29:55+09:00",
+   "vendor": "LX_3942",
+   "product_type": "",
+   "tags": [],
+   "variants": [
+    {
+     "id": 40357771509833,
+     "title": "Default Title",
+     "option1": "Default Title",
+     "option2": null,
+     "option3": null,
+     "sku": "GA3",
+     "requires_shipping": true,
+     "taxable": true,
+     "featured_image": null,
+     "available": true,
+     "price": "10000",
+     "grams": 0,
+     "compare_at_price": null,
+     "position": 1,
+     "product_id": 6868927512649,
+     "created_at": "2022-10-28T15:02:34+09:00",
+     "updated_at": "2026-09-15T09:29:55+09:00"
+    }
+   ],
+   "images": [
+    {
+     "id": 79545280364617,
+     "created_at": "2026-01-06T10:19:38+09:00",
+     "position": 1,
+     "updated_at": "2026-01-06T10:19:40+09:00",
+     "product_id": 6868927512649,
+     "variant_ids": [],
+     "src": "https://cdn.shopify.com/s/files/1/0580/5273/9145/files/LXGA3.jpg?v=1767662380",
+     "width": 3667,
+     "height": 3667
+    }
+   ],
+   "options": [
+    {
+     "name": "Title",
+     "position": 1,
+     "values": [
+      "Default Title"
+     ]
+    }
+   ]
+  },
+  {
+   "id": 6868927217737,
+   "title": "Turquoise",
+   "handle": "fc5",
+   "body_html": "",
+   "published_at": "2022-10-27T18:42:38+09:00",
+   "created_at": "2022-10-27T18:42:39+09:00",
+   "updated_at": "2026-09-15T09:29:55+09:00",
+   "vendor": "LX_3942",
+   "product_type": "",
+   "tags": [],
+   "variants": [
+    {
+     "id": 40355926573129,
+     "title": "Default Title",
+     "option1": "Default Title",
+     "option2": null,
+     "option3": null,
+     "sku": "CT5",
+     "requires_shipping": true,
+     "taxable": true,
+     "featured_image": null,
+     "available": true,
+     "price": "10000",
+     "grams": 0,
+     "compare_at_price": null,
+     "position": 1,
+     "product_id": 6868927217737,
+     "created_at": "2022-10-27T18:42:39+09:00",
+     "updated_at": "2026-09-15T09:29:55+09:00"
+    }
+   ],
+   "images": [
+    {
+     "id": 75410041208905,
+     "created_at": "2025-04-14T15:48:12+09:00",
+     "position": 1,
+     "updated_at": "2025-04-14T15:48:14+09:00",
+     "product_id": 6868927217737,
+     "variant_ids": [],
+     "src": "https://cdn.shopify.com/s/files/1/0580/5273/9145/files/ul_0024_LX_CT5.jpg?v=1744613294",
+     "width": 1519,
+     "height": 1519
+    }
+   ],
+   "options": [
+    {
+     "name": "Title",
+     "position": 1,
+     "values": [
+      "Default Title"
+     ]
+    }
+   ]
+  },
+  {
+   "id": 6868927119433,
+   "title": "White",
+   "handle": "cd8",
+   "body_html": "",
+   "published_at": "2022-10-27T18:42:37+09:00",
+   "created_at": "2022-10-27T18:42:38+09:00",
+   "updated_at": "2026-09-15T09:29:55+09:00",
+   "vendor": "LX_3942",
+   "product_type": "",
+   "tags": [],
+   "variants": [
+    {
+     "id": 40357771345993,
+     "title": "Default Title",
+     "option1": "Default Title",
+     "option2": null,
+     "option3": null,
+     "sku": "CD8",
+     "requires_shipping": true,
+     "taxable": true,
+     "featured_image": null,
+     "available": true,
+     "price": "10000",
+     "grams": 0,
+     "compare_at_price": null,
+     "position": 1,
+     "product_id": 6868927119433,
+     "created_at": "2022-10-28T15:02:33+09:00",
+     "updated_at": "2026-09-15T09:29:55+09:00"
+    }
+   ],
+   "images": [
+    {
+     "id": 75410048843849,
+     "created_at": "2025-04-14T15:56:35+09:00",
+     "position": 1,
+     "updated_at": "2025-04-14T15:56:36+09:00",
+     "product_id": 6868927119433,
+     "variant_ids": [],
+     "src": "https://cdn.shopify.com/s/files/1/0580/5273/9145/files/ul_0029_LX_CD8.jpg?v=1744613796",
+     "width": 1519,
+     "height": 1519
+    }
+   ],
+   "options": [
+    {
+     "name": "Title",
+     "position": 1,
+     "values": [
+      "Default Title"
+     ]
+    }
+   ]
+  },
+  {
+   "id": 6868927021129,
+   "title": "Citron",
+   "handle": "cc9",
+   "body_html": "",
+   "published_at": "2022-10-27T18:42:35+09:00",
+   "created_at": "2022-10-27T18:42:36+09:00",
+   "updated_at": "2026-09-15T09:29:55+09:00",
+   "vendor": "LX_3942",
+   "product_type": "",
+   "tags": [],
+   "variants": [
+    {
+     "id": 40357771313225,
+     "title": "Default Title",
+     "option1": "Default Title",
+     "option2": null,
+     "option3": null,
+     "sku": "CC9",
+     "requires_shipping": true,
+     "taxable": true,
+     "featured_image": null,
+     "available": true,
+     "price": "10000",
+     "grams": 0,
+     "compare_at_price": null,
+     "position": 1,
+     "product_id": 6868927021129,
+     "created_at": "2022-10-28T15:02:32+09:00",
+     "updated_at": "2026-09-15T09:29:55+09:00"
+    }
+   ],
+   "images": [
+    {
+     "id": 79647694192713,
+     "created_at": "2026-01-14T17:47:39+09:00",
+     "position": 1,
+     "updated_at": "2026-01-14T17:47:41+09:00",
+     "product_id": 6868927021129,
+     "variant_ids": [],
+     "src": "https://cdn.shopify.com/s/files/1/0580/5273/9145/files/LXCC9_aecaab57-f9b8-48bc-8234-57307332bbd4.jpg?v=1768380461",
+     "width": 3667,
+     "height": 3667
+    }
+   ],
+   "options": [
+    {
+     "name": "Title",
+     "position": 1,
+     "values": [
+      "Default Title"
+     ]
+    }
+   ]
+  },
+  {
+   "id": 6868926890057,
+   "title": "Sky",
+   "handle": "cc6",
+   "body_html": "",
+   "published_at": "2022-10-27T18:42:32+09:00",
+   "created_at": "2022-10-27T18:42:33+09:00",
+   "updated_at": "2026-09-15T09:29:55+09:00",
+   "vendor": "LX_3942",
+   "product_type": "",
+   "tags": [],
+   "variants": [
+    {
+     "id": 40357771280457,
+     "title": "Default Title",
+     "option1": "Default Title",
+     "option2": null,
+     "option3": null,
+     "sku": "CC6",
+     "requires_shipping": true,
+     "taxable": true,
+     "featured_image": null,
+     "available": true,
+     "price": "10000",
+     "grams": 0,
+     "compare_at_price": null,
+     "position": 1,
+     "product_id": 6868926890057,
+     "created_at": "2022-10-28T15:02:30+09:00",
+     "updated_at": "2026-09-15T09:29:55+09:00"
+    }
+   ],
+   "images": [
+    {
+     "id": 79545273450569,
+     "created_at": "2026-01-06T10:11:07+09:00",
+     "position": 1,
+     "updated_at": "2026-01-06T10:11:09+09:00",
+     "product_id": 6868926890057,
+     "variant_ids": [],
+     "src": "https://cdn.shopify.com/s/files/1/0580/5273/9145/files/LXCC61.jpg?v=1767661869",
+     "width": 3667,
+     "height": 3667
+    }
+   ],
+   "options": [
+    {
+     "name": "Title",
+     "position": 1,
+     "values": [
+      "Default Title"
+     ]
+    }
+   ]
+  },
+  {
+   "id": 6868926824521,
+   "title": "Sable",
+   "handle": "cb9",
+   "body_html": "",
+   "published_at": "2022-10-27T18:42:31+09:00",
+   "created_at": "2022-10-27T18:42:32+09:00",
+   "updated_at": "2026-09-15T09:29:55+09:00",
+   "vendor": "LX_3942",
+   "product_type": "",
+   "tags": [],
+   "variants": [
+    {
+     "id": 40357771182153,
+     "title": "Default Title",
+     "option1": "Default Title",
+     "option2": null,
+     "option3": null,
+     "sku": "CB9",
+     "requires_shipping": true,
+     "taxable": true,
+     "featured_image": null,
+     "available": true,
+     "price": "10000",
+     "grams": 0,
+     "compare_at_price": null,
+     "position": 1,
+     "product_id": 6868926824521,
+     "created_at": "2022-10-28T15:02:28+09:00",
+     "updated_at": "2026-09-15T09:29:55+09:00"
+    }
+   ],
+   "images": [
+    {
+     "id": 79381609513033,
+     "created_at": "2025-12-24T16:29:52+09:00",
+     "position": 1,
+     "updated_at": "2025-12-24T16:29:53+09:00",
+     "product_id": 6868926824521,
+     "variant_ids": [],
+     "src": "https://cdn.shopify.com/s/files/1/0580/5273/9145/files/LXCB9.jpg?v=1766561393",
+     "width": 3667,
+     "height": 3667
+    }
+   ],
+   "options": [
+    {
+     "name": "Title",
+     "position": 1,
+     "values": [
+      "Default Title"
+     ]
+    }
+   ]
+  },
+  {
+   "id": 6868926758985,
+   "title": "Camel",
+   "handle": "cb8",
+   "body_html": "",
+   "published_at": "2022-10-27T18:42:29+09:00",
+   "created_at": "2022-10-27T18:42:30+09:00",
+   "updated_at": "2026-09-15T09:29:55+09:00",
+   "vendor": "LX_3942",
+   "product_type": "",
+   "tags": [],
+   "variants": [
+    {
+     "id": 40357771116617,
+     "title": "Default Title",
+     "option1": "Default Title",
+     "option2": null,
+     "option3": null,
+     "sku": "CB8",
+     "requires_shipping": true,
+     "taxable": true,
+     "featured_image": null,
+     "available": true,
+     "price": "10000",
+     "grams": 0,
+     "compare_at_price": null,
+     "position": 1,
+     "product_id": 6868926758985,
+     "created_at": "2022-10-28T15:02:27+09:00",
+     "updated_at": "2026-09-15T09:29:55+09:00"
+    }
+   ],
+   "images": [
+    {
+     "id": 79647675711561,
+     "created_at": "2026-01-14T17:33:12+09:00",
+     "position": 1,
+     "updated_at": "2026-01-14T17:33:14+09:00",
+     "product_id": 6868926758985,
+     "variant_ids": [],
+     "src": "https://cdn.shopify.com/s/files/1/0580/5273/9145/files/LXCB8_349ed28f-8ea2-4164-b1f2-9ae908a01a98.jpg?v=1768379594",
+     "width": 3667,
+     "height": 3667
+    }
+   ],
+   "options": [
+    {
+     "name": "Title",
+     "position": 1,
+     "values": [
+      "Default Title"
+     ]
+    }
+   ]
+  },
+  {
+   "id": 6868926660681,
+   "title": "Sand",
+   "handle": "cb1",
+   "body_html": "",
+   "published_at": "2022-10-27T18:42:28+09:00",
+   "created_at": "2022-10-27T18:42:29+09:00",
+   "updated_at": "2026-09-15T09:29:55+09:00",
+   "vendor": "LX_3942",
+   "product_type": "",
+   "tags": [],
+   "variants": [
+    {
+     "id": 40357771051081,
+     "title": "Default Title",
+     "option1": "Default Title",
+     "option2": null,
+     "option3": null,
+     "sku": "CB1",
+     "requires_shipping": true,
+     "taxable": true,
+     "featured_image": null,
+     "available": true,
+     "price": "10000",
+     "grams": 0,
+     "compare_at_price": null,
+     "position": 1,
+     "product_id": 6868926660681,
+     "created_at": "2022-10-28T15:02:25+09:00",
+     "updated_at": "2026-09-15T09:29:55+09:00"
+    }
+   ],
+   "images": [
+    {
+     "id": 79381616820297,
+     "created_at": "2025-12-24T16:31:15+09:00",
+     "position": 1,
+     "updated_at": "2025-12-24T16:31:18+09:00",
+     "product_id": 6868926660681,
+     "variant_ids": [],
+     "src": "https://cdn.shopify.com/s/files/1/0580/5273/9145/files/LXCB1.jpg?v=1766561478",
+     "width": 3667,
+     "height": 3667
+    }
+   ],
+   "options": [
+    {
+     "name": "Title",
+     "position": 1,
+     "values": [
+      "Default Title"
+     ]
+    }
+   ]
+  },
+  {
+   "id": 6868926529609,
+   "title": "Ivory",
+   "handle": "ca5",
+   "body_html": "",
+   "published_at": "2022-10-27T18:42:26+09:00",
+   "created_at": "2022-10-27T18:42:27+09:00",
+   "updated_at": "2026-09-15T09:29:55+09:00",
+   "vendor": "LX_3942",
+   "product_type": "",
+   "tags": [],
+   "variants": [
+    {
+     "id": 40357771018313,
+     "title": "Default Title",
+     "option1": "Default Title",
+     "option2": null,
+     "option3": null,
+     "sku": "CA5",
+     "requires_shipping": true,
+     "taxable": true,
+     "featured_image": null,
+     "available": true,
+     "price": "10000",
+     "grams": 0,
+     "compare_at_price": null,
+     "position": 1,
+     "product_id": 6868926529609,
+     "created_at": "2022-10-28T15:02:24+09:00",
+     "updated_at": "2026-09-15T09:29:55+09:00"
+    }
+   ],
+   "images": [
+    {
+     "id": 79647647137865,
+     "created_at": "2026-01-14T17:20:08+09:00",
+     "position": 1,
+     "updated_at": "2026-01-14T17:20:10+09:00",
+     "product_id": 6868926529609,
+     "variant_ids": [],
+     "src": "https://cdn.shopify.com/s/files/1/0580/5273/9145/files/LXCA5.jpg?v=1768378810",
+     "width": 3667,
+     "height": 3667
+    }
+   ],
+   "options": [
+    {
+     "name": "Title",
+     "position": 1,
+     "values": [
+      "Default Title"
+     ]
+    }
+   ]
+  },
+  {
+   "id": 6868926464073,
+   "title": "Beige",
+   "handle": "ca0",
+   "body_html": "",
+   "published_at": "2022-10-27T18:42:25+09:00",
+   "created_at": "2022-10-27T18:42:25+09:00",
+   "updated_at": "2026-09-15T09:29:55+09:00",
+   "vendor": "LX_3942",
+   "product_type": "",
+   "tags": [],
+   "variants": [
+    {
+     "id": 40357770920009,
+     "title": "Default Title",
+     "option1": "Default Title",
+     "option2": null,
+     "option3": null,
+     "sku": "CA0",
+     "requires_shipping": true,
+     "taxable": true,
+     "featured_image": null,
+     "available": true,
+     "price": "10000",
+     "grams": 0,
+     "compare_at_price": null,
+     "position": 1,
+     "product_id": 6868926464073,
+     "created_at": "2022-10-28T15:02:23+09:00",
+     "updated_at": "2026-09-15T09:29:55+09:00"
+    }
+   ],
+   "images": [
+    {
+     "id": 79647671386185,
+     "created_at": "2026-01-14T17:28:36+09:00",
+     "position": 1,
+     "updated_at": "2026-01-14T17:28:39+09:00",
+     "product_id": 6868926464073,
+     "variant_ids": [],
+     "src": "https://cdn.shopify.com/s/files/1/0580/5273/9145/files/LXCA0_6c33d1aa-d843-4599-9438-9fc2664256ad.jpg?v=1768379319",
+     "width": 3667,
+     "height": 3667
+    }
+   ],
+   "options": [
+    {
+     "name": "Title",
+     "position": 1,
+     "values": [
+      "Default Title"
+     ]
+    }
+   ]
+  }
+ ]
+}

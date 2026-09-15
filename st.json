@@ -1,0 +1,1301 @@
+{
+ "meta": {
+  "product": "Ultrasuede® ST",
+  "also_known_as": [
+   "Ultrasuede® Soft"
+  ],
+  "manufacturer": "Toray",
+  "status": "current",
+  "color_count": 36,
+  "style_numbers": [
+   {
+    "number": "8023",
+    "era": "current",
+    "note": "from the swatch number on every ST listing"
+   }
+  ],
+  "compiled": "2026-09-14",
+  "about": "Read from Toray’s own swatch site, swatches.ultrasuede.us — the same site LT was reconstructed from, which now lists only ST and HP. ST is still current, so this is the live page rather than the archive.",
+  "rebuild": "python3 scraping/build_st.py --fetch && python3 scraping/build_st.py",
+  "color_note": "hex/rgb are sampled from Toray’s swatch photographs, not official Toray colour values, and are approximate. Each is the median of a centre crop — the same measurement used for LT and LX, so the three are comparable. Enlarged views are 418px, the same size as LT’s large captures, and the frames are edge-to-edge fabric with no watermark, so the plain centre crop applies rather than the corner-patch variant.",
+  "nap_note": "Every colour carries a `nap` block measured the same way as LT’s and meaning the same thing. At 418px all 36 clear the 300px minimum, so contrast is measured throughout and none falls back to the curve fitted on LT.",
+  "coverage_note": "This is what the swatch site currently lists. Earlier ST ranges were wider — Field’s catalogues from 2003–2010 print ST colours under 45\" numbers that were later restyled to 58\" ones — and none of that history is here; see research/FINDINGS.md for what is known of it.",
+  "specifications": {
+   "composition": "75% polyester ultra-microfiber non-woven (30% plant-based) with 25% non-fibrous polyurethane binder",
+   "width": "58\" / 1,480mm",
+   "weight": "approx. 6.8 oz per sq. yard / 230g per sq. meter",
+   "thickness": "0.7mm",
+   "style_number": "8023",
+   "source": "https://www.ultrasuede.us/products/st.html",
+   "note": "From Toray’s own product page; the swatch listing publishes no specification text. Style number agrees with the 8023- prefix on every current swatch number."
+  }
+ },
+ "sources": [
+  {
+   "id": "swatches-st",
+   "url": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "note": "live Toray swatch site; snapshotted in scraping/st_page.html"
+  }
+ ],
+ "colors": [
+  {
+   "name": "Scoundrel",
+   "slug": "scoundrel",
+   "sku": "8023-1467",
+   "code": "1467",
+   "hex": "#b4192c",
+   "rgb": [
+    180,
+    25,
+    44
+   ],
+   "nap": {
+    "axis": [
+     0.8321,
+     1.0784,
+     0.7178
+    ],
+    "contrast": 2.9,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-1467.jpg",
+   "image_large": "images/large/8023-1467.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-1467",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ],
+   "former_skus": [
+    "2223-1375"
+   ]
+  },
+  {
+   "name": "Bordeaux",
+   "slug": "bordeaux",
+   "sku": "8023-1468",
+   "code": "1468",
+   "hex": "#471a20",
+   "rgb": [
+    71,
+    26,
+    32
+   ],
+   "nap": {
+    "axis": [
+     1.2939,
+     0.9295,
+     0.8325
+    ],
+    "contrast": 1.84,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-1468.jpg",
+   "image_large": "images/large/8023-1468.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-1468",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ],
+   "former_skus": [
+    "2223-1376"
+   ]
+  },
+  {
+   "name": "Jazz Blue",
+   "slug": "jazz-blue",
+   "sku": "8023-2904",
+   "code": "2904",
+   "hex": "#124275",
+   "rgb": [
+    18,
+    66,
+    117
+   ],
+   "nap": {
+    "axis": [
+     0.5777,
+     1.1172,
+     1.0823
+    ],
+    "contrast": 2.32,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-2904.jpg",
+   "image_large": "images/large/8023-2904.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-2904",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ],
+   "former_skus": [
+    "2223-2699"
+   ]
+  },
+  {
+   "name": "Classic Navy",
+   "slug": "classic-navy",
+   "sku": "8023-2905",
+   "code": "2905",
+   "hex": "#17192d",
+   "rgb": [
+    23,
+    25,
+    45
+   ],
+   "nap": {
+    "axis": [
+     0.9379,
+     0.9912,
+     1.2699
+    ],
+    "contrast": 1.62,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-2905.jpg",
+   "image_large": "images/large/8023-2905.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-2905",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ],
+   "former_skus": [
+    "2223-0258"
+   ]
+  },
+  {
+   "name": "Admiral",
+   "slug": "admiral",
+   "sku": "8023-2906",
+   "code": "2906",
+   "hex": "#1a253e",
+   "rgb": [
+    26,
+    37,
+    62
+   ],
+   "nap": {
+    "axis": [
+     0.8916,
+     0.9936,
+     1.383
+    ],
+    "contrast": 1.73,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-2906.jpg",
+   "image_large": "images/large/8023-2906.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-2906",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ],
+   "former_skus": [
+    "2223-2037"
+   ]
+  },
+  {
+   "name": "Montauk",
+   "slug": "montauk",
+   "sku": "8023-2907",
+   "code": "2907",
+   "hex": "#7a8e8c",
+   "rgb": [
+    122,
+    142,
+    140
+   ],
+   "nap": {
+    "axis": [
+     0.9631,
+     1.0093,
+     1.0164
+    ],
+    "contrast": 2.23,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-2907.jpg",
+   "image_large": "images/large/8023-2907.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-2907",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ],
+   "former_skus": [
+    "2223-7348"
+   ]
+  },
+  {
+   "name": "Sky Blue",
+   "slug": "sky-blue",
+   "sku": "8023-2908",
+   "code": "2908",
+   "hex": "#318a92",
+   "rgb": [
+    49,
+    138,
+    146
+   ],
+   "nap": {
+    "axis": [
+     0.9194,
+     1.0324,
+     0.9165
+    ],
+    "contrast": 3.55,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-2908.jpg",
+   "image_large": "images/large/8023-2908.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-2908",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ]
+  },
+  {
+   "name": "Sand",
+   "slug": "sand",
+   "sku": "8023-3570",
+   "code": "3570",
+   "hex": "#ceb592",
+   "rgb": [
+    206,
+    181,
+    146
+   ],
+   "nap": {
+    "axis": [
+     0.6922,
+     1.0444,
+     1.4668
+    ],
+    "contrast": 2.87,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-3570.jpg",
+   "image_large": "images/large/8023-3570.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-3570",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ],
+   "former_skus": [
+    "2223-0388"
+   ]
+  },
+  {
+   "name": "Camel",
+   "slug": "camel",
+   "sku": "8023-3571",
+   "code": "3571",
+   "hex": "#9b7b5c",
+   "rgb": [
+    155,
+    123,
+    92
+   ],
+   "nap": {
+    "axis": [
+     0.7995,
+     1.0479,
+     1.1153
+    ],
+    "contrast": 3.77,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-3571.jpg",
+   "image_large": "images/large/8023-3571.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-3571",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ],
+   "former_skus": [
+    "2223-0351"
+   ]
+  },
+  {
+   "name": "Coffee Bean",
+   "slug": "coffee-bean",
+   "sku": "8023-3572",
+   "code": "3572",
+   "hex": "#3c261a",
+   "rgb": [
+    60,
+    38,
+    26
+   ],
+   "nap": {
+    "axis": [
+     1.1881,
+     0.9618,
+     0.8243
+    ],
+    "contrast": 2.56,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-3572.jpg",
+   "image_large": "images/large/8023-3572.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-3572",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ],
+   "former_skus": [
+    "2223-0317"
+   ]
+  },
+  {
+   "name": "Aztec Leather",
+   "slug": "aztec-leather",
+   "sku": "8023-3573",
+   "code": "3573",
+   "hex": "#8d5f2f",
+   "rgb": [
+    141,
+    95,
+    47
+   ],
+   "nap": {
+    "axis": [
+     0.9615,
+     1.0188,
+     0.9271
+    ],
+    "contrast": 2.78,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-3573.jpg",
+   "image_large": "images/large/8023-3573.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-3573",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ],
+   "former_skus": [
+    "2223-3636"
+   ]
+  },
+  {
+   "name": "Coffee Cream",
+   "slug": "coffee-cream",
+   "sku": "8023-3575",
+   "code": "3575",
+   "hex": "#897058",
+   "rgb": [
+    137,
+    112,
+    88
+   ],
+   "nap": {
+    "axis": [
+     0.991,
+     1.0029,
+     0.9977
+    ],
+    "contrast": 3.89,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-3575.jpg",
+   "image_large": "images/large/8023-3575.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-3575",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ],
+   "former_skus": [
+    "2223-0328"
+   ]
+  },
+  {
+   "name": "Country Cream",
+   "slug": "country-cream",
+   "sku": "8023-3576",
+   "code": "3576",
+   "hex": "#ddcdb1",
+   "rgb": [
+    221,
+    205,
+    177
+   ],
+   "nap": {
+    "axis": [
+     0.9578,
+     0.9711,
+     1.4107
+    ],
+    "contrast": 2.87,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-3576.jpg",
+   "image_large": "images/large/8023-3576.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-3576",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ],
+   "former_skus": [
+    "2223-0357"
+   ]
+  },
+  {
+   "name": "Bone",
+   "slug": "bone",
+   "sku": "8023-3577",
+   "code": "3577",
+   "hex": "#bfae96",
+   "rgb": [
+    191,
+    174,
+    150
+   ],
+   "nap": {
+    "axis": [
+     0.9243,
+     0.9835,
+     1.3865
+    ],
+    "contrast": 2.51,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-3577.jpg",
+   "image_large": "images/large/8023-3577.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-3577",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ],
+   "former_skus": [
+    "2223-0061"
+   ]
+  },
+  {
+   "name": "Brownstone",
+   "slug": "brownstone",
+   "sku": "8023-3578",
+   "code": "3578",
+   "hex": "#56311c",
+   "rgb": [
+    86,
+    49,
+    28
+   ],
+   "nap": {
+    "axis": [
+     1.2084,
+     0.9633,
+     0.7501
+    ],
+    "contrast": 2.26,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-3578.jpg",
+   "image_large": "images/large/8023-3578.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-3578",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ],
+   "former_skus": [
+    "2223-0349"
+   ]
+  },
+  {
+   "name": "Woodhue",
+   "slug": "woodhue",
+   "sku": "8023-3590",
+   "code": "3590",
+   "hex": "#624b35",
+   "rgb": [
+    98,
+    75,
+    53
+   ],
+   "nap": {
+    "axis": [
+     0.9899,
+     1.0062,
+     0.9684
+    ],
+    "contrast": 3.13,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-3590.jpg",
+   "image_large": "images/large/8023-3590.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-3590",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ],
+   "former_skus": [
+    "2223-0319"
+   ]
+  },
+  {
+   "name": "Chamois",
+   "slug": "chamois",
+   "sku": "8023-3591",
+   "code": "3591",
+   "hex": "#be9d72",
+   "rgb": [
+    190,
+    157,
+    114
+   ],
+   "nap": {
+    "axis": [
+     0.7117,
+     1.065,
+     1.2052
+    ],
+    "contrast": 3.31,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-3591.jpg",
+   "image_large": "images/large/8023-3591.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-3591",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ],
+   "former_skus": [
+    "2223-0384"
+   ]
+  },
+  {
+   "name": "Melange Beige",
+   "slug": "melange-beige",
+   "sku": "8023-3594",
+   "code": "3594",
+   "hex": "#87755f",
+   "rgb": [
+    135,
+    117,
+    95
+   ],
+   "nap": {
+    "axis": [
+     0.9902,
+     1.0001,
+     1.0282
+    ],
+    "contrast": 3.45,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-3594.jpg",
+   "image_large": "images/large/8023-3594.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-3594",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ]
+  },
+  {
+   "name": "Clove",
+   "slug": "clove",
+   "sku": "8023-3596",
+   "code": "3596",
+   "hex": "#944b22",
+   "rgb": [
+    148,
+    75,
+    34
+   ],
+   "nap": {
+    "axis": [
+     1.0151,
+     1.0274,
+     0.6844
+    ],
+    "contrast": 3.3,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-3596.jpg",
+   "image_large": "images/large/8023-3596.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-3596",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ],
+   "former_skus": [
+    "2223-3324"
+   ]
+  },
+  {
+   "name": "Egyptian Green",
+   "slug": "egyptian-green",
+   "sku": "8023-4681",
+   "code": "4681",
+   "hex": "#0b2621",
+   "rgb": [
+    11,
+    38,
+    33
+   ],
+   "nap": {
+    "axis": [
+     0.5296,
+     1.0925,
+     1.4685
+    ],
+    "contrast": 1.44,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-4681.jpg",
+   "image_large": "images/large/8023-4681.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-4681",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ],
+   "former_skus": [
+    "2223-0470"
+   ]
+  },
+  {
+   "name": "Topiary",
+   "slug": "topiary",
+   "sku": "8023-4682",
+   "code": "4682",
+   "hex": "#45513a",
+   "rgb": [
+    69,
+    81,
+    58
+   ],
+   "nap": {
+    "axis": [
+     0.9436,
+     1.0087,
+     1.0796
+    ],
+    "contrast": 3.09,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-4682.jpg",
+   "image_large": "images/large/8023-4682.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-4682",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ],
+   "former_skus": [
+    "2223-4545"
+   ]
+  },
+  {
+   "name": "Forrest",
+   "slug": "forrest",
+   "sku": "8023-4683",
+   "code": "4683",
+   "hex": "#1c1e19",
+   "rgb": [
+    28,
+    30,
+    25
+   ],
+   "nap": {
+    "axis": [
+     0.9918,
+     1.0025,
+     0.9991
+    ],
+    "contrast": 1.51,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-4683.jpg",
+   "image_large": "images/large/8023-4683.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-4683",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ]
+  },
+  {
+   "name": "Blonde",
+   "slug": "blonde",
+   "sku": "8023-5359",
+   "code": "5359",
+   "hex": "#c6a565",
+   "rgb": [
+    198,
+    165,
+    101
+   ],
+   "nap": {
+    "axis": [
+     0.7774,
+     1.0318,
+     1.3409
+    ],
+    "contrast": 2.97,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-5359.jpg",
+   "image_large": "images/large/8023-5359.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-5359",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ],
+   "former_skus": [
+    "2223-5254"
+   ]
+  },
+  {
+   "name": "Moccasin",
+   "slug": "moccasin",
+   "sku": "8023-5360",
+   "code": "5360",
+   "hex": "#a56b1e",
+   "rgb": [
+    165,
+    107,
+    30
+   ],
+   "nap": {
+    "axis": [
+     0.9424,
+     1.0738,
+     0.4381
+    ],
+    "contrast": 3.82,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-5360.jpg",
+   "image_large": "images/large/8023-5360.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-5360",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ],
+   "former_skus": [
+    "2223-5255"
+   ]
+  },
+  {
+   "name": "Lemon",
+   "slug": "lemon",
+   "sku": "8023-5361",
+   "code": "5361",
+   "hex": "#dead2d",
+   "rgb": [
+    222,
+    173,
+    45
+   ],
+   "nap": {
+    "axis": [
+     0.6268,
+     1.0569,
+     1.5354
+    ],
+    "contrast": 2.98,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-5361.jpg",
+   "image_large": "images/large/8023-5361.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-5361",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ]
+  },
+  {
+   "name": "Black Onyx",
+   "slug": "black-onyx",
+   "sku": "8023-5594",
+   "code": "5594",
+   "hex": "#161412",
+   "rgb": [
+    22,
+    20,
+    18
+   ],
+   "nap": {
+    "axis": [
+     1.0483,
+     0.9863,
+     0.9937
+    ],
+    "contrast": 1.61,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-5594.jpg",
+   "image_large": "images/large/8023-5594.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-5594",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ],
+   "former_skus": [
+    "2223-5813"
+   ]
+  },
+  {
+   "name": "Silver Pearl",
+   "slug": "silver-pearl",
+   "sku": "8023-5595",
+   "code": "5595",
+   "hex": "#8c8481",
+   "rgb": [
+    140,
+    132,
+    129
+   ],
+   "nap": {
+    "axis": [
+     0.9845,
+     1.0043,
+     1.0031
+    ],
+    "contrast": 4.33,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-5595.jpg",
+   "image_large": "images/large/8023-5595.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-5595",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ],
+   "former_skus": [
+    "2223-0068"
+   ]
+  },
+  {
+   "name": "White",
+   "slug": "white",
+   "sku": "8023-5597",
+   "code": "5597",
+   "hex": "#e0ddd6",
+   "rgb": [
+    224,
+    221,
+    214
+   ],
+   "nap": {
+    "axis": [
+     0.8357,
+     1.0392,
+     1.0955
+    ],
+    "contrast": 3.87,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-5597.jpg",
+   "image_large": "images/large/8023-5597.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-5597",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ],
+   "former_skus": [
+    "2223-0001"
+   ]
+  },
+  {
+   "name": "Arctic",
+   "slug": "arctic",
+   "sku": "8023-5598",
+   "code": "5598",
+   "hex": "#cbc7ba",
+   "rgb": [
+    203,
+    199,
+    186
+   ],
+   "nap": {
+    "axis": [
+     0.9995,
+     0.9812,
+     1.1879
+    ],
+    "contrast": 2.8,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-5598.jpg",
+   "image_large": "images/large/8023-5598.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-5598",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ],
+   "former_skus": [
+    "2223-5765"
+   ]
+  },
+  {
+   "name": "Melange Gray",
+   "slug": "melange-gray",
+   "sku": "8023-5600",
+   "code": "5600",
+   "hex": "#87817b",
+   "rgb": [
+    135,
+    129,
+    123
+   ],
+   "nap": {
+    "axis": [
+     0.9636,
+     1.0057,
+     1.0512
+    ],
+    "contrast": 5.02,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-5600.jpg",
+   "image_large": "images/large/8023-5600.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-5600",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ]
+  },
+  {
+   "name": "Executive Grey",
+   "slug": "executive-grey",
+   "sku": "8023-5601",
+   "code": "5601",
+   "hex": "#595049",
+   "rgb": [
+    89,
+    80,
+    73
+   ],
+   "nap": {
+    "axis": [
+     0.974,
+     1.0094,
+     0.9839
+    ],
+    "contrast": 4.06,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-5601.jpg",
+   "image_large": "images/large/8023-5601.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-5601",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ],
+   "former_skus": [
+    "2223-5609"
+   ]
+  },
+  {
+   "name": "Glaze",
+   "slug": "glaze",
+   "sku": "8023-6675",
+   "code": "6675",
+   "hex": "#d2ae9d",
+   "rgb": [
+    210,
+    174,
+    157
+   ],
+   "nap": {
+    "axis": [
+     0.7837,
+     1.0341,
+     1.2993
+    ],
+    "contrast": 1.97,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-6675.jpg",
+   "image_large": "images/large/8023-6675.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-6675",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ],
+   "former_skus": [
+    "2223-6582"
+   ]
+  },
+  {
+   "name": "Fushia",
+   "slug": "fushia",
+   "sku": "8023-6676",
+   "code": "6676",
+   "hex": "#a12655",
+   "rgb": [
+    161,
+    38,
+    85
+   ],
+   "nap": {
+    "axis": [
+     1.9929,
+     0.6935,
+     1.1121
+    ],
+    "contrast": 1.52,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-6676.jpg",
+   "image_large": "images/large/8023-6676.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-6676",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ],
+   "former_skus": [
+    "2223-6616"
+   ],
+   "name_variants": [
+    "Fuchsia"
+   ]
+  },
+  {
+   "name": "Tangerine",
+   "slug": "tangerine",
+   "sku": "8023-8324",
+   "code": "8324",
+   "hex": "#c85c17",
+   "rgb": [
+    200,
+    92,
+    23
+   ],
+   "nap": {
+    "axis": [
+     0.0916,
+     1.2388,
+     1.3094
+    ],
+    "contrast": 2.01,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-8324.jpg",
+   "image_large": "images/large/8023-8324.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-8324",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ]
+  },
+  {
+   "name": "Violine",
+   "slug": "violine",
+   "sku": "8023-9500",
+   "code": "9500",
+   "hex": "#43233a",
+   "rgb": [
+    67,
+    35,
+    58
+   ],
+   "nap": {
+    "axis": [
+     1.1893,
+     0.9371,
+     1.066
+    ],
+    "contrast": 1.96,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-9500.jpg",
+   "image_large": "images/large/8023-9500.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-9500",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ],
+   "former_skus": [
+    "2223-9376"
+   ]
+  },
+  {
+   "name": "Zodiac",
+   "slug": "zodiac",
+   "sku": "8023-9501",
+   "code": "9501",
+   "hex": "#36336c",
+   "rgb": [
+    54,
+    51,
+    108
+   ],
+   "nap": {
+    "axis": [
+     1.0267,
+     0.9545,
+     1.3719
+    ],
+    "contrast": 1.77,
+    "contrast_source": "measured"
+   },
+   "image": "images/8023-9501.jpg",
+   "image_large": "images/large/8023-9501.jpg",
+   "orderable": true,
+   "sample_url": "https://swatches.ultrasuede.us/sample_request/index.php?addsku=8023-9501",
+   "source": "https://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st"
+   ],
+   "former_skus": [
+    "2223-0950"
+   ]
+  }
+ ],
+ "historical_colors": [
+  {
+   "name": "Celery",
+   "slug": "celery",
+   "sku": "2223-4513",
+   "code": "4513",
+   "style": "2223",
+   "hex": null,
+   "rgb": null,
+   "nap": null,
+   "image": null,
+   "image_large": null,
+   "last_seen": "2019-05-12",
+   "evidence": [
+    "swatches.ultrasuede.us ST list, style 2223"
+   ],
+   "source": "https://web.archive.org/web/20190512050526/http://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st-2019"
+   ]
+  },
+  {
+   "name": "Ceramic",
+   "slug": "ceramic",
+   "sku": "2223-6589",
+   "code": "6589",
+   "style": "2223",
+   "hex": null,
+   "rgb": null,
+   "nap": null,
+   "image": null,
+   "image_large": null,
+   "last_seen": "2019-05-12",
+   "evidence": [
+    "swatches.ultrasuede.us ST list, style 2223"
+   ],
+   "source": "https://web.archive.org/web/20190512050526/http://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st-2019"
+   ]
+  },
+  {
+   "name": "Fern",
+   "slug": "fern",
+   "sku": "2223-4528",
+   "code": "4528",
+   "style": "2223",
+   "hex": null,
+   "rgb": null,
+   "nap": null,
+   "image": null,
+   "image_large": null,
+   "last_seen": "2019-05-12",
+   "evidence": [
+    "swatches.ultrasuede.us ST list, style 2223"
+   ],
+   "source": "https://web.archive.org/web/20190512050526/http://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st-2019"
+   ]
+  },
+  {
+   "name": "Ivy",
+   "slug": "ivy",
+   "sku": "2223-0486",
+   "code": "0486",
+   "style": "2223",
+   "hex": null,
+   "rgb": null,
+   "nap": null,
+   "image": null,
+   "image_large": null,
+   "last_seen": "2019-05-12",
+   "evidence": [
+    "swatches.ultrasuede.us ST list, style 2223"
+   ],
+   "source": "https://web.archive.org/web/20190512050526/http://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st-2019"
+   ]
+  },
+  {
+   "name": "Morning Sky",
+   "slug": "morning-sky",
+   "sku": "2223-2674",
+   "code": "2674",
+   "style": "2223",
+   "hex": null,
+   "rgb": null,
+   "nap": null,
+   "image": null,
+   "image_large": null,
+   "last_seen": "2019-05-12",
+   "evidence": [
+    "swatches.ultrasuede.us ST list, style 2223"
+   ],
+   "source": "https://web.archive.org/web/20190512050526/http://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st-2019"
+   ]
+  },
+  {
+   "name": "Petroleum",
+   "slug": "petroleum",
+   "sku": "2223-2695",
+   "code": "2695",
+   "style": "2223",
+   "hex": null,
+   "rgb": null,
+   "nap": null,
+   "image": null,
+   "image_large": null,
+   "last_seen": "2019-05-12",
+   "evidence": [
+    "swatches.ultrasuede.us ST list, style 2223"
+   ],
+   "source": "https://web.archive.org/web/20190512050526/http://swatches.ultrasuede.us/swatches/search_result.php?product=ST",
+   "sources": [
+    "swatches-st-2019"
+   ]
+  }
+ ]
+}
