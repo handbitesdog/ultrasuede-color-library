@@ -1,5 +1,5 @@
 /*
- * Ultrasuede Color Library — demo page styles.
+ * Footbag Fabric Library — demo page styles.
  *
  * Everything lisa.css already covers is left to it; this file only adds the
  * two things it has no component for: the swatch tile and the split layout
@@ -16,6 +16,17 @@
 .nav-title {
     color: var(--lisa-nav-footer-link-color);
     font-weight: var(--lisa-font-weight-normal, normal);
+}
+
+/*
+ * lisa pads the navbar equally on all four sides, which is right where a navbar
+ * sits over ordinary prose. Here the first thing under it is a section carrying
+ * padding of its own, so the two stack and the bar ends up floating well clear
+ * of the page. Half the padding below closes most of that up while leaving the
+ * bar's own text properly inset.
+ */
+nav {
+    padding-bottom: calc(var(--lisa-space-4) / 2);
 }
 
 /* Section heads */
@@ -210,11 +221,19 @@
 }
 
 /*
- * Nothing but the name and the number, with only the hover wash the swatch
- * tiles already have to mark it out. The name is left at the body size — this
- * is a line of a list, and the small size the swatch tiles use is there only
- * because a name has to fit the width of an image.
+ * Nothing but the name and the number, and nothing to press. These entries no
+ * longer carry .swatch, so none of the button's affordances reach them — no
+ * pointer, no hover wash, no focus ring — and the padding .swatch used to give
+ * them is restated here so they keep their place in the grid's rhythm.
+ *
+ * The name is left at the body size — this is a line of a list, and the small
+ * size the swatch tiles use is there only because a name has to fit the width
+ * of an image.
  */
+.record {
+    padding: var(--lisa-space-1);
+}
+
 .record .swatch-name {
     font-size: var(--lisa-font-size-md);
 }
@@ -714,11 +733,29 @@
     }
 }
 
-/* The fabric's own facts, under the product heading. Muted and set tight: it
- * is reference the reader consults, not something to read past on the way to
- * the swatches. */
-.product-spec {
-    color: var(--lisa-foreground-muted-color);
-    margin: calc(var(--lisa-space-1) * -1) 0 var(--lisa-space-3);
-    max-width: 70ch;
+/* Product sections
+ *
+ * The space between one product and the next is carried at the top of the
+ * second rather than the bottom of the first, because every one of these is a
+ * link target: the navbar jumps to #lt, #lx and the rest, and an anchor puts
+ * the section's top edge against the top of the viewport. Padding is inside
+ * the box, so it survives that scroll and the heading lands with air above it;
+ * a margin would sit outside the box, be scrolled straight past, and leave the
+ * heading jammed under the window's edge.
+ *
+ * Same distance as before, only moved: space-4 is what the last grid's .mb-4
+ * used to put below a section, so the gap between two products is what it
+ * always was and only the side of the boundary it is charged to has changed.
+ *
+ * The grids inside a section keep their own bottom margin — that is the gap
+ * between one subsection and the next, which is a different distance and is
+ * not what this replaces. Only the last of them gives its margin up, so a
+ * section boundary is the padding above and nothing doubled under it.
+ */
+section {
+    padding-top: var(--lisa-space-4);
+}
+
+section > :last-child {
+    margin-bottom: 0;
 }

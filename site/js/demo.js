@@ -1,5 +1,5 @@
 /*
- * Synthetic Suede Fabric Library — demo page.
+ * Footbag Fabric Library — demo page.
  *
  * Reads one JSON file per product, renders each product's subsections as swatch
  * grids, and fills a single shared popover with the entry that was clicked.
@@ -165,8 +165,8 @@
     }
 
     /*
-     * Archive URLs are long and say nothing useful in full, so a link shows
-     * its host and the capture date the Wayback path carries.
+     * A link out. Archive URLs are long and say nothing useful in full, so the
+     * caller passes the label — for the list of sightings, the capture date.
      */
     function link(url, label) {
         var a = el("a", null, label || url);
@@ -174,18 +174,6 @@
         a.target = "_blank";
         a.rel = "noopener noreferrer";
         return a;
-    }
-
-    function archiveLabel(url) {
-        var stamp = url.match(/web\.archive\.org\/web\/(\d{4})(\d{2})(\d{2})/);
-        if (stamp) {
-            return "Wayback capture " + stamp[1] + "-" + stamp[2] + "-" + stamp[3];
-        }
-        try {
-            return new URL(url).hostname.replace(/^www\./, "");
-        } catch (e) {
-            return url;
-        }
     }
 
     /* ---- swatch media ------------------------------------------------------
@@ -284,24 +272,26 @@
      * the panel, where the list of sightings gives them somewhere to mean
      * something.
      */
-    function record(entry, kind, preferPhoto, sourceLabel) {
-        var button = el("button", "swatch record");
-        button.type = "button";
+    function record(entry, kind) {
+        /*
+         * A plain block rather than a button: there is no picture to open, so
+         * there is nothing for a press to do. It was a control, and a control
+         * that opens a panel of nothing much is a promise the tile cannot keep
+         * — so the affordances go with it, and the pointer, the hover wash and
+         * the focus ring are all off in the stylesheet.
+         */
+        var item = el("div", "record");
 
         var text = el("span", "swatch-text");
         text.appendChild(el("span", "swatch-name", entry.name));
         text.appendChild(el("span", "swatch-code", codeOf(entry, kind)));
-        button.appendChild(text);
+        item.appendChild(text);
 
-        button.addEventListener("click", function () {
-            show(entry, kind, preferPhoto, sourceLabel);
-        });
-
-        return button;
+        return item;
     }
 
-    function tile(entry, kind, preferPhoto, sourceLabel) {
-        if (blank(entry)) { return record(entry, kind, preferPhoto, sourceLabel); }
+    function tile(entry, kind, preferPhoto) {
+        if (blank(entry)) { return record(entry, kind); }
 
         var button = el("button", "swatch");
         button.type = "button";
@@ -348,7 +338,7 @@
         button.appendChild(text);
 
         button.addEventListener("click", function () {
-            show(entry, kind, preferPhoto, sourceLabel);
+            show(entry, kind, preferPhoto);
         });
 
         return button;
@@ -358,11 +348,11 @@
      * `kind` is a string for a grid holding one kind of thing, or a function of
      * the entry for the one grid that mixes them.
      */
-    function renderGrid(grid, entries, kind, preferPhoto, sourceLabel) {
+    function renderGrid(grid, entries, kind, preferPhoto) {
         entries.forEach(function (entry) {
             grid.appendChild(
                 tile(entry, typeof kind === "function" ? kind(entry) : kind,
-                     preferPhoto, sourceLabel));
+                     preferPhoto));
         });
     }
 
@@ -457,7 +447,7 @@
      * what it was called or numbered before, and the capture it came from. The
      * rest was provenance for the dataset, not for the swatch.
      */
-    function facts_for(entry, kind, sourceLabel) {
+    function facts_for(entry, kind) {
         var facts = el("dl", "detail-facts");
 
         /*
@@ -495,6 +485,24 @@
          * recipe that number was pulled out of.
          */
         fact(facts, "Shader", shaderValue(entry), "fact-control");
+
+        /*
+         * Where the picture above is not a picture of this cloth. A handful of
+         * the pre-2011 colours were never photographed in Light, but Field's
+         * sold the same colour in ST under its own number and photographed
+         * that: the colour is the colour, the nap is not the same cloth, and
+         * the reader is told before they take the swatch for a Light one.
+         *
+         * This used to be a note hanging off the Source row, and it outlived
+         * it — the row is gone and the substitution still has to be declared.
+         * It carries the paired number as well as the weight, because the pair
+         * is the claim; `based_on.evidence` in lt.json names the catalogue
+         * sheet that prints the two together, for anyone checking it.
+         */
+        if (entry.based_on) {
+            fact(facts, "Based on",
+                 entry.based_on.weight + " #" + entry.based_on.code);
+        }
 
         if (kind === "color" && entry.former_skus && entry.former_skus.length) {
             fact(facts, "Former SKUs", entry.former_skus.map(function (s) {
@@ -557,43 +565,9 @@
                 list.appendChild(item);
             });
             fact(facts, "Seen in", list);
-        } else if (entry.source) {
-            fact(facts, "Source", sourceValue(entry, sourceLabel));
-            /* A per-colour destination where the source is a whole list. Also
-             * withheld where the product's shopfront is. */
-            if (entry.sample_url && !sourceLabel) {
-                fact(facts, "Sample", link(entry.sample_url, "order this swatch"));
-            }
         }
 
         return facts;
-    }
-
-    /*
-     * The capture the entry came from, and — where the picture above it is not
-     * a picture of this cloth — a line saying so.
-     *
-     * A handful of the pre-2011 colours were never photographed in Light, but
-     * Field's sold the same colour in ST under its own number and photographed
-     * that. The colour is the colour; the nap is not the same cloth, and the
-     * reader is told before they take the swatch for a Light one. It sits under
-     * the source because that is what it qualifies — where the picture came
-     * from — and `based_on` in lt.json carries the number and the catalogue
-     * sheet that pairs the two, for anyone who wants to check it.
-     */
-    function sourceValue(entry, sourceLabel) {
-        var value = document.createDocumentFragment();
-        if (sourceLabel) {
-            value.appendChild(el("span", null, sourceLabel));
-        } else {
-            value.appendChild(link(entry.source, archiveLabel(entry.source)));
-        }
-        if (entry.based_on) {
-            value.appendChild(el("span", "fact-note",
-                "This swatch is based on the " + entry.based_on.weight +
-                " version."));
-        }
-        return value;
     }
 
     /*
@@ -767,7 +741,7 @@
         if (sides.photo) { sides.photo.hidden = !usePhoto; }
     }
 
-    function show(entry, kind, preferPhoto, sourceLabel) {
+    function show(entry, kind, preferPhoto) {
         clear(head);
         clear(body);
         /* Only meaningful where both sides exist; showSide() falls back to
@@ -808,7 +782,7 @@
         }
         if (way) { head.appendChild(colorwayLine(way)); }
 
-        body.appendChild(facts_for(entry, kind, sourceLabel));
+        body.appendChild(facts_for(entry, kind));
 
         popover.showPopover();
     }
@@ -816,33 +790,36 @@
     /* ---- boot ------------------------------------------------------------- */
 
     /*
-     * The products, in the order they appear on the page: current lines first,
-     * discontinued ones after. `labels` overrides a subsection heading where a
-     * product has its own word for it — LT's patterns are the Light Jungle
-     * prints and calling them that is worth more than calling them "Patterns".
+     * The products, in the order they appear on the page: LT first as the line
+     * this archive was built around, then the rest.
+     *
+     * `label` heads the section and `navLabel` names it in the navbar, which is
+     * a row of six across the top and has to stay one line — so the navbar keeps
+     * only what tells one product from another ("LT", not "Ultrasuede LT";
+     * "Texvision", not "Texvision DS102") while the section heading, which has
+     * the width to spare, carries the full name. Where the two are the same
+     * there is no navLabel and the label serves both.
+     *
+     * `labels` overrides a subsection heading where a product has its own word
+     * for it — LT's patterns are the Light Jungle prints and calling them that
+     * is worth more than calling them "Patterns".
      */
     var PRODUCTS = [
-        /* 800px frames from Toray's storefront; better than the shader.
-         * sourceLabel for the same reason as the two below: sales.tum.toray is
-         * a shop that sells LX by the metre, not a datasheet, so the page names
-         * it without linking to it. */
-        { id: "lx", file: "lx.json", label: "LX", preferPhoto: true,
-          sourceLabel: "Toray storefront (Japan)" },
+        { id: "lt", file: "lt.json", label: "Ultrasuede LT", navLabel: "LT",
+          labels: { patterns: "Jungle prints" } },
+        /* 800px frames from Toray's storefront; better than the shader. */
+        { id: "lx", file: "lx.json", label: "Ultrasuede LX", navLabel: "LX",
+          preferPhoto: true },
         /* 418px Toray swatches, clean and unwatermarked — comfortably over the
          * ~351 device pixels a tile needs, so the photograph leads here too. */
-        { id: "st", file: "st.json", label: "ST", preferPhoto: true },
-        /* sourceLabel: show what the source IS without linking to it. These two
-         * are bought from small Japanese retailers and Garrett would rather not
-         * hand their shopfronts to everyone reading. The URLs stay in the JSON
-         * and in scraping/ — the data has to stay checkable and rebuildable —
-         * this only keeps them off the rendered page. */
+        { id: "st", file: "st.json", label: "Ultrasuede ST", navLabel: "ST",
+          preferPhoto: true },
         { id: "lamous-th", file: "lamous-th.json", label: "Lamous TH",
-          sourceLabel: "Japanese retailer catalogue" },
+          navLabel: "Lamous" },
         { id: "shammy", file: "shammy.json", label: "Shammy 707J",
-          sourceLabel: "Japanese retailer catalogue" },
-        { id: "ds102", file: "texvision-ds102.json", label: "Texvision DS102" },
-        { id: "lt", file: "lt.json", label: "LT",
-          labels: { patterns: "Jungle prints" } }
+          navLabel: "Shammy" },
+        { id: "ds102", file: "texvision-ds102.json", label: "Texvision DS102",
+          navLabel: "Texvision" }
     ];
 
     /*
@@ -878,7 +855,9 @@
              * know which of the two it is.
              */
             key: "missing", label: "Missing image", unit: "colors",
-            grid: "record-grid grid grid-cols-4 gap-1",
+            /* mb-4 like every other grid: without it this one sat flush against
+             * whatever followed, which on ST was the next product's heading. */
+            grid: "record-grid grid grid-cols-4 gap-1 mb-4",
             kind: function (entry) {
                 return entry.pattern ? "pattern" : "historical";
             },
@@ -891,32 +870,6 @@
     ];
 
     var GRID_DEFAULT = "swatch-grid grid grid-cols-6 gap-1 mb-4";
-
-    /*
-     * The fabric itself, under the product heading: what it is made of, how
-     * wide, how heavy, how thick. Read from meta.specifications where a builder
-     * writes one, and from the top level of meta where LT keeps the same four
-     * facts — normalised here rather than rewriting lt.json, because that file
-     * is a record and its shape is part of it.
-     */
-    var SPEC_FIELDS = [
-        ["composition", "Composition"],
-        ["fiber_content", "Composition"],   /* DS102 spells it this way */
-        ["width", "Width"],
-        ["weight", "Weight"],
-        ["thickness", "Thickness"]
-    ];
-
-    function specLine(meta) {
-        var src = meta.specifications || meta;
-        var parts = [];
-        SPEC_FIELDS.forEach(function (f) {
-            if (src[f[0]]) { parts.push(f[1] + " " + src[f[0]]); }
-        });
-        if (!parts.length) { return null; }
-        var p = el("p", "product-spec text-sm", parts.join("  ·  "));
-        return p;
-    }
 
     function headRow(cls, tag, headClass, text) {
         var row = el("div", cls +
@@ -932,17 +885,17 @@
         var section = el("section");
         section.id = cfg.id;
 
-        var head = el("div", "section-head flex flex-row items-baseline " +
-                             "justify-between flex-wrap gap-2 mb-3");
+        /*
+         * The product's name and nothing else. The count that used to sit
+         * against it said how much the whole section held, which is a number
+         * nobody reads down — each subsection already prints its own beside the
+         * grid it counts, and that is the one that answers a question.
+         */
+        var head = el("div", "section-head mb-3");
         head.appendChild(el("h2", "text-2xl", cfg.label));
-        var counts = el("p", "section-label text-sm");
-        head.appendChild(counts);
         section.appendChild(head);
 
-        var spec = specLine(data.meta || {});
-        if (spec) { section.appendChild(spec); }
-
-        var total = 0, kinds = 0, hasPatterns = false;
+        var total = 0;
         SUBSECTIONS.forEach(function (sub) {
             /*
              * An entry marked on_page: false stays in the file and is left off
@@ -960,24 +913,13 @@
 
             var grid = el("div", sub.grid || GRID_DEFAULT);
             section.appendChild(grid);
-            renderGrid(grid, entries, sub.kind, cfg.preferPhoto,
-                       cfg.sourceLabel);
+            renderGrid(grid, entries, sub.kind, cfg.preferPhoto);
 
             total += entries.length;
-            kinds += 1;
-            if (sub.key === "patterns") { hasPatterns = true; }
         });
 
         if (!total) { return null; }
 
-        /*
-         * The head says how much there is altogether, and each subsection count
-         * sits against the grid it counts. A product with only one subsection
-         * would otherwise print the same number twice, so it says nothing.
-         */
-        counts.textContent = kinds > 1
-            ? total + (hasPatterns ? " colors and patterns" : " colors")
-            : "";
         return section;
     }
 
@@ -1012,7 +954,7 @@
             main.appendChild(section);
 
             var li = el("li");
-            var a = el("a", null, result.cfg.label);
+            var a = el("a", null, result.cfg.navLabel || result.cfg.label);
             a.href = "#" + result.cfg.id;   /* same page: not link(), which opens a tab */
             li.appendChild(a);
             nav.appendChild(li);
