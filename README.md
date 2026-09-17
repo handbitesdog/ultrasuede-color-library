@@ -206,6 +206,50 @@ is at 0.65: Shammy's numbers were read off a photographed colour card rather
 than off swatch photographs, and they run a median of 13.5 against 2.8–6.7 for
 every other product in the library.
 
+A product may also be believed only in part, through `light` in the product
+list in `site/js/demo.js`. LX is at 0.3, and it is the only product that carries
+one: its catalogue photographs are lit about three times harder than anything
+else here. Fitting the family's own contrast curve — `NAP_FIT`, which relates
+contrast to lightness — to each product's measured colours gives an amplitude of
+8.03 for LT and 7.42 for ST, which agree, against 23.99 for LX. Three readings
+say that is the studio and not the suede: the excess is flat across all five
+measured bands (3.19, 3.29, 2.62, 2.59, 2.74) rather than concentrated in one,
+which is a light rather than a different cloth; it is not resolution, since a
+256px frame measures 0.993 of native and LX's frames are 397–800px against ST's
+418px; and all 25 LX colours sit at or above the curve, 1.04× to 4.79×, where
+real variation would fall on both sides.
+
+Unlike `gain`, `light` is not a flat share. Each colour is pulled toward the
+curve — `model(L) × (measured / model(L))^light` — so a colour already on it
+does not move at all and only the inflated ones come down. That matters because
+LX's quiet end is already in LT and ST's band, and a flat cut would take it to
+flat paint. At 0.3 the median LX swatch draws at 3.22 against LT's 3.02 and
+ST's 2.82, over a range of 1.94–4.55 against LT's 1.51–4.21. The file is
+untouched: `lx.json` keeps every number as it was sampled.
+
+Lamous carries the other correction, `closeup`, at 0.72. Its 49 photographs are
+the only close-ups in the library: about 2.6× more magnified than the archive's
+swatch shots, so its frames resolve nap the other products average away. The
+factor is measured two ways that agree. Sliding each product's ensemble power
+spectrum against each other one in log frequency, the three Ultrasuede sets
+match each other at 0.79–1.38 — the spread of their own framing — and Lamous
+matches them at 2.48, 2.68 and 3.41, on the lowest fit errors in the table.
+Re-measuring Lamous with the five bands scaled by 2.6, so each covers the same
+physical scale of cloth it covers on an archive photograph, turns its excess
+over LT and ST from a shape into a level: 1.65, 3.52, 2.76, 1.87, 1.56 as shot,
+against 1.45, 1.57, 1.64, 1.78, 1.40 rescaled.
+
+Unlike `light`, `closeup` is a flat share, and for the reason `light` is not:
+the ratio between Lamous's frames and everyone else's is a median 0.718 with a
+standard deviation of 0.082 and no relation to lightness (r = −0.08). It is a
+property of the camera rather than of the colour. The median Lamous swatch goes
+from 4.74 to 3.93, under DS102 and Shammy rather than over them, and its quietest
+colour lands at 1.79, inside LT's own 1.51–4.21. What is left is left: at the
+same physical scales Lamous still measures about 1.55× LT and ST across every
+band, and that is either a denser cloth or another studio's light, which nothing
+here separates. Its spectrum is Ultrasuede's, so its weave stays `cloud`.
+`lamous-th.json` is untouched.
+
 An entry may override its product's weave with `nap.weave`, for the day a
 product is photographed two ways.
 

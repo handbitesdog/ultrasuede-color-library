@@ -227,7 +227,7 @@
 
     function napCanvas(entry, size, label, product) {
         var canvas = el("canvas", "swatch-render");
-        if (!Nap.paint(canvas, entry, size, product && product.weave)) {
+        if (!Nap.paint(canvas, entry, size, product)) {
             return null;
         }
         if (label) {
@@ -289,8 +289,7 @@
             return;
         }
 
-        if (Nap.paint(node, item.entry, TILE_PX,
-                      item.product && item.product.weave)) {
+        if (Nap.paint(node, item.entry, TILE_PX, item.product)) {
             return;
         }
 
@@ -705,6 +704,8 @@
     function shaderValue(entry, product) {
         var code = Nap.source(entry, {
             weave: product && product.weave,
+            light: product && product.light,
+            closeup: product && product.closeup,
             product: product && product.label
         });
         if (!code) { return null; }
@@ -920,13 +921,28 @@
     var PRODUCTS = [
         { id: "lt", file: "lt.json", label: "Ultrasuede LT", navLabel: "LT",
           labels: { patterns: "Jungle prints" } },
-        /* 800px frames from Toray's storefront, and 418px Toray swatches: the
+        /*
+         * 800px frames from Toray's storefront, and 418px Toray swatches: the
          * two best sets of photographs here, and still behind the switch. The
-         * tiles draw the shader like everything else so the page compares. */
-        { id: "lx", file: "lx.json", label: "Ultrasuede LX", navLabel: "LX" },
+         * tiles draw the shader like everything else so the page compares.
+         *
+         * They are also the hardest-lit pictures in the library, by a factor of
+         * three on a curve the other four products agree on, so LX is the one
+         * product that keeps only part of its measured contrast. See `flatten`
+         * in nap.js for what that factor is and how it was arrived at.
+         */
+        { id: "lx", file: "lx.json", label: "Ultrasuede LX", navLabel: "LX",
+          light: 0.3 },
         { id: "st", file: "st.json", label: "Ultrasuede ST", navLabel: "ST" },
+        /*
+         * Its photographs are the only close-ups in the library — about 2.6x
+         * more magnified than the archive's swatch shots, measured two ways
+         * that agree — so its frames resolve nap the others average away and
+         * its contrast is read high by a constant factor. See `closeup` in
+         * nap.js. The spectrum underneath is Ultrasuede's, so the weave is.
+         */
         { id: "lamous-th", file: "lamous-th.json", label: "Lamous TH",
-          navLabel: "Lamous" },
+          navLabel: "Lamous", closeup: 0.72 },
         /*
          * The one fabric here that is not Ultrasuede or a copy of it, and the
          * one whose texture is known from a picture big enough to measure: its

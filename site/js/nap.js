@@ -388,6 +388,186 @@ var Nap = (function () {
         return WEAVES[name] ? name : DEFAULT_WEAVE;
     }
 
+    /* ---- what the camera did ------------------------------------------------
+     *
+     * Two corrections live here, for the two products whose photographs were
+     * taken in a way the measurement cannot see past: LX was lit harder than
+     * anything else on this page, and Lamous was shot closer. Both correct a
+     * measurement rather than a taste, both are one number arrived at by
+     * measuring, and both run before `tame`, because the knee is a scale for
+     * the page and should be shown what a product is rather than what its
+     * capture said about it. Neither touches a product file.
+     *
+     * LX's photographs are lit harder than anything else on this page, and a
+     * measurement cannot tell a hard light from a loud cloth. Fitting the
+     * family's own contrast curve — NAP_FIT in build_dataset.py,
+     * contrast = A * x^0.65 * (1 - x)^0.50 for x = L/255 — to each product's
+     * measured colours and reading off the amplitude:
+     *
+     *     LT      8.03      LX      23.99
+     *     ST      7.42      Lamous  16.41
+     *
+     * (Lamous's 16.41 is read off close-ups and has its own correction below;
+     * it is in the table because it is one of the five colours' worth of
+     * evidence the curve's shape was fitted on, not as a comparison.)
+     *
+     * LT and ST were photographed by different people years apart and agree to
+     * 8%, which is the whole reason they are the reference. LX is three times
+     * either of them at the same lightness, and its colours still lie along
+     * the curve's shape (R2 0.53) — it has the family's relation between
+     * lightness and contrast, lifted bodily.
+     *
+     * Three things say that lift is the studio and not the suede.
+     *
+     * It is flat across the spectrum. LX against ST band by band, in the five
+     * bands nap_contrast measures, as a ratio of sd: 3.19, 3.29, 2.62, 2.59,
+     * 2.74, and 3.03 on the total. That is one number, not a shape — the same
+     * nap under a harder light. Something that genuinely differed would move
+     * one band and leave the others — which is what Shammy does, and why
+     * Shammy got a weave rather than this, and what Lamous does for a third
+     * reason again, `closeup` below.
+     *
+     * It is not resolution. NAP_RES_CALIBRATION puts a 256px frame at 0.993 of
+     * native, and the LX frames that carry a measurement are 397px and 800px
+     * against ST's 418px. There is no factor of three anywhere in that.
+     *
+     * And it only ever adds. All 25 LX colours sit at or above the family
+     * curve — White at 1.04x, Ginger at 4.79x, none of them below. Cloth that
+     * really varied would scatter to both sides of the curve; an error that
+     * has a sign is the capture.
+     *
+     * So LX is pulled back toward the curve:
+     *
+     *     drawn = model(L) * (measured / model(L)) ^ keep
+     *
+     * which is a gain in the log of that ratio rather than in the contrast,
+     * and the difference is the point. A flat per-product gain is what `tame`
+     * below argues against, and correctly: LX's White, Blue and Turquoise
+     * measure 1.04x, 1.12x and 1.16x of the curve — they are already in LT and
+     * ST's band — and a gain chosen to fix the median would take them to flat
+     * paint. Here a colour sitting on the curve does not move at all, whatever
+     * `keep` is, and only the inflated ones come down. White goes 2.72 to 2.65
+     * and Ginger 16.82 to 5.61.
+     *
+     * The map is monotonic, so the order survives: Ginger is still the loudest
+     * LX colour and Black still the quietest.
+     *
+     * `keep` is one number with an honest meaning at both ends — 1 is the
+     * measurement untouched, 0 is the family curve with none of LX's own
+     * colour-to-colour variation left. At 0.30 the median LX swatch draws at
+     * 3.22 against LT's 3.02 and ST's 2.82, over a range of 1.94 to 4.55
+     * against LT's 1.51 to 4.21 — the reference band almost exactly, with the
+     * loud colours still reading as the loud ones. It was set by eye against
+     * LT and ST at 0.3, 0.4 and 0.5; 0.4 also sits inside the band and reads
+     * a little livelier, and is the number to go back to if this is ever
+     * judged to have taken too much.
+     *
+     * The cost is the one `tame` names, and it is real: whatever part of LX's
+     * spread is the cloth rather than the lighting has been squeezed along
+     * with the rest, and nothing here can separate them. What this does not do
+     * is touch the file. lx.json keeps every number exactly as it was sampled,
+     * and this and `tame` remain the only two places they are bent.
+     *
+     * This runs before `tame`, because it is a correction to a measurement and
+     * the knee is a scale for the page — the knee should be shown what LX
+     * actually is rather than what its lighting said.
+     */
+    var LUMA = [0.2126, 0.7152, 0.0722];
+
+    /* The family's curve, and the lightness window it was fitted over: read
+     * inside that window and held flat outside it, as build_dataset.py reads
+     * it, rather than extrapolated to the ends where it goes to zero. */
+    var FAMILY = { a: 8.02, p: 0.65, q: 0.50,
+                   lo: 25.07 / 255, hi: 240.69 / 255 };
+
+    function familyContrast(rgb) {
+        var x = (rgb[0] * LUMA[0] + rgb[1] * LUMA[1] + rgb[2] * LUMA[2]) / 255;
+        x = Math.min(Math.max(x, FAMILY.lo), FAMILY.hi);
+        return FAMILY.a * Math.pow(x, FAMILY.p) * Math.pow(1 - x, FAMILY.q);
+    }
+
+    /*
+     * `keep` undefined is a product whose lighting is not in question, which is
+     * every product but LX, and it is left alone rather than run through a
+     * no-op — the curve is a fit to five products and does not belong anywhere
+     * near a number it was not asked about.
+     */
+    function flatten(contrast, rgb, keep) {
+        if (keep === undefined || keep >= 1 || !rgb) { return contrast; }
+        var m = familyContrast(rgb);
+        if (!(m > 0) || !(contrast > 0)) { return contrast; }
+        return m * Math.pow(contrast / m, keep);
+    }
+
+    /*
+     * Lamous's photographs are close-ups. Every other product here is a swatch
+     * photographed whole; Lamous's 49 frames are filled edge to edge with
+     * resolved fibre, and the difference is a factor of about 2.6 in how much
+     * cloth is inside the frame.
+     *
+     * That factor is measured twice, two ways, and the two agree. Aligning
+     * ensemble power spectra — each product's frames blurred by NAP_NOISE,
+     * radially binned in cycles across the frame width, one slid against the
+     * other in log frequency until the shapes match — the three Ultrasuede
+     * sets agree with each other to within the spread of their own framing,
+     * and Lamous does not:
+     *
+     *                vs LT   vs ST   vs LX     fit error
+     *     LT            --    1.14    1.38     0.11-0.15
+     *     ST          0.87      --    1.19     0.12-0.13
+     *     LX          0.79    0.90      --     0.15-0.26
+     *     Lamous      2.48    2.68    3.41     0.10-0.11
+     *
+     * Lamous's are the lowest fit errors in the table, which is to say it is
+     * the same spectrum as the others and the offset is well determined. And
+     * re-measuring Lamous with build_dataset's five bands scaled by 2.6, so
+     * that each band covers the same physical scale of cloth it covers on an
+     * archive photograph, against the mean of LT and ST band by band:
+     *
+     *                  <2px   2-5   5-12  12-30  broad   spread
+     *     as shot      1.65  3.52   2.76   1.87   1.56     1.87
+     *     bands x2.6   1.45  1.57   1.64   1.78   1.40     0.38
+     *
+     * The excess stops being a shape and becomes a level, and the flattening
+     * is deepest at 2.4-2.6, which is where the spectra put it too. That is
+     * the LX test run backwards: LX was flat across the bands from the start,
+     * which is what a light does, and Lamous was not, which is why this is a
+     * different correction rather than `flatten` with a different number.
+     *
+     * What to draw is then the ratio of the re-measured contrast to the
+     * file's: a median of 0.718 over the 49 colours, standard deviation 0.082,
+     * and no relation to lightness at all (r = -0.08). One number is the right
+     * shape for it — this is a property of the camera, not of the colour.
+     * Where LX's ratio to the family curve ran from 1.04 to 4.79 across its
+     * colours, and so had to be worked in the log of that ratio or its quiet
+     * end would have gone to flat paint, there is nothing here for a
+     * per-colour correction to do.
+     *
+     * What is left is not removed. At the same physical scales Lamous still
+     * measures about 1.55x LT and ST across all five bands, and that is either
+     * a denser cloth or another studio's light; nothing here separates them,
+     * and it is a small enough difference between two manufacturers' suede to
+     * leave alone. Lamous is not Ultrasuede and is allowed to be a louder
+     * cloth than it.
+     *
+     * The one reading this cannot rule out is that Lamous is a coarser cloth
+     * photographed at everyone else's magnification, which would look the same
+     * in every number above. Against it: the family premise WEAVES opens with,
+     * that a 2.6x coarser nap would be a different kind of suede from a
+     * manufacturer selling the same kind, and the frames themselves — shown at
+     * 1/2.6 Lamous's nap reads as the fine even mottle LT and ST show, and at
+     * full size it reads as clumps.
+     *
+     * Median drawn tile 4.74 to 3.93, over 1.79-5.12 against 2.48-5.82, which
+     * puts it under DS102 and Shammy at 4.58 and 4.57 instead of above them.
+     * The spectrum is unchanged, so the weave is: Lamous is `cloud`, and after
+     * this that is a finding rather than a default.
+     */
+    function closeup(contrast, share) {
+        if (share === undefined || share >= 1) { return contrast; }
+        return contrast * share;
+    }
+
     /* ---- one scale for the library -----------------------------------------
      *
      * Six products sit on this page next to each other, and their `contrast`
@@ -446,6 +626,23 @@ var Nap = (function () {
      *
      * Distinct from a weave's `gain`, which is one fabric's number being
      * distrusted. This is six fabrics' numbers being put on one axis.
+     *
+     * The LX and Lamous rows above are no longer what the page draws. Both
+     * arrive here already corrected for their capture — see `flatten` and
+     * `closeup` — so the knee is handed a median of 3.31 rather than 6.58 for
+     * LX and 4.38 rather than 6.13 for Lamous, and has much less left to do:
+     * 3.22 and 3.93 out, against the 4.88 and 4.80 in that table. The rows are
+     * kept as they were measured, because they are what the knee alone does
+     * and that is what they are here to describe.
+     *
+     * Lamous's correction is the proportional cut this section argues against,
+     * and the argument stands — it is an argument against choosing one to make
+     * the page agree, which would have to be about 0.5 and would take TH001
+     * from 2.17 to 1.14. Lamous's 0.72 is not chosen to make anything agree.
+     * It is the measured ratio between its frames and everyone else's, it is
+     * the same ratio for every colour it has, and it leaves TH001 at 1.79,
+     * inside LT's own 1.51 to 4.21. A proportional cut is wrong here when it
+     * is a page scale and right when the thing being corrected is proportional.
      */
     var KNEE = 2.5;
     var ROOM = 6.0;
@@ -769,20 +966,25 @@ var Nap = (function () {
 
     /*
      * Renders `entry` into `target`, a 2-D canvas, at `size` device pixels
-     * square, with the weave `fallback` names unless the entry asks for another.
-     * Returns false if there is nothing to draw with, so the caller can fall
-     * back to the photograph or the flat hex.
+     * square. Returns false if there is nothing to draw with, so the caller can
+     * fall back to the photograph or the flat hex.
+     *
+     * `product` is what the entry does not know about itself: the weave its
+     * cloth takes unless the entry asks for another, and how far its capture's
+     * lighting is to be believed. Both are properties of the product rather
+     * than of the colour, so both arrive from the same place.
      *
      * Every swatch is the same four uniforms and one triangle, so a page of
      * them costs one shader compile per weave in use.
      */
-    function paint(target, entry, size, fallback) {
+    function paint(target, entry, size, product) {
         var rgb = rgbOf(entry);
         if (!rgb || !entry.nap || !supported()) { return false; }
 
+        product = product || {};
         var nap = entry.nap;
         var s = seed(entry.slug || entry.name || "");
-        var name = weaveOf(entry, fallback);
+        var name = weaveOf(entry, product.weave);
         var p;
         try {
             p = program(name);
@@ -793,7 +995,9 @@ var Nap = (function () {
         gl.useProgram(p.prog);
         gl.uniform3f(p.loc.uBase, rgb[0] / 255, rgb[1] / 255, rgb[2] / 255);
         gl.uniform3f(p.loc.uAxis, nap.axis[0], nap.axis[1], nap.axis[2]);
-        gl.uniform1f(p.loc.uContrast, tame(nap.contrast, name) / 255);
+        gl.uniform1f(p.loc.uContrast,
+                     tame(flatten(closeup(nap.contrast, product.closeup),
+                                  rgb, product.light), name) / 255);
         gl.uniform2f(p.loc.uSeed, s[0], s[1]);
 
         gl.drawArrays(gl.TRIANGLES, 0, 3);
@@ -817,7 +1021,8 @@ var Nap = (function () {
      * has a shader to give whether or not this browser can draw it.
      *
      * `opts` is what the product knows and the entry does not: which weave to
-     * draw it with, and what to call the product in the header.
+     * draw it with, how far to believe its capture's lighting, and what to call
+     * the product in the header.
      */
     function source(entry, opts) {
         var rgb = rgbOf(entry);
@@ -827,6 +1032,8 @@ var Nap = (function () {
         var nap = entry.nap;
         var s = seed(entry.slug || entry.name || "");
         var name = weaveOf(entry, opts.weave);
+        var drawn = tame(flatten(closeup(nap.contrast, opts.closeup),
+                                 rgb, opts.light), name);
 
         function vec(values, digits) {
             return "vec" + values.length + "(" + values.map(function (v) {
@@ -856,16 +1063,15 @@ var Nap = (function () {
             "const vec3 uAxis = " + vec(nap.axis, 6) +
                 ";  // luminance-normalised RGB direction",
             /*
-             * The tamed figure, not the sampled one, because this listing has
+             * The drawn figure, not the sampled one, because this listing has
              * to draw the swatch the reader is looking at rather than the one
              * the file describes. The sampled number is put beside it — it is
              * the measurement, and it is the thing worth having if this is
              * being read to find out what the cloth does.
              */
-            "const float uContrast = " +
-                (tame(nap.contrast, name) / 255).toFixed(6) +
+            "const float uContrast = " + (drawn / 255).toFixed(6) +
                 ";  // standard deviation, 0-1" +
-                (tame(nap.contrast, name) === nap.contrast ? "" :
+                (drawn === nap.contrast ? "" :
                     "\n                                   // (sampled " +
                     (nap.contrast / 255).toFixed(6) + ", on the library scale)"),
             "const vec2 uSeed = " + vec(s, 4) + ";"
