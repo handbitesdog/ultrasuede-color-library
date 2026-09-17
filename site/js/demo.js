@@ -240,12 +240,100 @@
         return canvas;
     }
 
+    /*
+     * `src` is left off entirely when there is none yet — an <img src=""> is a
+     * request for the page itself, not an empty image.
+     */
     function photoImg(entry, src, lazy) {
         var img = el("img");
-        img.src = src;
+        if (src) { img.src = src; }
         img.alt = entry.name;
         if (lazy) { img.loading = "lazy"; }
         return img;
+    }
+
+    /* ---- drawing the grid late -------------------------------------------- *
+     *
+     * The page is six products and about 300 swatches, and it is 11,000 pixels
+     * tall: eighteen tiles are on the first screen and the other 280 are work
+     * done for a reader who may never scroll. Drawn all at once that is ~180ms
+     * of blocked main thread and, worse, ~74MB of canvas backing store handed
+     * to the compositor before anything appears — a canvas costs its pixels the
+     * moment it is drawn into, and 297 of them at 256px square is most of what
+     * stands between the fetch finishing and the page being there.
+     *
+     * So a tile's picture is made when the tile is nearly on screen instead.
+     * The well is already the swatch's sampled colour underneath, so the thing
+     * that arrives is texture over the right colour rather than a blank filling
+     * in, and NEAR is a screenful and a half of warning — far enough that
+     * scrolling never catches one being drawn.
+     *
+     * The first screenful is drawn synchronously rather than through the
+     * observer: its callback lands a frame late, which is a frame of flat
+     * colour at the top of the page for no reason.
+     */
+
+    var NEAR = "900px";
+
+    /* canvas or img -> the entry it is waiting to become */
+    var pending = new Map();
+    var watcher = null;
+
+    function drawPending(node) {
+        var item = pending.get(node);
+        if (!item) { return; }
+        pending.delete(node);
+
+        if (item.photo) {
+            node.src = item.photo;
+            return;
+        }
+
+        if (Nap.paint(node, item.entry, TILE_PX,
+                      item.product && item.product.weave)) {
+            return;
+        }
+
+        /*
+         * The shader had its inputs and still could not draw — a context lost
+         * between boot and here, or a weave whose program would not compile.
+         * Fall back the way tile() would have if it had known, which it could
+         * not: nothing about an entry says whether its program links.
+         */
+        node.parentNode.removeChild(node);
+        if (item.fallback) {
+            item.well.appendChild(photoImg(item.entry, item.fallback, true));
+        } else {
+            item.well.style.backgroundColor = item.entry.hex;
+        }
+    }
+
+    /*
+     * Called once, after every section is in the document — which is the first
+     * moment a tile has a position to be near or far from.
+     */
+    function drawTiles() {
+        if (!window.IntersectionObserver) {
+            Array.from(pending.keys()).forEach(drawPending);
+            return;
+        }
+
+        watcher = new IntersectionObserver(function (rows) {
+            rows.forEach(function (row) {
+                if (!row.isIntersecting) { return; }
+                watcher.unobserve(row.target);
+                drawPending(row.target);
+            });
+        }, { rootMargin: NEAR });
+
+        var reach = window.innerHeight * 1.5;
+        Array.from(pending.keys()).forEach(function (node) {
+            if (node.getBoundingClientRect().top < reach) {
+                drawPending(node);
+            } else {
+                watcher.observe(node);
+            }
+        });
     }
 
     /*
@@ -315,13 +403,30 @@
          * The photograph is what is left for the entries that have no shader to
          * draw: the Light Jungle prints, which carry no nap block.
          */
-        var canvas = canRender(entry)
-            ? napCanvas(entry, TILE_PX, null, product)
-            : null;
-        if (canvas) {
+        if (canRender(entry)) {
+            /*
+             * Sized but not drawn — see drawTiles. An undrawn canvas has no
+             * context and so no pixels behind it, which is the whole saving;
+             * what stands in the well until then is the sampled colour, set on
+             * the well rather than the canvas so it survives the fallback.
+             */
+            var canvas = el("canvas", "swatch-render");
+            canvas.setAttribute("aria-hidden", "true");
+            well.style.backgroundColor = entry.hex || "";
             well.appendChild(canvas);
+            pending.set(canvas, {
+                entry: entry, product: product, well: well, fallback: photo
+            });
         } else if (photo) {
-            well.appendChild(photoImg(entry, photo, true));
+            /*
+             * Held back by the same observer as the shader tiles rather than by
+             * loading="lazy". The attribute is a hint and Chrome reads it
+             * generously: every one of these seventeen prints was fetched on
+             * load, 350KB of pictures three screens down the page.
+             */
+            var img = photoImg(entry, "", false);
+            well.appendChild(img);
+            pending.set(img, { entry: entry, photo: photo });
         } else {
             well.style.backgroundColor = entry.hex;
         }
@@ -976,6 +1081,10 @@
             main.appendChild(el("p", "text-sm",
                 "Nothing loaded. Serve this page over HTTP rather than opening " +
                 "the file directly."));
+            return;
         }
+        /* Every tile now has a position, so it can be asked whether it is near
+         * enough to be worth drawing. */
+        drawTiles();
     });
 }());
