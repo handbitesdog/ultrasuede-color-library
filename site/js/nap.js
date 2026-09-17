@@ -216,7 +216,18 @@ var Nap = (function () {
              * band closes the gap, and 0.64 of a band that is itself 0.61 of
              * the total is this number.
              */
-            sheen: 0.394
+            sheen: 0.394,
+            /*
+             * What one unit of `contrast` actually comes out as, once the
+             * octaves, the sheen, the mask and `gain` have all had their turn:
+             * the luminance sd of a finished tile at 234px with 12px of the
+             * frame edge trimmed off, divided by the number that went in.
+             * Measured over every colour of every product on this weave, where
+             * it lands at 1.00 — the unsharp mask puts back about what the
+             * downsample takes out. See `tame` below, which is the only thing
+             * that reads it.
+             */
+            drawn: 1.0
         },
 
         /*
@@ -349,7 +360,17 @@ var Nap = (function () {
              * nudge rather than a fix — the direction the card's own error runs
              * is untouched and still open.
              */
-            gain: 0.65
+            gain: 0.65,
+            /*
+             * `cloud`'s note applies; the number does not. This weave draws no
+             * unsharp mask and carries the 0.65 above, and between them a unit
+             * of `contrast` arrives as 0.42 of one — measured the same way,
+             * over all 42 Shammy colours. It is why Shammy's contrast column
+             * reads three times the rest of the library's and its tiles do not
+             * look three times as loud, and why `tame` has to work in what is
+             * drawn rather than in what the file says.
+             */
+            drawn: 0.42
         }
     };
 
@@ -365,6 +386,81 @@ var Nap = (function () {
         var name = (entry && entry.nap && entry.nap.weave) || fallback ||
             DEFAULT_WEAVE;
         return WEAVES[name] ? name : DEFAULT_WEAVE;
+    }
+
+    /* ---- one scale for the library -----------------------------------------
+     *
+     * Six products sit on this page next to each other, and their `contrast`
+     * numbers were read off six different sets of pictures: LT and ST off the
+     * archive's 100px thumbnails, LX off a sales catalogue running 397px to
+     * 3667px, Lamous off small frames, Shammy off a photographed colour card,
+     * DS102 off one sample of flat cloth. Each set is internally consistent and
+     * no two of them are consistent with each other — a thumbnail has had its
+     * fine variation averaged out of it before anything was measured, and a
+     * 3667px catalogue shot has not. Drawn as they stand, the median tile:
+     *
+     *     LT     3.18      Lamous    6.13
+     *     ST     2.66      Shammy    5.73
+     *     LX     6.58      DS102     5.46
+     *
+     * — luminance sd at 234px, frame edge trimmed, over every colour of each
+     * product. Four products at roughly twice the other two, and LX's loudest
+     * colours at five times them. That spread is the capture, not the cloth:
+     * these are all the same kind of suede, and Shammy's own close-up measures
+     * it at the same magnification as Ultrasuede's.
+     *
+     * So the page needs one scale. The obvious way to get one is a gain per
+     * product, and it is the wrong way, because the disagreement is not spread
+     * evenly across a product's colours. Every product's quiet end is already
+     * in LT and ST's band — LX's Black draws at 2.88, Shammy's Yellow at 2.12,
+     * Lamous's TH001 at 2.17 — and a proportional cut takes those below it,
+     * to 1.39, 1.17 and 1.14, which is flat paint rather than suede. The
+     * products only part company at the loud end, so that is the only place a
+     * correction belongs.
+     *
+     * Hence a knee: below KNEE nothing moves at all, and above it the excess
+     * is divided by how far past it has come, so the curve flattens toward
+     * KNEE + ROOM and never reaches it. What that lands on, median and max:
+     *
+     *                before          after
+     *     LT      3.18 (4.7)     3.11 (4.1)
+     *     ST      2.66 (5.3)     2.62 (4.5)
+     *     LX      6.58 (16.4)    4.88 (7.1)
+     *     Lamous  6.13 (9.9)     4.80 (6.2)
+     *     Shammy  5.73 (8.2)     4.54 (6.0)
+     *     DS102   5.46 (8.1)     4.40 (6.5)
+     *
+     * LT and ST are the reference and come through untouched but for their few
+     * loudest colours; the other four lose about a quarter of their median and
+     * more than half of their worst.
+     *
+     * The cost, which is real: at the loud end this throws away differences
+     * between colours. LX's Citron and Ginger measure 9.69 and 16.50 and now
+     * draw at 6.13 and 6.61, which is to say the same. If that difference is
+     * the cloth rather than the catalogue's lighting, it has been lost, and
+     * nothing here can tell which — LX's contrast correlates with lightness at
+     * r = 0.53, which is what a photograph does and also what a surface does.
+     * It is worth noting that this is a scale for the page and not a
+     * correction to the measurement: the product files keep their sampled
+     * numbers exactly as sampled, and this is the only place they are bent.
+     *
+     * Distinct from a weave's `gain`, which is one fabric's number being
+     * distrusted. This is six fabrics' numbers being put on one axis.
+     */
+    var KNEE = 2.5;
+    var ROOM = 6.0;
+
+    /*
+     * The knee, applied to what a swatch draws as rather than to the number in
+     * the file — `drawn` converts each way. A weave that draws a unit of
+     * contrast as less than one (grain, at 0.42) would otherwise be compressed
+     * as though it were louder than it looks, which is backwards.
+     */
+    function tame(contrast, weaveName) {
+        var d = WEAVES[weaveName].drawn;
+        var s = contrast * d;
+        if (s <= KNEE) { return contrast; }
+        return (KNEE + (s - KNEE) / (1 + (s - KNEE) / ROOM)) / d;
     }
 
     function mat2(a) {
@@ -686,9 +782,10 @@ var Nap = (function () {
 
         var nap = entry.nap;
         var s = seed(entry.slug || entry.name || "");
+        var name = weaveOf(entry, fallback);
         var p;
         try {
-            p = program(weaveOf(entry, fallback));
+            p = program(name);
         } catch (e) {
             return false;
         }
@@ -696,7 +793,7 @@ var Nap = (function () {
         gl.useProgram(p.prog);
         gl.uniform3f(p.loc.uBase, rgb[0] / 255, rgb[1] / 255, rgb[2] / 255);
         gl.uniform3f(p.loc.uAxis, nap.axis[0], nap.axis[1], nap.axis[2]);
-        gl.uniform1f(p.loc.uContrast, nap.contrast / 255);
+        gl.uniform1f(p.loc.uContrast, tame(nap.contrast, name) / 255);
         gl.uniform2f(p.loc.uSeed, s[0], s[1]);
 
         gl.drawArrays(gl.TRIANGLES, 0, 3);
@@ -749,7 +846,7 @@ var Nap = (function () {
                 (id ? " (" + id + ")" : ""),
             "//",
             "// The " + name + " nap shader from the Footbag Fabric Library page,",
-            "// with this swatch's sampled numbers frozen in. Fragment shader;",
+            "// with this swatch's numbers frozen in. Fragment shader;",
             "// vUv runs the unit square."
         ].join("\n");
 
@@ -758,8 +855,19 @@ var Nap = (function () {
                 rgb[2] / 255], 6) + ";  // median colour, 0-1",
             "const vec3 uAxis = " + vec(nap.axis, 6) +
                 ";  // luminance-normalised RGB direction",
-            "const float uContrast = " + (nap.contrast / 255).toFixed(6) +
-                ";  // standard deviation, 0-1",
+            /*
+             * The tamed figure, not the sampled one, because this listing has
+             * to draw the swatch the reader is looking at rather than the one
+             * the file describes. The sampled number is put beside it — it is
+             * the measurement, and it is the thing worth having if this is
+             * being read to find out what the cloth does.
+             */
+            "const float uContrast = " +
+                (tame(nap.contrast, name) / 255).toFixed(6) +
+                ";  // standard deviation, 0-1" +
+                (tame(nap.contrast, name) === nap.contrast ? "" :
+                    "\n                                   // (sampled " +
+                    (nap.contrast / 255).toFixed(6) + ", on the library scale)"),
             "const vec2 uSeed = " + vec(s, 4) + ";"
         ].join("\n");
 
