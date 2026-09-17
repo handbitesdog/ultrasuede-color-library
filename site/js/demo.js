@@ -804,9 +804,9 @@
      * `label` heads the section and `navLabel` names it in the navbar, which is
      * a row of six across the top and has to stay one line — so the navbar keeps
      * only what tells one product from another ("LT", not "Ultrasuede LT";
-     * "Texvision", not "Texvision DS102") while the section heading, which has
-     * the width to spare, carries the full name. Where the two are the same
-     * there is no navLabel and the label serves both.
+     * "DS102", not "Texvision DS102") while the section heading, which has the
+     * width to spare, carries the full name. Where the two are the same there
+     * is no navLabel and the label serves both.
      *
      * `labels` overrides a subsection heading where a product has its own word
      * for it — LT's patterns are the Light Jungle prints and calling them that
@@ -831,7 +831,7 @@
         { id: "shammy", file: "shammy.json", label: "Shammy 707J",
           navLabel: "Shammy", weave: "grain" },
         { id: "ds102", file: "texvision-ds102.json", label: "Texvision DS102",
-          navLabel: "Texvision" }
+          navLabel: "DS102" }
     ];
 
     /*
