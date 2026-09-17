@@ -96,7 +96,7 @@ entries, which are a name and a number and nothing else):
 
 Beyond that, entries carry whatever their source supports and no more —
 `former_skus`, `name_variants`, `captures`, `first_listed`, `orderable`,
-`sample_url`, `in_stock`, `variation_id`, `name_ja`. Consumers should treat
+`sample_url`, `in_stock`, `variation_id`, `name_ja`, `shot`. Consumers should treat
 anything outside the tables above as optional.
 
 Two entry-level flags worth knowing: `on_page: false` keeps an entry in the file
@@ -224,6 +224,30 @@ its per-colour photographs are draped fabric, so what varies across those frames
 is folds rather than nap — measured both ways, the drapes read 2.18–5.05× the
 flat chart. Its shader therefore comes from the one labelled chart in the
 listing, as a single `product-constant` shared by all 41.
+
+### Where a DS102 colour is sampled from
+
+DS102's photographs are also the only ones here that are not a swatch, and they
+come in two shots: 13 are a flat piece on studio paper with a numbered badge and
+the colour name printed over the bottom right, and 28 are the cloth swirled into
+a rosette. Each colour records which it is as `shot`. A centre crop — what every
+other product uses — would return a badge on the first and whatever fold sits at
+the middle on the second, so the hex is instead the median over the flattest
+cloth the frame has: 72px windows holding no studio paper and no hard edge (the
+badge rim, the printed glyphs, the pinked zigzag), ranked by how little the light
+drifts across them, and of the flattest half, the ones nearest the frame's median
+fabric luminance. The last clause is what keeps the sample off the lit side of a
+fold: measured on the nine colours the chart covers, what comes back sits at the
+54th–61st percentile of its own frame's light.
+
+Against the seller's chart this scores the same as the whole-frame median it
+replaced — mean RGB distance 27 against 26 — and that is the honest reading,
+because the chart's own three rows read 1.03, 1.03 and 1.17 against the
+photographs and so cannot resolve a difference this size. What it does fix is
+where the number comes from: flat cloth, rather than a statistic over folds, a
+printed badge and a shadow. The colours barely move for it — median 5.2 of 441
+possible in RGB distance, most of it the 13 flat pieces brightening 2–8% now that
+the badge and the name are out of the sample.
 
 ### Images
 

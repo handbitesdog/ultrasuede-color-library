@@ -13,22 +13,31 @@ much weight that deserves.
 This is the least precise dataset in the library, and the reasons are worth
 stating rather than burying:
 
-  * **The photographs are styled drapes, not swatches.** Every other product
-    here is shot flat; these are swirled and folded under studio light, so a
-    centre crop would land on whatever fold happens to be at the centre. The
-    colour is therefore the median over every fabric pixel in the frame, which
-    sits at the middle of the illumination spread instead of at an arbitrary
-    point in it.
+  * **The photographs are two shots, neither of them a plain swatch.** Thirteen
+    are a flat piece on studio paper with a numbered badge and the colour name
+    printed over the bottom right; the other twenty-eight are the cloth swirled
+    into a rosette. Every other product here is shot flat and clean, so a centre
+    crop is enough for them; here it would land on a badge or on whatever fold
+    sits at the middle. The colour is therefore sampled from the flattest,
+    averagely-lit cloth the frame has — see the sampling note further down for
+    what that means and how each part of it is set.
 
   * **How far off that is, is measured, not guessed.** The listing also carries
     labelled 3x3 charts, and one covers colours 10-18. Sampling those cells and
-    comparing gives a mean RGB distance of 25 and a worst case of 45, with
-    luminance ratios between 0.90 and 1.18. So treat these as roughly +/-10% in
+    comparing gives a mean RGB distance of 27 and a worst case of 53, with
+    luminance ratios between 0.96 and 1.23. So treat these as roughly +/-10% in
     luminance. That is worse than the rest of the library and better than
     nothing; MEASURED_AGAINST_CHART records the comparison.
 
-  * **No nap block.** What varies across one of these frames is folds, not nap,
-    so there is no nap here to measure even though the images are large enough.
+    The chart cannot do better than that, and it is worth saying why rather
+    than reading the number as precision. Its own three rows do not agree: the
+    top two run 1.03 against the photographs and the bottom one 1.17, which is
+    the chart's exposure rather than three colours of cloth all being wrong
+    together. Read across rows one and two alone the mean distance is 19.
+
+  * **No per-colour nap block.** What varies across one of these frames is folds,
+    not nap, so there is no per-colour nap here to measure even though the
+    images are large enough. Contrast comes from the chart instead — chart_nap.
 
 eBay returns 403 to scripted fetches of the listing page, so the variation list
 (name, stock flag, image id per colour) was captured from a browser session and
@@ -72,9 +81,15 @@ CHART_URL = 'https://i.ebayimg.com/images/g/ZOUAAOSwBlFeoLCS/s-l1600.jpg'
 MEASURED_AGAINST_CHART = {
     'chart_image': 'https://i.ebayimg.com/images/g/ZOUAAOSwBlFeoLCS/s-l1600.jpg',
     'colors_compared': list(range(10, 19)),
-    'mean_rgb_distance': 25,
-    'max_rgb_distance': 45,
-    'luminance_ratio_range': [0.90, 1.18],
+    'mean_rgb_distance': 27,
+    'max_rgb_distance': 53,
+    'luminance_ratio_range': [0.96, 1.23],
+    # The chart's three rows disagree with each other by more than the rule
+    # being checked does: rows 1 and 2 read 1.03 against the photographs and
+    # row 3 reads 1.17. Read on rows 1-2 alone the mean distance is 19. So this
+    # bounds the dataset; it is not fine enough to choose a sampling rule with.
+    'per_chart_row_luminance_ratio': [1.03, 1.03, 1.17],
+    'mean_rgb_distance_rows_1_2': 19,
 }
 
 UA = 'ultrasuede-color-library/1.0 (+https://github.com/gwbischof/ultrasuede-color-library)'
@@ -108,24 +123,134 @@ def fetch():
         time.sleep(0.3)
 
 
-def drape_color(path):
-    """Median over the fabric pixels of a draped-fabric photograph.
+# ----------------------------------------------------------------- sampling ---
+#
+# The 41 photographs are two different shots, and the split is clean. Thirteen
+# are a flat piece laid on studio paper, shot from above, with a numbered badge
+# and the colour name printed across the bottom right; the other twenty-eight
+# are the cloth swirled into a rosette. Counting studio paper in the
+# bottom-right quadrant separates them with nothing in between — 16.5% to 42.8%
+# on the thirteen, under 0.25% on the twenty-eight — so `shot` can be recorded
+# per colour and a reader can see which photographs are the good ones.
+#
+# Nothing downstream needs the distinction, though, because one rule answers
+# both compositions: sample where the cloth is flat. On a flat piece that means
+# everything except the badge, the printed name and the shadow under the lifted
+# pinked edge. On a swirl it means the broad faces between the folds. Both are
+# the same question asked of the picture — where is there cloth and nothing
+# happening to it — and it is asked in three parts.
+#
+# **What is not cloth.** Studio paper, as before: very bright (min channel over
+# 245) and nearly neutral (spread under 8). The rule is tight on purpose. A
+# looser one eats the pale fabrics themselves — at min > 225 it masked 59% of
+# Light Gray's frame and 26% of Ivory's, and dragged both towards their own
+# shadows.
+#
+# **What is an edge.** The badge rim, the printed glyphs, the pinked zigzag and
+# the paper boundary are all hard; fold shading and nap are not. So the gradient
+# of blurred log luminance is measured, and anything over six times the frame's
+# own median counts as an edge. Log, because a shading gradient is a ratio and a
+# threshold set on it then means the same thing on Raven as on Ivory; the
+# frame's own median, because a dark crumpled swirl runs an order of magnitude
+# hotter than a flat card and one constant either passes everything on the first
+# or nothing on the second. Six leaves 524 to 3165 clean windows per frame.
+#
+# **Where it is flat.** Every 72px window clear of both of those is scored by
+# how much its luminance drifts across it — the standard deviation of a heavily
+# blurred log luminance, which is fold shadow with the nap taken off it. The
+# flattest half are the candidates.
+#
+# That is two of the three parts. The third is which of the flat places to
+# believe, and the answer is the one the old whole-frame median already had
+# right: the middle of the illumination spread. A flat plateau facing the lamp
+# and a flat plateau in shadow are equally flat and are not the same colour, so
+# among the flat windows the ones nearest the frame's median fabric luminance
+# are kept. Measured on the nine colours the chart covers, what comes back sits
+# at the 54th to 61st percentile of its own frame's light — the centre, which is
+# what it was asked for, and not the lit side of the cloth.
 
-    Deliberately not a centre crop — see the module docstring.
+SAMPLE_WINDOW = 72          # px of a 600px frame
+SAMPLE_STRIDE = 8
+SAMPLE_EDGE = 6.0           # x the frame's own median gradient
+SAMPLE_FLAT = 50            # percentile of roughness that still counts as flat
+SAMPLE_KEEP = 0.30          # of those, the share nearest the frame's median light
+CARD_PAPER = 0.05           # paper in the bottom-right quadrant: 0.17+ or 0.002-
 
-    The background mask is tight on purpose: only pixels that are both very
-    bright (min channel > 245) and nearly neutral (spread < 8) count as studio
-    paper. A looser rule eats the pale fabrics themselves — at min > 225 it
-    masked 59% of Light Gray's frame and 26% of Ivory's, and dragged both
-    towards their own shadows.
+
+def _boxblur(x, r):
+    """Box blur, three of which is near enough a Gaussian for a gradient map.
+
+    PIL's own blur is here in build_dataset, but it will not take a float
+    array, and log luminance is not an image.
     """
-    a = np.asarray(Image.open(path).convert('RGB')).astype(float).reshape(-1, 3)
-    mx, mn = a.max(1), a.min(1)
-    bg = (mn > 245) & ((mx - mn) < 8)
-    keep = a[~bg]
-    if len(keep) < 1000:           # an almost-white fabric: keep everything
-        keep = a
-    return [int(v) for v in np.median(keep, axis=0).round().astype(int)]
+    k = 2 * r + 1
+    for axis in (0, 1):
+        pad = [(0, 0), (0, 0)]
+        pad[axis] = (r, r)
+        c = np.cumsum(np.pad(x, pad, mode='edge'), axis=axis)
+        c = np.concatenate([np.zeros_like(np.take(c, [0], axis)), c], axis)
+        hi = np.take(c, np.arange(k, c.shape[axis]), axis)
+        lo = np.take(c, np.arange(0, c.shape[axis] - k), axis)
+        x = (hi - lo) / k
+    return x
+
+
+def _integral(x):
+    return np.pad(np.cumsum(np.cumsum(x, 0), 1), ((1, 0), (1, 0)))
+
+
+def _boxes(ii, y, x, k):
+    return ii[y + k, x + k] - ii[y, x + k] - ii[y + k, x] + ii[y, x]
+
+
+def is_card_shot(path):
+    """True for the thirteen flat-piece photographs, False for the swirls."""
+    a = np.asarray(Image.open(path).convert('RGB')).astype(float)
+    mx, mn = a.max(2), a.min(2)
+    paper = (mn > 245) & ((mx - mn) < 8)
+    h, w = paper.shape
+    return bool(paper[h // 2:, w // 2:].mean() > CARD_PAPER)
+
+
+def flat_color(path, ret_mask=False):
+    """Colour of the flattest, averagely-lit cloth in the frame.
+
+    One rule for both compositions — see the note above for why it is the
+    question to ask and how each part of it is set.
+    """
+    a = np.asarray(Image.open(path).convert('RGB')).astype(float)
+    lum = a @ (0.2126, 0.7152, 0.0722)
+    L = np.log(np.maximum(lum, 1.0))
+    edges = _boxblur(_boxblur(_boxblur(L, 2), 2), 2)      # nap gone, edges kept
+    shade = _boxblur(_boxblur(_boxblur(L, 6), 6), 6)      # shading only
+    gy, gx = np.gradient(edges)
+    grad = np.hypot(gx, gy)
+    mx, mn = a.max(2), a.min(2)
+    paper = (mn > 245) & ((mx - mn) < 8)
+
+    k, stride = SAMPLE_WINDOW, SAMPLE_STRIDE
+    hard = paper | (grad > SAMPLE_EDGE * float(np.median(grad)))
+    ih = _integral(hard.astype(float))
+    i1, i2 = _integral(shade), _integral(shade * shade)
+    ys = np.arange(0, shade.shape[0] - k + 1, stride)
+    xs = np.arange(0, shade.shape[1] - k + 1, stride)
+    Y, X = np.meshgrid(ys, xs, indexing='ij')
+    n = float(k * k)
+    clean = _boxes(ih, Y, X, k) == 0
+    mean = _boxes(i1, Y, X, k) / n
+    rough = np.sqrt(np.maximum(_boxes(i2, Y, X, k) / n - mean * mean, 0))
+    if not clean.any():            # a frame with no quiet corner anywhere
+        clean = np.ones_like(clean)
+
+    flat = clean & (rough <= np.percentile(rough[clean], SAMPLE_FLAT))
+    off = np.where(flat, np.abs(mean - np.median(shade[~paper])), np.inf)
+    keep = np.argsort(off, axis=None)[:max(4, int(round(flat.sum() * SAMPLE_KEEP)))]
+
+    mask = np.zeros(shade.shape, dtype=bool)
+    for idx in keep:
+        mask[Y.flat[idx]:Y.flat[idx] + k, X.flat[idx]:X.flat[idx] + k] = True
+    rgb = [int(v) for v in np.median(a[mask], axis=0).round()]
+    return (rgb, mask) if ret_mask else rgb
 
 
 def chart_nap():
@@ -197,7 +322,7 @@ def build():
         large = IMAGES_LARGE / f'{PREFIX}-{n:02d}.jpg'
         if not large.exists():
             sys.exit(f'missing {large.name} — run with --fetch')
-        rgb = drape_color(large)
+        rgb = flat_color(large)
         colors.append({
             'name': name,
             'slug': ''.join(c if c.isalnum() else '-' for c in name.lower()).strip('-'),
@@ -206,6 +331,10 @@ def build():
             'hex': '#%02x%02x%02x' % tuple(rgb),
             'rgb': rgb,
             'nap': dict(nap_block) if nap_block else None,
+            # Which of the two shots this colour was photographed in. Does
+            # not change how it was sampled — one rule serves both — but it
+            # says how much of the frame was cloth to sample from.
+            'shot': 'flat-piece' if is_card_shot(large) else 'swirl',
             'image': f'images/{PREFIX}-{n:02d}.jpg',
             'image_large': f'images/large/{PREFIX}-{n:02d}.jpg',
             'in_stock': not oos,
@@ -254,15 +383,23 @@ def build():
                 'CD8 or Lamous’s TH001 can be treated.'
             ),
             'color_note': (
-                'The least precise dataset here. The photographs are styled drapes '
-                'rather than flat swatches, so hex/rgb is the median over every fabric '
-                'pixel in the frame — the middle of the illumination spread — instead '
-                'of the centre-crop median the other products use, which on a swirl '
-                'would return whatever fold sits at the centre. Checked against the '
-                'seller’s own labelled chart for colours 10-18: mean RGB distance 25, '
-                'worst 45, luminance ratios 0.90 to 1.18. Treat these as roughly '
-                '+/-10% in luminance and do not compare them closely with the '
-                'flat-shot products.'
+                'The least precise dataset here. The photographs are not flat '
+                'swatches: 13 are a flat piece on studio paper with a numbered badge '
+                'and the colour name printed over the bottom right, and 28 are the '
+                'cloth swirled into a rosette — see each colour’s shot. So hex/rgb is '
+                'not the centre-crop median the other products use, which here would '
+                'return a badge or whatever fold sits at the centre. It is the median '
+                'over the flattest cloth in the frame: 72px windows holding no studio '
+                'paper and no hard edge — the badge rim, the printed name, the pinked '
+                'zigzag — ranked by how little the light drifts across them, and of '
+                'the flattest half, the ones nearest the frame’s median fabric '
+                'luminance, so that the sample is flat cloth under average light '
+                'rather than the lit side of a fold. Checked against the seller’s own '
+                'labelled chart for colours 10-18: mean RGB distance 27, worst 53, '
+                'luminance ratios 0.96 to 1.23 — but the chart’s own three rows read '
+                '1.03, 1.03 and 1.17 against the photographs, so a good part of that '
+                'is the chart. Treat these as roughly +/-10% in luminance and do not '
+                'compare them closely with the flat-shot products.'
             ),
             'measured_against_chart': MEASURED_AGAINST_CHART,
             'nap_note': (

@@ -7,12 +7,12 @@
   "manufacturer": null,
   "status": "current",
   "color_count": 41,
-  "compiled": "2026-09-14",
+  "compiled": "2026-09-16",
   "about": "A Korean PU-impregnated polyester microfibre suede, sold on eBay by \"What More Fabric\" of Seoul. Not an Ultrasuede product — the listing title uses the word generically — and not related to the Japanese products here beyond being the same kind of cloth.",
   "rebuild": "python3 scraping/build_texvision_ds102.py --fetch && python3 scraping/build_texvision_ds102.py",
   "identity_note": "Brand \"Texvision\" and MPN \"0.6T DS102\" are the listing’s own Item Specifics. Texvision is NOT the mill: searching the seller’s own store for it returns 66 listings spanning satin, spandex, lamb-skin faux leather, cheetah-print doe suede and more, so it is the house brand they file everything under. DS102 is the only identifier here that points at this particular cloth, and who actually weaves it is not recorded anywhere on the listing — hence manufacturer: null. For contrast, the same seller’s 0.6mm Chamude listing (eBay 370722409147) carries a real product brand and real mill colour codes (#6101, #6103, …); this one does not.",
   "naming_note": "Colour names are the seller’s, and several are Pantone fashion-colour names (Castlerock, Blue Nights, Mood Indigo, Moonstruck, Wild Lime), which suggests they were assigned at resale rather than by the mill. The code is the seller’s position in their own list, 1 to 41 — it is NOT a manufacturer colour number, and it would change if they reordered the list. Do not treat it as stable identity the way LX’s CD8 or Lamous’s TH001 can be treated.",
-  "color_note": "The least precise dataset here. The photographs are styled drapes rather than flat swatches, so hex/rgb is the median over every fabric pixel in the frame — the middle of the illumination spread — instead of the centre-crop median the other products use, which on a swirl would return whatever fold sits at the centre. Checked against the seller’s own labelled chart for colours 10-18: mean RGB distance 25, worst 45, luminance ratios 0.90 to 1.18. Treat these as roughly +/-10% in luminance and do not compare them closely with the flat-shot products.",
+  "color_note": "The least precise dataset here. The photographs are not flat swatches: 13 are a flat piece on studio paper with a numbered badge and the colour name printed over the bottom right, and 28 are the cloth swirled into a rosette — see each colour’s shot. So hex/rgb is not the centre-crop median the other products use, which here would return a badge or whatever fold sits at the centre. It is the median over the flattest cloth in the frame: 72px windows holding no studio paper and no hard edge — the badge rim, the printed name, the pinked zigzag — ranked by how little the light drifts across them, and of the flattest half, the ones nearest the frame’s median fabric luminance, so that the sample is flat cloth under average light rather than the lit side of a fold. Checked against the seller’s own labelled chart for colours 10-18: mean RGB distance 27, worst 53, luminance ratios 0.96 to 1.23 — but the chart’s own three rows read 1.03, 1.03 and 1.17 against the photographs, so a good part of that is the chart. Treat these as roughly +/-10% in luminance and do not compare them closely with the flat-shot products.",
   "measured_against_chart": {
    "chart_image": "https://i.ebayimg.com/images/g/ZOUAAOSwBlFeoLCS/s-l1600.jpg",
    "colors_compared": [
@@ -26,12 +26,18 @@
     17,
     18
    ],
-   "mean_rgb_distance": 25,
-   "max_rgb_distance": 45,
+   "mean_rgb_distance": 27,
+   "max_rgb_distance": 53,
    "luminance_ratio_range": [
-    0.9,
-    1.18
-   ]
+    0.96,
+    1.23
+   ],
+   "per_chart_row_luminance_ratio": [
+    1.03,
+    1.03,
+    1.17
+   ],
+   "mean_rgb_distance_rows_1_2": 19
   },
   "nap_note": "One nap block, shared by all 41. It cannot come from the drape photographs: measuring the same nine colours off the drapes and off the listing’s one labelled chart, the drapes read 2.18-5.05x the chart (median 3.48, stdev 0.84) — fold shadow rather than nap, and too variable to divide out the way Shammy’s is. So contrast is measured on the chart’s nine cells, which are flat fabric at 533px, and the median given to every colour. Nine is what exists, and they say the cloth is consistent (5.01-8.22, stdev 0.91) with only a -0.33 correlation to lightness across a sample holding no dark colours — enough for a constant, not enough for a per-colour value or a curve. meta.nap_source records the measurement.",
   "nap_source": {
@@ -89,11 +95,11 @@
    "slug": "thrush",
    "sku": "DS102-01",
    "code": "01",
-   "hex": "#5a442e",
+   "hex": "#5c4630",
    "rgb": [
-    90,
-    68,
-    46
+    92,
+    70,
+    48
    ],
    "nap": {
     "axis": [
@@ -104,6 +110,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "flat-piece",
    "image": "images/ds102-01.jpg",
    "image_large": "images/large/ds102-01.jpg",
    "in_stock": true,
@@ -118,11 +125,11 @@
    "slug": "sandstone",
    "sku": "DS102-02",
    "code": "02",
-   "hex": "#927253",
+   "hex": "#967556",
    "rgb": [
-    146,
-    114,
-    83
+    150,
+    117,
+    86
    ],
    "nap": {
     "axis": [
@@ -133,6 +140,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "flat-piece",
    "image": "images/ds102-02.jpg",
    "image_large": "images/large/ds102-02.jpg",
    "in_stock": false,
@@ -147,11 +155,11 @@
    "slug": "ivory",
    "sku": "DS102-03",
    "code": "03",
-   "hex": "#d7d9df",
+   "hex": "#d9dce3",
    "rgb": [
-    215,
     217,
-    223
+    220,
+    227
    ],
    "nap": {
     "axis": [
@@ -162,6 +170,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "swirl",
    "image": "images/ds102-03.jpg",
    "image_large": "images/large/ds102-03.jpg",
    "in_stock": true,
@@ -176,11 +185,11 @@
    "slug": "biscotti",
    "sku": "DS102-04",
    "code": "04",
-   "hex": "#bbb69d",
+   "hex": "#c0bba2",
    "rgb": [
+    192,
     187,
-    182,
-    157
+    162
    ],
    "nap": {
     "axis": [
@@ -191,6 +200,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "flat-piece",
    "image": "images/ds102-04.jpg",
    "image_large": "images/large/ds102-04.jpg",
    "in_stock": true,
@@ -205,11 +215,11 @@
    "slug": "beige",
    "sku": "DS102-05",
    "code": "05",
-   "hex": "#b6aa91",
+   "hex": "#b7ab95",
    "rgb": [
-    182,
-    170,
-    145
+    183,
+    171,
+    149
    ],
    "nap": {
     "axis": [
@@ -220,6 +230,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "swirl",
    "image": "images/ds102-05.jpg",
    "image_large": "images/large/ds102-05.jpg",
    "in_stock": true,
@@ -234,11 +245,11 @@
    "slug": "taupe-gray",
    "sku": "DS102-06",
    "code": "06",
-   "hex": "#646359",
+   "hex": "#6b6a5e",
    "rgb": [
-    100,
-    99,
-    89
+    107,
+    106,
+    94
    ],
    "nap": {
     "axis": [
@@ -249,6 +260,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "flat-piece",
    "image": "images/ds102-06.jpg",
    "image_large": "images/large/ds102-06.jpg",
    "in_stock": false,
@@ -263,11 +275,11 @@
    "slug": "chocolate-brown",
    "sku": "DS102-07",
    "code": "07",
-   "hex": "#372d2f",
+   "hex": "#382e30",
    "rgb": [
-    55,
-    45,
-    47
+    56,
+    46,
+    48
    ],
    "nap": {
     "axis": [
@@ -278,6 +290,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "flat-piece",
    "image": "images/ds102-07.jpg",
    "image_large": "images/large/ds102-07.jpg",
    "in_stock": true,
@@ -292,11 +305,11 @@
    "slug": "coffee-bean",
    "sku": "DS102-08",
    "code": "08",
-   "hex": "#352c28",
+   "hex": "#382e2b",
    "rgb": [
-    53,
-    44,
-    40
+    56,
+    46,
+    43
    ],
    "nap": {
     "axis": [
@@ -307,6 +320,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "flat-piece",
    "image": "images/ds102-08.jpg",
    "image_large": "images/large/ds102-08.jpg",
    "in_stock": true,
@@ -321,11 +335,11 @@
    "slug": "coral-gold",
    "sku": "DS102-09",
    "code": "09",
-   "hex": "#c07551",
+   "hex": "#c37753",
    "rgb": [
-    192,
-    117,
-    81
+    195,
+    119,
+    83
    ],
    "nap": {
     "axis": [
@@ -336,6 +350,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "flat-piece",
    "image": "images/ds102-09.jpg",
    "image_large": "images/large/ds102-09.jpg",
    "in_stock": false,
@@ -350,11 +365,11 @@
    "slug": "strawberry-cream",
    "sku": "DS102-10",
    "code": "10",
-   "hex": "#d9bec4",
+   "hex": "#dabfc5",
    "rgb": [
-    217,
-    190,
-    196
+    218,
+    191,
+    197
    ],
    "nap": {
     "axis": [
@@ -365,6 +380,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "swirl",
    "image": "images/ds102-10.jpg",
    "image_large": "images/large/ds102-10.jpg",
    "in_stock": true,
@@ -379,11 +395,11 @@
    "slug": "acasia",
    "sku": "DS102-11",
    "code": "11",
-   "hex": "#cec564",
+   "hex": "#d1c968",
    "rgb": [
-    206,
-    197,
-    100
+    209,
+    201,
+    104
    ],
    "nap": {
     "axis": [
@@ -394,6 +410,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "flat-piece",
    "image": "images/ds102-11.jpg",
    "image_large": "images/large/ds102-11.jpg",
    "in_stock": false,
@@ -408,11 +425,11 @@
    "slug": "wild-lime",
    "sku": "DS102-12",
    "code": "12",
-   "hex": "#bbe66b",
+   "hex": "#bde86e",
    "rgb": [
-    187,
-    230,
-    107
+    189,
+    232,
+    110
    ],
    "nap": {
     "axis": [
@@ -423,6 +440,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "swirl",
    "image": "images/ds102-12.jpg",
    "image_large": "images/large/ds102-12.jpg",
    "in_stock": false,
@@ -437,11 +455,11 @@
    "slug": "maui-blue",
    "sku": "DS102-13",
    "code": "13",
-   "hex": "#55c8e0",
+   "hex": "#5bc9e1",
    "rgb": [
-    85,
-    200,
-    224
+    91,
+    201,
+    225
    ],
    "nap": {
     "axis": [
@@ -452,6 +470,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "swirl",
    "image": "images/ds102-13.jpg",
    "image_large": "images/large/ds102-13.jpg",
    "in_stock": true,
@@ -466,11 +485,11 @@
    "slug": "lake-blue",
    "sku": "DS102-14",
    "code": "14",
-   "hex": "#2693c9",
+   "hex": "#2896cc",
    "rgb": [
-    38,
-    147,
-    201
+    40,
+    150,
+    204
    ],
    "nap": {
     "axis": [
@@ -481,6 +500,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "swirl",
    "image": "images/ds102-14.jpg",
    "image_large": "images/large/ds102-14.jpg",
    "in_stock": true,
@@ -495,11 +515,11 @@
    "slug": "mint-leaf",
    "sku": "DS102-15",
    "code": "15",
-   "hex": "#309280",
+   "hex": "#359a85",
    "rgb": [
-    48,
-    146,
-    128
+    53,
+    154,
+    133
    ],
    "nap": {
     "axis": [
@@ -510,6 +530,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "swirl",
    "image": "images/ds102-15.jpg",
    "image_large": "images/large/ds102-15.jpg",
    "in_stock": false,
@@ -524,11 +545,11 @@
    "slug": "coral",
    "sku": "DS102-16",
    "code": "16",
-   "hex": "#dd6846",
+   "hex": "#e06c4a",
    "rgb": [
-    221,
-    104,
-    70
+    224,
+    108,
+    74
    ],
    "nap": {
     "axis": [
@@ -539,6 +560,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "swirl",
    "image": "images/ds102-16.jpg",
    "image_large": "images/large/ds102-16.jpg",
    "in_stock": true,
@@ -553,11 +575,11 @@
    "slug": "hot-pink",
    "sku": "DS102-17",
    "code": "17",
-   "hex": "#d55a89",
+   "hex": "#d95e8d",
    "rgb": [
-    213,
-    90,
-    137
+    217,
+    94,
+    141
    ],
    "nap": {
     "axis": [
@@ -568,6 +590,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "swirl",
    "image": "images/ds102-17.jpg",
    "image_large": "images/large/ds102-17.jpg",
    "in_stock": true,
@@ -582,11 +605,11 @@
    "slug": "fuchasia-rose",
    "sku": "DS102-18",
    "code": "18",
-   "hex": "#d55fa2",
+   "hex": "#d762a6",
    "rgb": [
-    213,
-    95,
-    162
+    215,
+    98,
+    166
    ],
    "nap": {
     "axis": [
@@ -597,6 +620,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "swirl",
    "image": "images/ds102-18.jpg",
    "image_large": "images/large/ds102-18.jpg",
    "in_stock": false,
@@ -611,11 +635,11 @@
    "slug": "mars-red",
    "sku": "DS102-19",
    "code": "19",
-   "hex": "#882e34",
+   "hex": "#923339",
    "rgb": [
-    136,
-    46,
-    52
+    146,
+    51,
+    57
    ],
    "nap": {
     "axis": [
@@ -626,6 +650,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "swirl",
    "image": "images/ds102-19.jpg",
    "image_large": "images/large/ds102-19.jpg",
    "in_stock": true,
@@ -640,11 +665,11 @@
    "slug": "true-red",
    "sku": "DS102-20",
    "code": "20",
-   "hex": "#9f2d34",
+   "hex": "#a12e35",
    "rgb": [
-    159,
-    45,
-    52
+    161,
+    46,
+    53
    ],
    "nap": {
     "axis": [
@@ -655,6 +680,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "swirl",
    "image": "images/ds102-20.jpg",
    "image_large": "images/large/ds102-20.jpg",
    "in_stock": false,
@@ -669,11 +695,11 @@
    "slug": "chili-pepper",
    "sku": "DS102-21",
    "code": "21",
-   "hex": "#b14651",
+   "hex": "#b64b55",
    "rgb": [
-    177,
-    70,
-    81
+    182,
+    75,
+    85
    ],
    "nap": {
     "axis": [
@@ -684,6 +710,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "swirl",
    "image": "images/ds102-21.jpg",
    "image_large": "images/large/ds102-21.jpg",
    "in_stock": true,
@@ -698,11 +725,11 @@
    "slug": "deco-rose",
    "sku": "DS102-22",
    "code": "22",
-   "hex": "#a04c65",
+   "hex": "#a24e67",
    "rgb": [
-    160,
-    76,
-    101
+    162,
+    78,
+    103
    ],
    "nap": {
     "axis": [
@@ -713,6 +740,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "swirl",
    "image": "images/ds102-22.jpg",
    "image_large": "images/large/ds102-22.jpg",
    "in_stock": true,
@@ -727,11 +755,11 @@
    "slug": "petrician-purple",
    "sku": "DS102-23",
    "code": "23",
-   "hex": "#503e69",
+   "hex": "#53416c",
    "rgb": [
-    80,
-    62,
-    105
+    83,
+    65,
+    108
    ],
    "nap": {
     "axis": [
@@ -742,6 +770,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "flat-piece",
    "image": "images/ds102-23.jpg",
    "image_large": "images/large/ds102-23.jpg",
    "in_stock": false,
@@ -756,11 +785,11 @@
    "slug": "colonial-blue",
    "sku": "DS102-24",
    "code": "24",
-   "hex": "#43728b",
+   "hex": "#427188",
    "rgb": [
-    67,
-    114,
-    139
+    66,
+    113,
+    136
    ],
    "nap": {
     "axis": [
@@ -771,6 +800,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "swirl",
    "image": "images/ds102-24.jpg",
    "image_large": "images/large/ds102-24.jpg",
    "in_stock": false,
@@ -785,11 +815,11 @@
    "slug": "burnt-olive",
    "sku": "DS102-25",
    "code": "25",
-   "hex": "#636852",
+   "hex": "#656c55",
    "rgb": [
-    99,
-    104,
-    82
+    101,
+    108,
+    85
    ],
    "nap": {
     "axis": [
@@ -800,6 +830,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "swirl",
    "image": "images/ds102-25.jpg",
    "image_large": "images/large/ds102-25.jpg",
    "in_stock": true,
@@ -814,11 +845,11 @@
    "slug": "olive-night",
    "sku": "DS102-26",
    "code": "26",
-   "hex": "#2d3e33",
+   "hex": "#2a3b30",
    "rgb": [
-    45,
-    62,
-    51
+    42,
+    59,
+    48
    ],
    "nap": {
     "axis": [
@@ -829,6 +860,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "swirl",
    "image": "images/ds102-26.jpg",
    "image_large": "images/large/ds102-26.jpg",
    "in_stock": true,
@@ -843,11 +875,11 @@
    "slug": "china-blue",
    "sku": "DS102-27",
    "code": "27",
-   "hex": "#345077",
+   "hex": "#39567d",
    "rgb": [
-    52,
-    80,
-    119
+    57,
+    86,
+    125
    ],
    "nap": {
     "axis": [
@@ -858,6 +890,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "swirl",
    "image": "images/ds102-27.jpg",
    "image_large": "images/large/ds102-27.jpg",
    "in_stock": true,
@@ -872,11 +905,11 @@
    "slug": "royal-blue",
    "sku": "DS102-28",
    "code": "28",
-   "hex": "#1f2e7a",
+   "hex": "#22327f",
    "rgb": [
-    31,
-    46,
-    122
+    34,
+    50,
+    127
    ],
    "nap": {
     "axis": [
@@ -887,6 +920,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "flat-piece",
    "image": "images/ds102-28.jpg",
    "image_large": "images/large/ds102-28.jpg",
    "in_stock": false,
@@ -901,11 +935,11 @@
    "slug": "twilight-blue",
    "sku": "DS102-29",
    "code": "29",
-   "hex": "#2b3fa3",
+   "hex": "#2c41a4",
    "rgb": [
-    43,
-    63,
-    163
+    44,
+    65,
+    164
    ],
    "nap": {
     "axis": [
@@ -916,6 +950,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "swirl",
    "image": "images/ds102-29.jpg",
    "image_large": "images/large/ds102-29.jpg",
    "in_stock": true,
@@ -930,11 +965,11 @@
    "slug": "mood-indigo",
    "sku": "DS102-30",
    "code": "30",
-   "hex": "#182b40",
+   "hex": "#1a2e44",
    "rgb": [
-    24,
-    43,
-    64
+    26,
+    46,
+    68
    ],
    "nap": {
     "axis": [
@@ -945,6 +980,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "flat-piece",
    "image": "images/ds102-30.jpg",
    "image_large": "images/large/ds102-30.jpg",
    "in_stock": true,
@@ -959,11 +995,11 @@
    "slug": "blue-nights",
    "sku": "DS102-31",
    "code": "31",
-   "hex": "#232b41",
+   "hex": "#242c42",
    "rgb": [
-    35,
-    43,
-    65
+    36,
+    44,
+    66
    ],
    "nap": {
     "axis": [
@@ -974,6 +1010,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "swirl",
    "image": "images/ds102-31.jpg",
    "image_large": "images/large/ds102-31.jpg",
    "in_stock": true,
@@ -988,11 +1025,11 @@
    "slug": "iron",
    "sku": "DS102-32",
    "code": "32",
-   "hex": "#61605d",
+   "hex": "#5f5e5b",
    "rgb": [
-    97,
-    96,
-    93
+    95,
+    94,
+    91
    ],
    "nap": {
     "axis": [
@@ -1003,6 +1040,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "swirl",
    "image": "images/ds102-32.jpg",
    "image_large": "images/large/ds102-32.jpg",
    "in_stock": true,
@@ -1017,11 +1055,11 @@
    "slug": "light-gray",
    "sku": "DS102-33",
    "code": "33",
-   "hex": "#e4e5e9",
+   "hex": "#e4e5ea",
    "rgb": [
     228,
     229,
-    233
+    234
    ],
    "nap": {
     "axis": [
@@ -1032,6 +1070,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "swirl",
    "image": "images/ds102-33.jpg",
    "image_large": "images/large/ds102-33.jpg",
    "in_stock": true,
@@ -1046,11 +1085,11 @@
    "slug": "silver-gray",
    "sku": "DS102-34",
    "code": "34",
-   "hex": "#c2c4bd",
+   "hex": "#c3c7c1",
    "rgb": [
-    194,
-    196,
-    189
+    195,
+    199,
+    193
    ],
    "nap": {
     "axis": [
@@ -1061,6 +1100,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "swirl",
    "image": "images/ds102-34.jpg",
    "image_large": "images/large/ds102-34.jpg",
    "in_stock": true,
@@ -1075,11 +1115,11 @@
    "slug": "moonstruck",
    "sku": "DS102-35",
    "code": "35",
-   "hex": "#c3c5ca",
+   "hex": "#c5c9cc",
    "rgb": [
-    195,
     197,
-    202
+    201,
+    204
    ],
    "nap": {
     "axis": [
@@ -1090,6 +1130,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "swirl",
    "image": "images/ds102-35.jpg",
    "image_large": "images/large/ds102-35.jpg",
    "in_stock": true,
@@ -1104,11 +1145,11 @@
    "slug": "steeple-gray",
    "sku": "DS102-36",
    "code": "36",
-   "hex": "#858b8e",
+   "hex": "#7d8486",
    "rgb": [
-    133,
-    139,
-    142
+    125,
+    132,
+    134
    ],
    "nap": {
     "axis": [
@@ -1119,6 +1160,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "swirl",
    "image": "images/ds102-36.jpg",
    "image_large": "images/large/ds102-36.jpg",
    "in_stock": true,
@@ -1133,11 +1175,11 @@
    "slug": "charcoal-gray",
    "sku": "DS102-37",
    "code": "37",
-   "hex": "#4c5252",
+   "hex": "#525858",
    "rgb": [
-    76,
     82,
-    82
+    88,
+    88
    ],
    "nap": {
     "axis": [
@@ -1148,6 +1190,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "flat-piece",
    "image": "images/ds102-37.jpg",
    "image_large": "images/large/ds102-37.jpg",
    "in_stock": false,
@@ -1162,11 +1205,11 @@
    "slug": "castlerock",
    "sku": "DS102-38",
    "code": "38",
-   "hex": "#3e4247",
+   "hex": "#3f4449",
    "rgb": [
-    62,
-    66,
-    71
+    63,
+    68,
+    73
    ],
    "nap": {
     "axis": [
@@ -1177,6 +1220,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "swirl",
    "image": "images/ds102-38.jpg",
    "image_large": "images/large/ds102-38.jpg",
    "in_stock": true,
@@ -1191,11 +1235,11 @@
    "slug": "rabbit",
    "sku": "DS102-39",
    "code": "39",
-   "hex": "#44484f",
+   "hex": "#484d52",
    "rgb": [
-    68,
     72,
-    79
+    77,
+    82
    ],
    "nap": {
     "axis": [
@@ -1206,6 +1250,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "swirl",
    "image": "images/ds102-39.jpg",
    "image_large": "images/large/ds102-39.jpg",
    "in_stock": true,
@@ -1220,11 +1265,11 @@
    "slug": "raven",
    "sku": "DS102-40",
    "code": "40",
-   "hex": "#293336",
+   "hex": "#2b3638",
    "rgb": [
-    41,
-    51,
-    54
+    43,
+    54,
+    56
    ],
    "nap": {
     "axis": [
@@ -1235,6 +1280,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "flat-piece",
    "image": "images/ds102-40.jpg",
    "image_large": "images/large/ds102-40.jpg",
    "in_stock": true,
@@ -1249,11 +1295,11 @@
    "slug": "black",
    "sku": "DS102-41",
    "code": "41",
-   "hex": "#1e2329",
+   "hex": "#1d2328",
    "rgb": [
-    30,
+    29,
     35,
-    41
+    40
    ],
    "nap": {
     "axis": [
@@ -1264,6 +1310,7 @@
     "contrast": 5.69,
     "contrast_source": "product-constant"
    },
+   "shot": "swirl",
    "image": "images/ds102-41.jpg",
    "image_large": "images/large/ds102-41.jpg",
    "in_stock": true,
