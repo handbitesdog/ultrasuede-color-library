@@ -137,6 +137,78 @@ A pixel is `base + axis × contrast × t` for a unit-variance noise field `t` �
 additive, not multiplicative, which is what stops a highlight on a red turning
 pink. `site/js/nap.js` has the full derivation.
 
+Those three numbers say what colour a swatch is and how far it moves, but not at
+what *size* it moves, and that is not one answer across the library. `nap.js`
+carries one shader per spectrum — a *weave* — and the product picks one:
+
+| weave | | |
+| --- | --- | --- |
+| `cloud` | Ultrasuede and its copies | a broad field with a fine mottle on top and almost nothing between. Measured off the archive's swatch photographs |
+| `grain` | Shammy 707J | the same broad field with the weight moved onto the nap, and the nap a denser, more even grain. Measured off the seller's close-up, the one picture in the library that resolves this cloth |
+
+As a share of variance, in cycles across the frame — the ensemble-mean power
+spectrum over 96 frames, which is what the broad band needs before it settles,
+since three cycles across a frame realise wildly different variance frame to
+frame:
+
+| weave | 0–4 | 4–32 | 32+ |
+| --- | --- | --- | --- |
+| `cloud` | 30.2% | 5.8% | 65.3% |
+| `grain` | 34.5% | 18.5% | 48.5% |
+
+They share a broad end and part in the middle, which is the whole of what
+distinguishes them: 18.5% against 5.8% at 4–32 cycles is a dense even grain
+against a thin mottle.
+
+They are the same kind of cloth photographed at the same magnification, so they
+share a broad end and differ where the difference is. Drawing Shammy with
+`cloud` — which is what shipped until the grain weave was fitted — put its
+variance at both ends of the band and none in the middle where the nap is, and
+at Shammy's contrast that reads as grit over a blotch.
+
+`cloud` also carries an unsharp mask, on the field rather than on the pixels,
+and it used to read as a weave rather than as a nap. The cause was the two
+settings together: the mask runs at a radius of one cell of the finest octave —
+which is exactly the radius that puts a rim on every cell of that octave — and
+that octave was split only two ways, so two sets of rims interlocked into a
+reticulation. Suede is not woven. The octave now splits five ways, which leaves
+no lattice to rim, and the mask comes down from 3.5 to 1.5. Six colours per
+product at 234px, before and after: totals fall a quarter to a third (LT
+3.79→2.81, LX 8.79→5.90) while what survives a 1.5px blur — the surface rather
+than the sparkle — holds on the quieter products (LT 2.00→2.17, ST 2.28→2.31,
+DS102 4.68→4.64) and gives up about 12% on the two that carry the library's
+highest contrast (Lamous 5.02→4.43, LX 5.06→4.33). For scale, an LT photograph
+at the same size keeps only 38% of its variance through that blur; the old tile
+kept 49%.
+
+Reading a close-up takes two corrections, both of which the first pass of
+`grain` missed and both of which push the same way. It is out of focus outside
+the near edge of the fold, and averaging crops across the frame measures the
+blur, which reads as coarseness. And a centimetre of cloth in a macro is not a
+swatch: cycles across that crop are not cycles across a tile. Taken literally
+the first fit drew a 10-pixel feature in a 128-pixel crop as a 10-cycle feature
+on a whole swatch, and the result was blobby. The grain band is placed by the
+family instead — at the magnification `cloud` is drawn at — which moved it up
+by a factor of about 3.2.
+
+Those two corrections move the frequencies and leave the weights, which came
+off the same blurred frame and overstate the nap for the same reasons. A third
+correction takes the two loud octaves to 0.55 of the fitted weights. It has no
+number of its own to move by, so the family settles it: measured on six tiles
+at 234px, the part that survives a 1.5px blur — a surface rather than a
+sparkle, and the only figure that compares across weaves, since `cloud`'s total
+is inflated by a sparkle `grain` does not have — now reads 4.68 for Shammy
+against 4.55 for Texvision, 4.05 for Lamous and 2.48 for LT, where at the
+fitted weights it was 6.21.
+
+A weave may also spend less than the measured contrast, through `gain`. `grain`
+is at 0.65: Shammy's numbers were read off a photographed colour card rather
+than off swatch photographs, and they run a median of 13.5 against 2.8–6.7 for
+every other product in the library.
+
+An entry may override its product's weave with `nap.weave`, for the day a
+product is photographed two ways.
+
 `contrast_source` says how much to trust the number:
 
 | value | |
