@@ -29,12 +29,16 @@
      * reader, and a sticky setting means the next swatch opens on whichever of
      * the two it happens to have.
      *
-     * What it resets TO is per product, because the two sides are not equally
-     * good everywhere. LT's photographs are 100px archived thumbnails and
-     * thirteen of them are watermarked, so its shader is the better picture and
-     * leads. LX's are 800px frames from Toray's own storefront and beat the
-     * shader outright, so that product opens on the photo. A product declares
-     * which it wants with `preferPhoto`.
+     * What it resets to is the shader, for every product. This used to be a
+     * per-product flag: LX's and ST's photographs are large and clean — 800px
+     * storefront frames and 418px Toray swatches, against LT's 100px archived
+     * thumbnails — and on their own merits they are the better picture, so
+     * those two opened on the photo. But the grid is one page, and a reader
+     * scrolling it was crossing between two kinds of image with no warning:
+     * six products in a row, two of them lit and folded and four of them flat.
+     * What the archive is for is comparing colours across the six, and the
+     * shader is the only rendering all six share. So the shader leads
+     * everywhere, and the photograph is one click away in the panel.
      */
     var showPhoto = false;
 
@@ -221,9 +225,11 @@
         return entry.on_page !== false;
     }
 
-    function napCanvas(entry, size, label) {
+    function napCanvas(entry, size, label, product) {
         var canvas = el("canvas", "swatch-render");
-        if (!Nap.paint(canvas, entry, size)) { return null; }
+        if (!Nap.paint(canvas, entry, size, product && product.weave)) {
+            return null;
+        }
         if (label) {
             canvas.setAttribute("role", "img");
             canvas.setAttribute("aria-label", label);
@@ -290,7 +296,7 @@
         return item;
     }
 
-    function tile(entry, kind, preferPhoto) {
+    function tile(entry, kind, product) {
         if (blank(entry)) { return record(entry, kind); }
 
         var button = el("button", "swatch");
@@ -304,15 +310,14 @@
          */
         var photo = photoOf(entry);
         /*
-         * The shader leads in the grid, except where the product says its
-         * photographs are better — LX's are 800px frames from Toray's own
-         * storefront, and they beat what the shader draws. That is the same
-         * `preferPhoto` the popover honours, so a product's tile and its detail
-         * view now open on the same side rather than disagreeing.
+         * The shader leads in the grid for every product — see showPhoto — so
+         * the tile and the panel it opens agree on which side they start on.
+         * The photograph is what is left for the entries that have no shader to
+         * draw: the Light Jungle prints, which carry no nap block.
          */
-        var canvas = (preferPhoto && photo)
-            ? null
-            : (canRender(entry) ? napCanvas(entry, TILE_PX, null) : null);
+        var canvas = canRender(entry)
+            ? napCanvas(entry, TILE_PX, null, product)
+            : null;
         if (canvas) {
             well.appendChild(canvas);
         } else if (photo) {
@@ -338,7 +343,7 @@
         button.appendChild(text);
 
         button.addEventListener("click", function () {
-            show(entry, kind, preferPhoto);
+            show(entry, kind, product);
         });
 
         return button;
@@ -348,11 +353,11 @@
      * `kind` is a string for a grid holding one kind of thing, or a function of
      * the entry for the one grid that mixes them.
      */
-    function renderGrid(grid, entries, kind, preferPhoto) {
+    function renderGrid(grid, entries, kind, product) {
         entries.forEach(function (entry) {
             grid.appendChild(
                 tile(entry, typeof kind === "function" ? kind(entry) : kind,
-                     preferPhoto));
+                     product));
         });
     }
 
@@ -447,7 +452,7 @@
      * what it was called or numbered before, and the capture it came from. The
      * rest was provenance for the dataset, not for the swatch.
      */
-    function facts_for(entry, kind) {
+    function facts_for(entry, kind, product) {
         var facts = el("dl", "detail-facts");
 
         /*
@@ -484,7 +489,7 @@
          * resolutions: the colour as one number, and the colour as the whole
          * recipe that number was pulled out of.
          */
-        fact(facts, "Shader", shaderValue(entry), "fact-control");
+        fact(facts, "Shader", shaderValue(entry, product), "fact-control");
 
         /*
          * Where the picture above is not a picture of this cloth. A handful of
@@ -592,8 +597,11 @@
      * which is every Light Jungle print, gets no row at all rather than a
      * button that copies nothing.
      */
-    function shaderValue(entry) {
-        var code = Nap.source(entry);
+    function shaderValue(entry, product) {
+        var code = Nap.source(entry, {
+            weave: product && product.weave,
+            product: product && product.label
+        });
         if (!code) { return null; }
 
         var button = el("button", "copy");
@@ -680,7 +688,7 @@
      * fetched — so the photograph starts downloading the moment the swatch is
      * clicked rather than when the reader asks for it.
      */
-    function buildMedia(entry) {
+    function buildMedia(entry, product) {
         clear(media);
         sides.canvas = null;
         sides.photo = null;
@@ -696,7 +704,7 @@
          */
         var canvas = canRender(entry)
             ? napCanvas(entry, DETAIL_PX,
-                entry.name + " — drawn from its sampled color")
+                entry.name + " — drawn from its sampled color", product)
             : null;
 
         if (canvas) {
@@ -741,12 +749,12 @@
         if (sides.photo) { sides.photo.hidden = !usePhoto; }
     }
 
-    function show(entry, kind, preferPhoto) {
+    function show(entry, kind, product) {
         clear(head);
         clear(body);
         /* Only meaningful where both sides exist; showSide() falls back to
          * whichever one the entry actually has. */
-        showPhoto = Boolean(preferPhoto);
+        showPhoto = false;
 
         /*
          * One panel serves every tile, so the box keeps whatever scroll the
@@ -762,7 +770,7 @@
          */
         var empty = blank(entry);
         media.hidden = empty;
-        if (!empty) { buildMedia(entry); } else { clear(media); }
+        if (!empty) { buildMedia(entry, product); } else { clear(media); }
 
         /*
          * The name and the number that qualifies it go in the head rather than
@@ -782,7 +790,7 @@
         }
         if (way) { head.appendChild(colorwayLine(way)); }
 
-        body.appendChild(facts_for(entry, kind));
+        body.appendChild(facts_for(entry, kind, product));
 
         popover.showPopover();
     }
@@ -807,17 +815,21 @@
     var PRODUCTS = [
         { id: "lt", file: "lt.json", label: "Ultrasuede LT", navLabel: "LT",
           labels: { patterns: "Jungle prints" } },
-        /* 800px frames from Toray's storefront; better than the shader. */
-        { id: "lx", file: "lx.json", label: "Ultrasuede LX", navLabel: "LX",
-          preferPhoto: true },
-        /* 418px Toray swatches, clean and unwatermarked — comfortably over the
-         * ~351 device pixels a tile needs, so the photograph leads here too. */
-        { id: "st", file: "st.json", label: "Ultrasuede ST", navLabel: "ST",
-          preferPhoto: true },
+        /* 800px frames from Toray's storefront, and 418px Toray swatches: the
+         * two best sets of photographs here, and still behind the switch. The
+         * tiles draw the shader like everything else so the page compares. */
+        { id: "lx", file: "lx.json", label: "Ultrasuede LX", navLabel: "LX" },
+        { id: "st", file: "st.json", label: "Ultrasuede ST", navLabel: "ST" },
         { id: "lamous-th", file: "lamous-th.json", label: "Lamous TH",
           navLabel: "Lamous" },
+        /*
+         * The one fabric here that is not Ultrasuede or a copy of it, and the
+         * one whose texture is known from a picture big enough to measure: its
+         * nap is a dense even grain rather than a cloud, so it is drawn with
+         * the shader fitted to that. See WEAVES in nap.js.
+         */
         { id: "shammy", file: "shammy.json", label: "Shammy 707J",
-          navLabel: "Shammy" },
+          navLabel: "Shammy", weave: "grain" },
         { id: "ds102", file: "texvision-ds102.json", label: "Texvision DS102",
           navLabel: "Texvision" }
     ];
@@ -913,7 +925,7 @@
 
             var grid = el("div", sub.grid || GRID_DEFAULT);
             section.appendChild(grid);
-            renderGrid(grid, entries, sub.kind, cfg.preferPhoto);
+            renderGrid(grid, entries, sub.kind, cfg);
 
             total += entries.length;
         });
