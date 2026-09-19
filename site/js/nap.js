@@ -950,6 +950,18 @@ var Nap = (function () {
     }
 
     /*
+     * Whether this shader has what it needs to draw an entry: a colour, and the
+     * `nap` block its three numbers come out of. The Light Jungle prints have
+     * no nap block and keep their photograph.
+     *
+     * Named the same as the one in suede.js so a caller can hold either module
+     * and ask the same question of it.
+     */
+    function has(entry) {
+        return Boolean(entry && entry.nap) && rgbOf(entry) !== null;
+    }
+
+    /*
      * The seed only has to be stable and well spread — the same swatch draws the
      * same fabric on every visit, and no two swatches draw the same fabric.
      */
@@ -1085,6 +1097,7 @@ var Nap = (function () {
         paint: paint,
         source: source,
         supported: supported,
+        has: has,
         weaves: WEAVES,
         weaveOf: weaveOf
     };

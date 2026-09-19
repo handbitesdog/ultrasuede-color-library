@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>fibre field check</title>
+<style>
+  body { font: 13px ui-monospace, monospace; background: #f4f2f4; color: #222;
+         margin: 24px; }
+  h2 { font-size: 13px; font-weight: 600; margin: 24px 0 8px; }
+  .row { display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-start; }
+  figure { margin: 0; }
+  figcaption { margin-top: 6px; color: #666; }
+  canvas { display: block; image-rendering: auto; }
+  #report { white-space: pre; margin-top: 20px; background: #fff; padding: 12px;
+            border: 1px solid #ddd; }
+</style>
+</head>
+<body>
+<h2>against the cloth — the archive's own photograph on the left, the shader on
+the right, both 418px across a 60mm swatch. tooth is the spread after everything
+coarser than 2.5mm is filtered out, as a percentage of the mean; the photographs
+have a median of 7.74% and a median skew of -0.12</h2>
+<div class="row" id="versus"></div>
+
+<h2>one tile, 384px</h2>
+<div class="row" id="single"></div>
+
+<h2>grain — the size of the largest clump, in mm of cloth. Each tile is a 60mm
+swatch at the size a tile is really drawn; the sweep runs past the floor on
+purpose, so the point where fineness starts costing tooth is visible</h2>
+<div class="row" id="grain"></div>
+
+<h2>grain, same sweep at 384px — the same cloth under a glass</h2>
+<div class="row" id="grainbig"></div>
+
+<h2>grain, contrast-matched — FILL solved at each grain to hold the drawn tooth
+identical. The swatches should look the same amount of textured and differ only
+in how fine it is; the cost is in the numbers, not the thumbnails</h2>
+<div class="row" id="matched"></div>
+
+<h2>relief — BUMP, the slope of the top of the pile, swept with the depth off so
+what is read is the slope's own doing. the knee is a tip angle and not a gain:
+about 20 degrees rms, wherever the band beneath it happens to be. 0.00 is the
+flat plane the shader started as, and it has no highlight anywhere: everything at
+the top of the range with dark specks cut out of it</h2>
+<div class="row" id="relief"></div>
+
+<h2>tuft — TUFT_MM, the coarse end of the pile height, in mm. The lean stays
+at the shipping grain throughout; only the height band moves</h2>
+<div class="row" id="tuft"></div>
+
+<h2>depth — DEPTH, optical depth per standard deviation of pile height. 0.00 is
+an emboss with no shadow in it</h2>
+<div class="row" id="depth"></div>
+
+<h2>clump — CLUMP, how far the lean turns uphill per unit of slope. 0.00 is the
+two fields uncorrelated, which is where this file was; negative leans the fibre
+downhill instead, away from the crest rather than into it</h2>
+<div class="row" id="clump"></div>
+
+<h2>the same six at 4x, centre 15mm of the tile — the whole of what this knob
+does is at half a millimetre, which a 60mm tile on a screen cannot show</h2>
+<div class="row" id="clumpzoom"></div>
+
+<h2>scatter — SCATTER, how far the lean's lattice is jittered by the pile's
+slope, in cells. 0.00 is the fault: gradient noise is exactly zero at every
+lattice point, so one octave of it draws a crosshatch</h2>
+<div class="row" id="scatter"></div>
+
+<h2>the same six at 2x, so the lattice is visible at all</h2>
+<div class="row" id="scatterzoom"></div>
+
+<h2>the two maps a 3D pipeline wants — surface normal (the pile's relief) and
+fibre direction (which way it leans). Different maps, both tiling</h2>
+<div class="row" id="maps"></div>
+
+<h2>ambient fill — how loud the nap is; 1.00 is flat dye</h2>
+<div class="row" id="fill"></div>
+
+<h2>light elevation — what shape the nap takes, at the shipping fill</h2>
+<div class="row" id="elev"></div>
+
+<h2>2 x 2, each tile 256px — a seam would show as a cross through the middle</h2>
+<div class="row" id="repeat"></div>
+
+<div id="report">measuring…</div>
+
+<script src="site/js/suede.js"></script>
+<script>
+/*
+ * A bench for the suede shader, kept out of the demo page because none of it is
+ * for a reader — it is the two things a field has to be checked for and neither
+ * can be seen in a 117px tile.
+ *
+ * Big, because a direction field is judged on what its structure looks like and
+ * a thumbnail of one is a smear. And butted against itself, because the material
+ * has to wrap: a tile that does not meet its own edge is no use on a 3D model,
+ * and a seam is invisible in a single tile and obvious in four.
+ *
+ * The numbers underneath are the same question asked without eyes. Across the
+ * seam is a neighbouring pair of columns like any other, so if the field wraps
+ * the step there is the same size as a step anywhere inside the tile — and a
+ * real seam would stand out as a step several times larger.
+ */
+(function () {
+    "use strict";
+    var ENTRY = { slug: "flash-red", name: "Flash Red",
+                  rgb: [194, 16, 50], nap: {} };
+    var VIEWS = ["fibre", "lay", "cloth"];
+
+    function tile(view, px) {
+        Suede.view(view);
+        var c = document.createElement("canvas");
+        Suede.paint(c, ENTRY, px);
+        return c;
+    }
+
+    /* mean and spread of a drawn tile, in 0-255 */
+    function average(canvas) {
+        var d = canvas.getContext("2d")
+            .getImageData(0, 0, canvas.width, canvas.height).data;
+        var n = d.length / 4;
+        var sum = [0, 0, 0];
+        var i, k;
+        for (i = 0; i < d.length; i += 4) {
+            sum[0] += d[i];
+            sum[1] += d[i + 1];
+            sum[2] += d[i + 2];
+        }
+        var m = sum.map(function (v) { return v / n; });
+        var sd = 0;
+        for (i = 0; i < d.length; i += 4) {
+            var y = 0.2126 * d[i] + 0.7152 * d[i + 1] + 0.0722 * d[i + 2];
+            var my = 0.2126 * m[0] + 0.7152 * m[1] + 0.0722 * m[2];
+            sd += (y - my) * (y - my);
+        }
+        return { mean: m, sd: Math.sqrt(sd / n) };
+    }
+
+    function figure(canvas, caption) {
+        var f = document.createElement("figure");
+        f.appendChild(canvas);
+        var cap = document.createElement("figcaption");
+        cap.textContent = caption;
+        f.appendChild(cap);
+        return f;
+    }
+
+    var single = document.getElementById("single");
+    VIEWS.forEach(function (v) {
+        single.appendChild(figure(tile(v, 384), v));
+    });
+
+    /*
+     * Grain, and it gets two rows because the two rows disagree and the
+     * disagreement is the finding.
+     *
+     * The first is at 256px, the size a tile is actually drawn in the grid, and
+     * that is the row to pick from — a swatch is judged at swatch size. The
+     * second is the same sweep at 384, which flatters the fine end by giving it
+     * room it does not have on the page. A grain that only reads well in the
+     * second row is a grain that will vanish into grey in the first.
+     *
+     * Both report the drawn spread. It falls away as the grain gets finer even
+     * though nothing about the material's contrast has changed: the downscale is
+     * averaging more and more of the field into each pixel. That number going to
+     * zero is the display limit arriving, not the cloth going flat.
+     */
+    var SHIP_GRAIN = Suede.grain();
+    var SHIP_FILL = Suede.fill();
+    var GRAINS = [1.5, 0.8, 0.5, 0.35, 0.25, 0.15];
+
+    function grainRow(node, px) {
+        GRAINS.forEach(function (mm) {
+            Suede.grain(mm);
+            var c = tile("cloth", px);
+            var a = average(c);
+            var band = Suede.band().lean;
+            node.appendChild(figure(c, mm.toFixed(2) + "mm  " +
+                band.length + " oct  " +
+                band.map(function (o) { return o.cycles; }).join("/") +
+                "  sd " + a.sd.toFixed(2)));
+        });
+        Suede.grain(SHIP_GRAIN);
+    }
+
+    grainRow(document.getElementById("grain"), 256);
+    grainRow(document.getElementById("grainbig"), 384);
+
+    /*
+     * The same sweep with FILL solved at each grain to hold the drawn tooth
+     * fixed, which is the honest way to compare two grains: otherwise the finer
+     * one is being judged partly on having less contrast, which is the
+     * downscale's doing and not the material's.
+     *
+     * The solve is a bisection on the rendered tile rather than a formula, for
+     * the same reason the normalisation is measured rather than derived — it
+     * stays right when something upstream of it moves.
+     */
+
+    function solveFill(px, target) {
+        var lo = 0.2, hi = 0.95, f = 0.75, i;
+        for (i = 0; i < 14; i += 1) {
+            f = (lo + hi) / 2;
+            Suede.fill(f);
+            if (average(tile("cloth", px)).sd > target) { lo = f; } else { hi = f; }
+        }
+        Suede.fill(f);
+        return f;
+    }
+
+    var matched = document.getElementById("matched");
+    Suede.grain(0.35); Suede.fill(0.75);
+    var TOOTH = average(tile("cloth", 256)).sd;
+    [0.35, 0.25, 0.2, 0.15].forEach(function (mm) {
+        Suede.grain(mm);
+        var f = solveFill(256, TOOTH);
+        var c = tile("cloth", 256);
+        var big = average(tile("cloth", 512));
+        matched.appendChild(figure(c, mm.toFixed(2) + "mm  fill " + f.toFixed(3) +
+            "  tooth " + average(c).sd.toFixed(2) + "  at 512: " + big.sd.toFixed(2)));
+    });
+    Suede.grain(SHIP_GRAIN); Suede.fill(SHIP_FILL);
+
+    /*
+     * Relief, and the number under each tile is the one that matters: skew.
+     * A negative skew is a bright field with dark holes in it and no highlight
+     * anywhere; zero is a surface with both. The tip angle is what the relief
+     * actually amounts to, read back off the normal map.
+     */
+    var SHIP_BUMP = Suede.bump();
+    var reliefRow = document.getElementById("relief");
+
+    function skewOf(canvas) {
+        var d = canvas.getContext("2d")
+            .getImageData(0, 0, canvas.width, canvas.height).data;
+        var n = d.length / 4, ys = [], sum = 0, i;
+        for (i = 0; i < d.length; i += 4) {
+            var y = 0.2126 * d[i] + 0.7152 * d[i + 1] + 0.0722 * d[i + 2];
+            ys.push(y); sum += y;
+        }
+        var m = sum / n, v = 0, k = 0;
+        for (i = 0; i < n; i += 1) { var q = ys[i] - m; v += q * q; k += q * q * q; }
+        v /= n;
+        var sd = Math.sqrt(v);
+        return (k / n) / (sd * sd * sd);
+    }
+
+    function tipDeg() {
+        var c = tile("normal", 512);
+        var d = c.getContext("2d").getImageData(0, 0, 512, 512).data;
+        var n = d.length / 4, s2 = 0, i;
+        for (i = 0; i < d.length; i += 4) {
+            var x = d[i] / 127.5 - 1, y = d[i + 1] / 127.5 - 1, z = d[i + 2] / 127.5 - 1;
+            var a = Math.acos(Math.min(1, Math.max(-1, z / Math.sqrt(x * x + y * y + z * z))));
+            s2 += a * a;
+        }
+        return Math.sqrt(s2 / n) * 180 / Math.PI;
+    }
+
+    var HELD_DEPTH = Suede.depth();
+    Suede.depth(0);
+    [0.2, 0.3, 0.45, 0.8, 1.2].forEach(function (b) {
+        Suede.bump(b);
+        var deg = tipDeg();
+        var c = tile("cloth", 512);
+        reliefRow.appendChild(figure(c, "bump " + b.toFixed(2) + "  tip " +
+            deg.toFixed(1) + "\u00b0  skew " + skewOf(c).toFixed(2)));
+    });
+    Suede.bump(SHIP_BUMP);
+    Suede.depth(HELD_DEPTH);
+
+    /*
+     * The pile's two new dials. Tuft is the size of a clump of height and depth
+     * is how dark the gaps between them go, and each is swept with the other at
+     * what ships. sd is the drawn tooth and skew says whether the distribution
+     * has a top tail as well as a bottom one — both read at 512, where the
+     * material is, rather than at thumbnail size where averaging flatters them.
+     */
+    var SHIP_TUFT = Suede.tuft();
+    var SHIP_DEPTH = Suede.depth();
+    var tuftRow = document.getElementById("tuft");
+
+    [0.2, 0.35, 0.5, 0.8, 1.5].forEach(function (mm) {
+        Suede.tuft(mm);
+        var c = tile("cloth", 512);
+        tuftRow.appendChild(figure(c, mm.toFixed(2) + "mm  " +
+            Suede.band().pile.map(function (o) { return o.cycles; }).join("/") +
+            "  sd " + average(c).sd.toFixed(2) +
+            "  skew " + skewOf(c).toFixed(2)));
+    });
+    Suede.tuft(SHIP_TUFT);
+
+    var depthRow = document.getElementById("depth");
+
+    [0, 0.1, 0.2, 0.35, 0.6].forEach(function (d) {
+        Suede.depth(d);
+        var c = tile("cloth", 512);
+        depthRow.appendChild(figure(c, "depth " + d.toFixed(2) +
+            "  sd " + average(c).sd.toFixed(2) +
+            "  skew " + skewOf(c).toFixed(2)));
+    });
+    Suede.depth(SHIP_DEPTH);
+
+    /*
+     * The coupling between the two fields. Everything else on this page is held,
+     * so the only thing moving is whether the lean knows where the height is.
+     * The tooth is printed to show what it does not do: if these tiles differed
+     * mainly in contrast the knob would be redundant with fill, and they do not.
+     */
+    var SHIP_CLUMP = Suede.clump();
+    var clumpRow = document.getElementById("clump");
+
+    var clumpZoom = document.getElementById("clumpzoom");
+
+    /* the centre quarter of a tile, drawn at 4x with no smoothing */
+    function magnify(src, zoom) {
+        var c = document.createElement("canvas");
+        c.width = src.width;
+        c.height = src.height;
+        var g = c.getContext("2d");
+        g.imageSmoothingEnabled = false;
+        var s = src.width / zoom;
+        g.drawImage(src, (src.width - s) / 2, (src.height - s) / 2, s, s,
+            0, 0, c.width, c.height);
+        return c;
+    }
+
+    [-0.7, -0.35, 0, 0.35, 0.7, 1.2].forEach(function (v) {
+        Suede.clump(v);
+        var c = tile("cloth", 512);
+        var label = "clump " + v.toFixed(2) + (v === 0 ? " (before)" : "");
+        clumpZoom.appendChild(figure(magnify(c, 4), label));
+        clumpRow.appendChild(figure(c, label + "  " + measured(c)));
+    });
+    Suede.clump(SHIP_CLUMP);
+
+    /*
+     * The lattice. Everything else on this page asks what the cloth looks like;
+     * this asks whether the noise underneath it is noise. The caption prints the
+     * jitter in lattice cells, which is the quantity that matters — the spike
+     * survives until the displacement approaches half a cell and is gone after.
+     */
+    var SHIP_SCATTER = Suede.scatter();
+    var scatterRow = document.getElementById("scatter");
+    var scatterZoom = document.getElementById("scatterzoom");
+    var LEAN_CYCLES = Suede.band().lean[0].cycles;
+
+    [0, 0.001, 0.002, 0.004, 0.008, 0.02].forEach(function (v) {
+        Suede.scatter(v);
+        var c = tile("cloth", 512);
+        var cells = (v * 0.388 * LEAN_CYCLES).toFixed(2);
+        var label = "scatter " + v.toFixed(3) + "  " + cells + " cells" +
+            (v === 0 ? "  (the fault)" : "");
+        scatterZoom.appendChild(figure(magnify(c, 2), label));
+        scatterRow.appendChild(figure(c, label + "  " + measured(c)));
+    });
+    Suede.scatter(SHIP_SCATTER);
+
+    /*
+     * The one section here that checks the shader against something outside it.
+     * Everything else asks whether the material is self-consistent; this asks
+     * whether it is the right material, and the only evidence for that in the
+     * archive is the photographs.
+     *
+     * Two of their numbers are usable and a third is not. The scale is usable:
+     * a power spectrum says where the cloth keeps its texture, and the answer is
+     * that 87% of it is finer than 1.25mm. The symmetry is usable: skew survives
+     * a resampling, and the photographs' is about zero. The amplitude is not —
+     * the tooth falls as one over the pixel count when the photographs are
+     * resampled, which is what unresolved detail does and also what sensor noise
+     * does, and nothing here separates them. So the tooth below is printed as a
+     * bound to stay under rather than a figure to hit.
+     *
+     * Both sides are drawn at 418px, which is what the archive's large images
+     * are, so the two columns are the same cloth at the same magnification and
+     * the numbers under them were computed the same way.
+     */
+    function highPass(canvas, cutMm) {
+        var px = canvas.width;
+        var d = canvas.getContext("2d").getImageData(0, 0, px, px).data;
+        var y = new Float64Array(px * px);
+        var i, j, r, col, acc, mean = 0;
+        for (i = 0, j = 0; i < d.length; i += 4, j += 1) {
+            y[j] = 0.2126 * d[i] + 0.7152 * d[i + 1] + 0.0722 * d[i + 2];
+            mean += y[j];
+        }
+        mean /= y.length;
+        var rad = Math.round(px / 60 * cutMm / 2);
+        var tmp = new Float64Array(px * px);
+        var lo = new Float64Array(px * px);
+        function clamp(v) { return Math.min(px - 1, Math.max(0, v)); }
+        for (r = 0; r < px; r += 1) {
+            acc = 0;
+            for (i = -rad; i <= rad; i += 1) { acc += y[r * px + clamp(i)]; }
+            for (col = 0; col < px; col += 1) {
+                tmp[r * px + col] = acc / (2 * rad + 1);
+                acc += y[r * px + clamp(col + rad + 1)] - y[r * px + clamp(col - rad)];
+            }
+        }
+        for (col = 0; col < px; col += 1) {
+            acc = 0;
+            for (i = -rad; i <= rad; i += 1) { acc += tmp[clamp(i) * px + col]; }
+            for (r = 0; r < px; r += 1) {
+                lo[r * px + col] = acc / (2 * rad + 1);
+                acc += tmp[clamp(r + rad + 1) * px + col] - tmp[clamp(r - rad) * px + col];
+            }
+        }
+        var v = 0, k3 = 0;
+        for (j = 0; j < y.length; j += 1) {
+            var q = y[j] - lo[j];
+            v += q * q;
+            k3 += q * q * q;
+        }
+        v /= y.length;
+        var sd = Math.sqrt(v);
+        return { tooth: sd / mean * 100, skew: (k3 / y.length) / (sd * sd * sd) };
+    }
+
+    function measured(canvas) {
+        var m = highPass(canvas, 2.5);
+        return "tooth " + m.tooth.toFixed(2) + "%  skew " + m.skew.toFixed(2);
+    }
+
+    var versus = document.getElementById("versus");
+    fetch("lt.json").then(function (r) { return r.json(); }).then(function (lt) {
+        ["Blue Nova", "Flash Red", "Midnight", "Aztec Leather"].forEach(function (name) {
+            var e = lt.colors.filter(function (x) { return x.name === name; })[0];
+            if (!e || !Suede.has(e)) { return; }
+
+            var shot = document.createElement("canvas");
+            shot.width = 418;
+            shot.height = 418;
+            var img = new Image();
+            img.onload = function () {
+                shot.getContext("2d").drawImage(img, 0, 0, 418, 418);
+                versus.appendChild(figure(shot, name + " photographed \u00b7 " +
+                    measured(shot)));
+                var c = document.createElement("canvas");
+                Suede.paint(c, e, 418);
+                versus.appendChild(figure(c, name + " drawn \u00b7 " + measured(c)));
+            };
+            img.src = e.image_large;
+        });
+    });
+
+    var maps = document.getElementById("maps");
+    maps.appendChild(figure(tile("normal", 256), "surface normal"));
+    maps.appendChild(figure(tile("fibre", 256), "fibre direction"));
+
+    /*
+     * The two dials, each swept with the other held at what ships.
+     *
+     * Fill first, because it is the one that answers "is this swatch too
+     * mottled" — and the top of its range is the flat dye this shader started as,
+     * which is worth being able to see beside the rest.
+     */
+    var fillRow = document.getElementById("fill");
+    var mean = {};
+    [1.0, 0.85, 0.75, 0.6, 0.4].forEach(function (v) {
+        Suede.fill(v);
+        var c = tile("cloth", 200);
+        mean[v.toFixed(2)] = average(c);
+        fillRow.appendChild(figure(c, v.toFixed(2)));
+    });
+    Suede.fill(SHIP_FILL);
+
+    /*
+     * Elevation next, at the shipping fill, so what varies down this row is the
+     * shape of the nap rather than its loudness. 90 is flat however the fill is
+     * set, which is the second of the two routes to a bare swatch.
+     */
+    var elev = document.getElementById("elev");
+    [90, 75, 60, 45, 25].forEach(function (deg) {
+        Suede.elevation(deg);
+        elev.appendChild(figure(tile("cloth", 200), deg + "\u00b0"));
+    });
+    Suede.elevation(60);
+
+    /* the same tile drawn four times, butted up against itself */
+    var repeat = document.getElementById("repeat");
+    ["fibre", "lay"].forEach(function (v) {
+        var src = tile(v, 256);
+        var c = document.createElement("canvas");
+        c.width = 512;
+        c.height = 512;
+        var ctx = c.getContext("2d");
+        [[0, 0], [256, 0], [0, 256], [256, 256]].forEach(function (p) {
+            ctx.drawImage(src, p[0], p[1]);
+        });
+        repeat.appendChild(figure(c, v + " x4"));
+    });
+
+    /*
+     * Does it wrap? Read the shader's own output at full render size and compare
+     * the step across the seam — last column against first column, as the tile
+     * repeats — with the step between two neighbouring columns inside the tile.
+     * A field that wraps has the same size of step at both, because across the
+     * seam IS a neighbouring pair.
+     */
+    var PROBE = 512;
+    var probe = tile("cloth", PROBE);
+    var d = probe.getContext("2d").getImageData(0, 0, PROBE, PROBE).data;
+
+    function col(x) {
+        var out = [];
+        for (var y = 0; y < PROBE; y += 1) { out.push(d[(y * PROBE + x) * 4]); }
+        return out;
+    }
+    function row(y) {
+        var out = [];
+        for (var x = 0; x < PROBE; x += 1) { out.push(d[(y * PROBE + x) * 4]); }
+        return out;
+    }
+    function rms(a, b) {
+        var s = 0;
+        for (var i = 0; i < a.length; i += 1) { s += (a[i] - b[i]) * (a[i] - b[i]); }
+        return Math.sqrt(s / a.length);
+    }
+
+    /*
+     * Does the tile still mean the colour it says? The whole case for lighting a
+     * swatch at all rests on this: the nap is a texture about the sampled hex,
+     * so the average of the tile has to BE the sampled hex. Anything more than a
+     * step or so of 8-bit colour here and a reader comparing two swatches is
+     * comparing two lighting accidents again.
+     */
+    var fidelity = ["", "tile mean against the sampled colour, by ambient fill",
+                    "  (sampled " + ENTRY.rgb.join(", ") + ")", ""];
+    Object.keys(mean).sort(function (a, b) { return b - a; }).forEach(function (f) {
+        var m = mean[f];
+        var err = m.mean.map(function (v, i) { return v - ENTRY.rgb[i]; });
+        var my = 0.2126 * m.mean[0] + 0.7152 * m.mean[1] + 0.0722 * m.mean[2];
+        fidelity.push("  " + f.padStart(5) + "   mean " +
+            m.mean.map(function (v) { return v.toFixed(1).padStart(6); }).join("") +
+            "   error " +
+            err.map(function (v) { return v.toFixed(2).padStart(7); }).join("") +
+            "   nap sd " + m.sd.toFixed(2).padStart(5) +
+            " (" + (100 * m.sd / my).toFixed(1).padStart(4) + "% of mean)");
+    });
+
+    var lines = [
+        "red channel, " + PROBE + "px probe, rms step between two adjacent columns/rows",
+        "",
+        "  vertical seam   (col 511 -> col 0)   " + rms(col(511), col(0)).toFixed(3),
+        "  inside the tile (col 255 -> col 256) " + rms(col(255), col(256)).toFixed(3),
+        "  inside the tile (col 100 -> col 101) " + rms(col(100), col(101)).toFixed(3),
+        "",
+        "  horizontal seam (row 511 -> row 0)   " + rms(row(511), row(0)).toFixed(3),
+        "  inside the tile (row 255 -> row 256) " + rms(row(255), row(256)).toFixed(3),
+        "  inside the tile (row 100 -> row 101) " + rms(row(100), row(101)).toFixed(3)
+    ].concat(fidelity);
+    document.getElementById("report").textContent = lines.join("\n");
+}());
+</script>
+</body>
+</html>
