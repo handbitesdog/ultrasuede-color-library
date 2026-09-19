@@ -1018,6 +1018,14 @@ def slugify(name):
     return re.sub(r'-+', '-', re.sub(r'[^a-z0-9]+', '-', s)).strip('-')
 
 
+def number_key(text):
+    """Order a colour or pattern number the way it is read rather than the way
+    it is spelled: 100 before 1419, and 7369 before 7369S. A plain string sort
+    puts LT Blue's 100 after every four-digit code in the line."""
+    m = re.match(r'(\d*)(.*)', text or '')
+    return (int(m.group(1)) if m.group(1) else -1, m.group(2))
+
+
 def iso(ts):
     return f'{ts[0:4]}-{ts[4:6]}-{ts[6:8]}'
 
@@ -1215,7 +1223,15 @@ def main():
             entry['former_skus'] = former
         colors.append(entry)
 
-    colors.sort(key=lambda c: c['name'].lower())
+    # By number rather than by name. Toray's four-digit codes group the line by
+    # family — 1xxx reds, 2xxx blues, 3xxx browns and tans, 4xxx greens,
+    # 5xxx golds and neutrals, 6xxx pinks and purples, 7xxx aquas — so this is
+    # the maker's own arrangement of the colours rather than the alphabet's,
+    # which puts Admiral beside Amatista and nothing beside anything. The sku
+    # is 8801 and this code, so ordering by one is ordering by the other. The
+    # custom colours and the prints below are ordered the same way, off the
+    # numbers they carry instead.
+    colors.sort(key=lambda c: number_key(c['code']))
 
     # --- 5. Light Jungle Collection ----------------------------------------
     # Read every archived capture, not just the last one, so the patterns get
@@ -1543,7 +1559,7 @@ def main():
         return entry
 
     custom_colors = sorted((fields_entry(c) for c in custom_codes),
-                           key=lambda e: e['name'].lower())
+                           key=lambda e: number_key(e['code']))
 
     # no custom colour may collide with the 36, by code or by name.
     cset = {c['code'] for c in custom_colors}
@@ -1632,9 +1648,12 @@ def main():
         })
 
     historical = [e for e in old_lists if not e['rgb']]
+    # Same rule as the 36: Field's numbers carry the same families, so Active
+    # Green sits at 4599 among the greens rather than at the top of the list
+    # for starting with an A.
     custom_colors = sorted(custom_colors + [recover(e) for e in old_lists
                                             if e['rgb']],
-                           key=lambda e: e['name'].lower())
+                           key=lambda e: number_key(e['code']))
 
     # the same two rules as before the merge, over the merged set
     cset = {c['code'] for c in custom_colors}
