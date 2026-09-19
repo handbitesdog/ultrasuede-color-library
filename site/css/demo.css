@@ -759,3 +759,51 @@ section {
 section > :last-child {
     margin-bottom: 0;
 }
+
+/* The curtain
+ *
+ * Shown from the first paint and lifted when every tile in the grid has been
+ * drawn, so the page arrives whole. See "drawing the grid" in demo.js for why
+ * the drawing is up front at all.
+ *
+ * It overlays rather than hiding the page, because the tiles underneath have
+ * to be laid out while they are drawn — the queue is ordered by each tile's
+ * distance from the viewport, and a grid that is display: none has no
+ * positions to order by. The overflow lock is the other half of that: the page
+ * is scrollable under a fixed overlay, and scrolling it blind only means the
+ * curtain lifts on somewhere the reader did not choose.
+ */
+
+body.is-loading {
+    overflow: hidden;
+}
+
+.loading {
+    background-color: var(--lisa-background-color);
+    inset: 0;
+    position: fixed;
+    transition: opacity 300ms ease;
+    z-index: 100;
+}
+
+/*
+ * Out of the way rather than gone: demo.js removes the element once this has
+ * run, and until then it must not swallow a click meant for the page.
+ */
+body:not(.is-loading) .loading {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading progress {
+    max-width: 60vw;
+    width: 240px;
+}
+
+/*
+ * The spinner alone would say "working" and nothing else, and the wait is a
+ * few seconds long. The bar is what says it is going to end.
+ */
+.loading .loader {
+    --lisa-loader-size: 32px;
+}

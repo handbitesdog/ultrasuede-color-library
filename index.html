@@ -20,7 +20,25 @@
 
 <link rel="stylesheet" href="site/css/demo.css">
 </head>
-<body>
+<body class="is-loading">
+
+<!--
+  The curtain. Every swatch in the grid is drawn before any of the page is
+  shown, so what the reader arrives at is finished and nothing fills in under
+  them afterwards — see "drawing the grid" in demo.js, which lifts this when
+  the last tile is done.
+
+  It is written here rather than built in demo.js so that it is on screen for
+  the script and fetch wait too, which is the part of the load nothing else
+  covers. is-loading on <body> is what shows it; demo.js takes the class off
+  and removes this once the transition has run.
+-->
+<div class="loading flex flex-col items-center justify-center gap-2"
+     id="loading" role="status">
+    <span class="loader"></span>
+    <p class="text-sm">Drawing swatches…</p>
+    <progress id="loading-bar" value="0" max="1"></progress>
+</div>
 
 <nav class="flex flex-row items-center justify-between gap-2">
     <h1 class="nav-title text-xl">Footbag Fabric Library</h1>
@@ -63,7 +81,15 @@
     </div>
 </div>
 
-<script src="site/js/nap.js"></script>
+<!--
+  Two shaders, one page — but only the one the grid is set to is linked. nap.js
+  draws a swatch as its photograph measured; suede.js draws the cloth as a
+  material under a light of the caller's choosing. The RENDER line at the top of
+  demo.js says which is in use, and it is Suede, so nap.js is left off: 55KB
+  fetched, parsed and compiled on every load for an object nothing reads. Put
+  the line back beside the RENDER line when swapping the two over.
+-->
+<script src="site/js/suede.js"></script>
 <script src="site/js/demo.js"></script>
 </body>
 </html>

@@ -15,6 +15,20 @@
     /* The column that scrolls, now that the panel around it does not. */
     var detail = popover.querySelector(".detail");
 
+    /* ---- which shader draws ------------------------------------------------
+     *
+     * Two of them now, with the same three-function interface, and the page
+     * holds one rather than choosing per swatch: they are answers to different
+     * questions and a grid drawn half in each compares nothing.
+     *
+     * `Nap` is the first — a swatch as the archive's camera saw it, measured
+     * spread and raking light and all. `Suede` is the second, being built: the
+     * cloth as a material, under whatever light the caller asks for, which for a
+     * swatch is flat. Swap the line to compare the two — and link nap.js back in
+     * index.html when doing it, which is left off while this says Suede.
+     */
+    var RENDER = Suede;
+
     /*
      * Render sizes in device pixels, fixed rather than measured. A tile is
      * about 117 CSS pixels at six across, so 256 covers a 2x screen, and the
@@ -197,7 +211,7 @@
      */
 
     function canRender(entry) {
-        return Boolean(entry.nap) && Nap.supported();
+        return RENDER.has(entry) && RENDER.supported();
     }
 
     function photoOf(entry) {
@@ -227,7 +241,7 @@
 
     function napCanvas(entry, size, label, product) {
         var canvas = el("canvas", "swatch-render");
-        if (!Nap.paint(canvas, entry, size, product)) {
+        if (!RENDER.paint(canvas, entry, size, product)) {
             return null;
         }
         if (label) {
@@ -252,32 +266,126 @@
         return img;
     }
 
-    /* ---- drawing the grid late -------------------------------------------- *
+    /* ---- drawing the grid -------------------------------------------------- *
      *
-     * The page is six products and about 300 swatches, and it is 11,000 pixels
-     * tall: eighteen tiles are on the first screen and the other 280 are work
-     * done for a reader who may never scroll. Drawn all at once that is ~180ms
-     * of blocked main thread and, worse, ~74MB of canvas backing store handed
-     * to the compositor before anything appears — a canvas costs its pixels the
-     * moment it is drawn into, and 297 of them at 256px square is most of what
-     * stands between the fetch finishing and the page being there.
+     * Six products, about 300 swatches, 11,000 pixels of page. Every tile is
+     * drawn before any of it is shown.
      *
-     * So a tile's picture is made when the tile is nearly on screen instead.
-     * The well is already the swatch's sampled colour underneath, so the thing
-     * that arrives is texture over the right colour rather than a blank filling
-     * in, and NEAR is a screenful and a half of warning — far enough that
-     * scrolling never catches one being drawn.
+     * It was drawn lazily until now — a tile's picture made when the tile came
+     * nearly on screen — and the arithmetic behind that was sound. Eighteen
+     * tiles are on the first screen and the other 280 are work for a reader who
+     * may never scroll, and 297 canvases at 256px square is ~74MB of backing
+     * store handed to the compositor: a canvas costs its pixels the moment it
+     * is drawn into, and that cost was most of what stood between the fetch
+     * finishing and the page being there.
      *
-     * The first screenful is drawn synchronously rather than through the
-     * observer: its callback lands a frame late, which is a frame of flat
-     * colour at the top of the page for no reason.
+     * What it could not fix is that a fast scroll outruns it. The shader is
+     * about 9ms a tile and a screen holds eighteen, so anything past roughly
+     * two screens a second leaves the reader ahead of the queue looking at flat
+     * colour, and reading the page and watching it assemble become the same
+     * act. No amount of warning — the margin was a screenful and a half — buys
+     * more than a moment of that back, because the queue drains at a fixed rate
+     * and a scroll does not.
+     *
+     * So the whole grid is drawn up front, behind the curtain in index.html,
+     * and the page is shown once. Three hundred tiles is a few seconds, which
+     * is a wait; but it is a wait at the one moment a reader expects one, with
+     * a spinner and a bar on it, and afterwards nothing moves.
+     *
+     * The drawing still goes through a frame-budgeted pump rather than one long
+     * loop. Not for the scroll's sake now — there is nothing to scroll — but so
+     * that frames keep being delivered: the spinner turns, the bar advances,
+     * and the tab does not spend three seconds unable to answer the compositor.
      */
 
-    var NEAR = "900px";
+    /*
+     * How long a frame may spend drawing tiles, before and after the curtain
+     * lifts. Nothing competes for the main thread behind it, so fewer, fatter
+     * frames get the grid finished sooner; once the page is live a frame has a
+     * scroll to serve as well and the budget goes back to leaving most of it
+     * free. One tile is allowed to overrun either — the budget is checked
+     * before starting a tile, not during, because a half-drawn canvas is not a
+     * thing that exists.
+     */
+    var BUDGET_HIDDEN = 24;
+    var BUDGET_SHOWN = 8;
+    var budget = BUDGET_HIDDEN;
+
+    /*
+     * The longest the reader waits on an unfinished grid. A few seconds is the
+     * measurement here; a weak integrated GPU is several times that, and a
+     * spinner that long reads as broken rather than as working. At the grace
+     * period the curtain lifts on what there is and the rest arrives behind it.
+     *
+     * It only counts while the page is being looked at. A tab loaded in the
+     * background suspends requestAnimationFrame, so the pump is not running and
+     * the clock would be measuring nothing — and the reader who eventually
+     * switches to it would arrive at the one thing the curtain exists to
+     * prevent, a whole grid drawing itself under them.
+     */
+    var GRACE = 6000;
 
     /* canvas or img -> the entry it is waiting to become */
     var pending = new Map();
-    var watcher = null;
+
+    var queue = [];
+    var filed = 0;
+
+    var curtain = document.getElementById("loading");
+    var bar = document.getElementById("loading-bar");
+    var grace = null;
+
+    function lift() {
+        if (!curtain) { return; }
+        var node = curtain;
+        curtain = null;
+        budget = BUDGET_SHOWN;
+        clearTimeout(grace);
+        document.body.classList.remove("is-loading");
+
+        /* Longer than the fade in demo.css, so the element goes when it is
+         * already invisible rather than blinking out mid-transition. */
+        setTimeout(function () {
+            if (node.parentNode) { node.parentNode.removeChild(node); }
+        }, 400);
+    }
+
+    function graceUp() {
+        if (document.hidden) { grace = setTimeout(graceUp, GRACE); return; }
+        lift();
+    }
+
+    /* How far off screen a node is, for ordering the queue. */
+    function distance(node) {
+        var box = node.getBoundingClientRect();
+        if (box.bottom < 0) { return -box.bottom; }
+        if (box.top > window.innerHeight) { return box.top - window.innerHeight; }
+        return 0;
+    }
+
+    function pump() {
+        var start = performance.now();
+
+        /*
+         * Nearest first. Under the curtain that is simply page order, top
+         * first, which is what makes the grace period above safe to take: if a
+         * machine is slow enough to reach it, what is finished is the top of
+         * the page and the reader is still standing at the top.
+         */
+        queue.sort(function (a, b) { return distance(a) - distance(b); });
+
+        while (queue.length && performance.now() - start < budget) {
+            drawPending(queue.shift());
+        }
+
+        if (bar) { bar.value = filed - queue.length; }
+
+        if (queue.length) {
+            requestAnimationFrame(pump);
+        } else {
+            lift();
+        }
+    }
 
     function drawPending(node) {
         var item = pending.get(node);
@@ -289,7 +397,7 @@
             return;
         }
 
-        if (Nap.paint(node, item.entry, TILE_PX, item.product)) {
+        if (RENDER.paint(node, item.entry, TILE_PX, item.product)) {
             return;
         }
 
@@ -312,27 +420,26 @@
      * moment a tile has a position to be near or far from.
      */
     function drawTiles() {
-        if (!window.IntersectionObserver) {
-            Array.from(pending.keys()).forEach(drawPending);
-            return;
-        }
-
-        watcher = new IntersectionObserver(function (rows) {
-            rows.forEach(function (row) {
-                if (!row.isIntersecting) { return; }
-                watcher.unobserve(row.target);
-                drawPending(row.target);
-            });
-        }, { rootMargin: NEAR });
-
-        var reach = window.innerHeight * 1.5;
-        Array.from(pending.keys()).forEach(function (node) {
-            if (node.getBoundingClientRect().top < reach) {
-                drawPending(node);
-            } else {
-                watcher.observe(node);
-            }
+        queue = Array.from(pending.keys()).filter(function (node) {
+            /*
+             * A photograph is an assignment and a browser fetch, not
+             * main-thread work, so it skips the queue: issuing all seventeen
+             * now gives them the whole of the grid's drawing time to arrive in,
+             * which is the one stretch of the load with the network idle.
+             */
+            if (pending.get(node).photo) { drawPending(node); return false; }
+            return true;
         });
+
+        filed = queue.length;
+        if (bar) {
+            bar.max = filed || 1;
+            bar.value = 0;
+        }
+        if (!filed) { lift(); return; }
+
+        grace = setTimeout(graceUp, GRACE);
+        requestAnimationFrame(pump);
     }
 
     /*
@@ -418,10 +525,10 @@
             });
         } else if (photo) {
             /*
-             * Held back by the same observer as the shader tiles rather than by
-             * loading="lazy". The attribute is a hint and Chrome reads it
-             * generously: every one of these seventeen prints was fetched on
-             * load, 350KB of pictures three screens down the page.
+             * Held back until drawTiles rather than carrying a src from here.
+             * loading="lazy" is no substitute: the attribute is a hint and
+             * Chrome reads it generously, so every one of these seventeen
+             * prints was fetched during the load it was meant to stay out of.
              */
             var img = photoImg(entry, "", false);
             well.appendChild(img);
@@ -702,7 +809,7 @@
      * button that copies nothing.
      */
     function shaderValue(entry, product) {
-        var code = Nap.source(entry, {
+        var code = RENDER.source(entry, {
             weave: product && product.weave,
             light: product && product.light,
             closeup: product && product.closeup,
@@ -1002,6 +1109,32 @@
         }
     ];
 
+    /* ---- what the page still leaves off ------------------------------------
+     *
+     * All six products draw again. What is held back is one subsection:
+     * "missing", the entries the record names but cannot show. It is left in
+     * SUBSECTIONS above and simply not rendered, so this is one line to delete
+     * when that grid comes back.
+     *
+     * It is off because it is the only grid with no picture in it — a name and
+     * a number per entry — so there is nothing in it that could tell you
+     * anything about a shader. It costs six entries, all of them ST historical
+     * colours, and they are the only entries in the library with neither a
+     * sampled colour nor a photograph.
+     *
+     * Two things that do draw are not the shader being judged either, both
+     * self-selecting rather than configured here. The Jungle prints are printed
+     * rather than piece-dyed and carry no nap, so canRender says no and the
+     * tile falls back to the archived photograph. And the per-product entries
+     * in PRODUCTS — LX's light, Lamous TH's closeup, Shammy's grain weave — do
+     * nothing under this shader, which reads nothing out of `product`: they are
+     * corrections to six different cameras and it is not looking through any of
+     * them. Shammy is the one that costs something, because its grain is a
+     * difference in the cloth rather than in the camera and this draws it as
+     * Ultrasuede. See `paint` in suede.js.
+     */
+    var ONLY_SUBSECTIONS = ["colors", "patterns", "custom"];
+
     var GRID_DEFAULT = "swatch-grid grid grid-cols-6 gap-1 mb-4";
 
     function headRow(cls, tag, headClass, text) {
@@ -1029,7 +1162,9 @@
         section.appendChild(head);
 
         var total = 0;
-        SUBSECTIONS.forEach(function (sub) {
+        SUBSECTIONS.filter(function (sub) {
+            return ONLY_SUBSECTIONS.indexOf(sub.key) !== -1;
+        }).forEach(function (sub) {
             /*
              * An entry marked on_page: false stays in the file and is left off
              * the page — the file is the record and nothing is dropped from it
@@ -1058,6 +1193,15 @@
 
     var main = document.querySelector("main");
     var nav = document.getElementById("product-nav");
+
+    /*
+     * Build the context, compile the programs and take the gauge now, while the
+     * product files are still in flight. All of it is work the first tile would
+     * otherwise do with the reader waiting on it, and none of it needs a swatch
+     * — see `warm` in suede.js. The network wait is the one stretch of the load
+     * with nothing else in it.
+     */
+    if (RENDER.warm) { RENDER.warm(); }
 
     /*
      * Fetched together but rendered in the configured order, and one product
@@ -1097,10 +1241,19 @@
             main.appendChild(el("p", "text-sm",
                 "Nothing loaded. Serve this page over HTTP rather than opening " +
                 "the file directly."));
+            lift();
             return;
         }
-        /* Every tile now has a position, so it can be asked whether it is near
-         * enough to be worth drawing. */
+        /* Every tile now has a position, which is what the queue is ordered by. */
         drawTiles();
+    }).catch(function (error) {
+        /*
+         * Nothing above throws by design — each fetch catches its own — but the
+         * curtain covers the page, so anything that gets here would leave a
+         * reader looking at a spinner over a page that had given up.
+         */
+        main.appendChild(el("p", "text-sm", "Could not build the page: " +
+            error.message + "."));
+        lift();
     });
 }());
